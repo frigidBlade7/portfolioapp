@@ -17,4 +17,9 @@
     <color name="my_app_color_on_background">#fedbd0</color>
     <color name="my_app_color_on_error">#ffffff</color>
 
+<!--
+    <color name="my_app_primary_color">#5D1049</color>
+    <color name="my_app_secondary_color">#FA3336</color>
+    <color name="my_app_background_color">#ffffff</color>
+    <color name="my_app_error_color">#cc0000</color>-->
 </resources>
