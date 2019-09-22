@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -26,14 +27,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+
 
     //material theme
     implementation 'com.google.android.material:material:1.1.0-alpha10'
 
 
     //navigation
-    implementation 'androidx.navigation:navigation-fragment:2.2.0-alpha02'
-    implementation 'androidx.navigation:navigation-ui:2.2.0-alpha02'
+    implementation 'androidx.navigation:navigation-fragment:2.2.0-alpha03'
+    implementation 'androidx.navigation:navigation-ui:2.2.0-alpha03'
 
     //constraint
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
@@ -41,6 +44,9 @@ dependencies {
 
     //viewpager
     implementation 'androidx.viewpager2:viewpager2:1.0.0-beta04'
+
+    //analytics
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
 
 
 }

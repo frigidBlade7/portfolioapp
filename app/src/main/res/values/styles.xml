@@ -30,12 +30,13 @@
         <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
         <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="fontFamily">@font/muli</item>
+    </style>
 
 
         <style name="Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-<!--            <item name="fontFamily">@font/catamaran</item>
-            <item name="android:fontFamily">@font/catamaran</item>-->
-            <item name="android:textColor">@color/color_on_primary</item>
+            <item name="android:textColor">@color/my_app_color_on_primary</item>
             <item name="android:gravity">center</item>
             <item name="android:layout_gravity">center</item>
             <item name="android:textSize">18sp</item>
@@ -45,8 +46,6 @@
         </style>
 
         <style name="ButtonOutline" parent="Widget.MaterialComponents.Button.OutlinedButton">
-<!--            <item name="fontFamily">@font/catamaran</item>
-            <item name="android:fontFamily">@font/catamaran</item>-->
             <item name="android:gravity">center</item>
             <item name="android:layout_gravity">center</item>
             <item name="android:textSize">18sp</item>
@@ -57,9 +56,7 @@
 
 
 
-        <item name="android:fontFamily">@font/muli</item>
-        <item name="fontFamily">@font/muli</item>
 
-    </style>
+
 
 </resources>
