@@ -48,5 +48,15 @@ dependencies {
     //analytics
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
 
+    //firebase auth
+    //implementation 'com.google.firebase:firebase-auth:19.0.0'
+
+
+
+    //room
+    implementation "androidx.room:room-runtime:2.2.0-rc01"
+    annotationProcessor "androidx.room:room-compiler:2.2.0-rc01"
+
+
 
 }
