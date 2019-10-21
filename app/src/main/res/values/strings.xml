@@ -9,4 +9,7 @@
     <string name="profile">Create and design your personal portfolio</string>
     <string name="meet">Meet new people and explore their profiles</string>
     <string name="communicate">Communicate and collaborate with clients and co-contributors</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="forgot_password">Forgot password?</string>
 </resources>

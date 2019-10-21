@@ -6,6 +6,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
@@ -18,7 +23,9 @@ import android.widget.TextView;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.adapters.recycler_view_adapters.OnboardingViewpagerAdapter;
 import com.codedevtech.portfolioapp.databinding.FragmentOnboardingBinding;
+import com.codedevtech.portfolioapp.navigation.Event;
 import com.codedevtech.portfolioapp.utilities.Utility;
+import com.codedevtech.portfolioapp.viewmodels.OnboardingFragmentViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -44,6 +51,10 @@ public class OnboardingFragment extends Fragment {
                 R.layout.fragment_onboarding, container, false);
 
         fragmentOnboardingBinding.setLifecycleOwner(this);
+
+        final OnboardingFragmentViewModel onboardingFragmentViewModel = ViewModelProviders.of(this)
+                .get(OnboardingFragmentViewModel.class);
+        fragmentOnboardingBinding.setOnboardingFragmentViewModel(onboardingFragmentViewModel);
 
         //set adapter for viewpager2
         fragmentOnboardingBinding.viewPager.setAdapter(new OnboardingViewpagerAdapter(Utility.onboardingModelList));
@@ -86,6 +97,21 @@ public class OnboardingFragment extends Fragment {
                     // This page is off-screen (to the right)
                     page.setAlpha(1);
                 }
+            }
+        });
+
+        onboardingFragmentViewModel.getDestinationId().observe(this, new Observer<Event<Integer>>() {
+            @Override
+            public void onChanged(Event<Integer> integerEvent) {
+
+                if(integerEvent.consume()==null)
+                    return;
+
+                Log.d(TAG, "onChanged: "+integerEvent.peek());
+                if(integerEvent.peek()== 0)
+                    NavHostFragment.findNavController(OnboardingFragment.this).popBackStack();
+                else
+                    NavHostFragment.findNavController(OnboardingFragment.this).navigate(integerEvent.peek());
             }
         });
 

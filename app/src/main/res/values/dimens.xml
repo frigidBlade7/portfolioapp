@@ -6,4 +6,6 @@
     <dimen name="buttonPadding">8dp</dimen>
     <dimen name="globalRadius">8dp</dimen>
     <dimen name="tabHeight">10dp</dimen>
+    <dimen name="buttonBottomMargin">32dp</dimen>
+    <dimen name="endMargins">32dp</dimen>
 </resources>

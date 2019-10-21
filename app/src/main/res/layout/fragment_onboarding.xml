@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="onboardingFragmentViewModel"
+            type="com.codedevtech.portfolioapp.viewmodels.OnboardingFragmentViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +50,7 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/getStarted"
             style="@style/ButtonOutline"
             android:layout_width="wrap_content"
@@ -56,6 +60,7 @@
             android:layout_marginEnd="@dimen/buttonDefaultMargin"
             android:layout_marginBottom="@dimen/buttonDefaultMargin"
             android:text="@string/get_started"
+            android:onClick="@{(v)->onboardingFragmentViewModel.goToAuthentication(v)}"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -4,6 +4,10 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
 
+        <item name="shapeAppearanceLargeComponent">@style/LargeComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/MediumComponent</item>
+        <item name="shapeAppearanceSmallComponent">@style/SmallComponent</item>
+
         <item name="colorPrimary">@color/my_app_primary_color</item>
         <item name="colorPrimaryDark">@color/my_app_primary_variant_color</item>
         <item name="colorSecondary">@color/my_app_secondary_color</item>
@@ -62,6 +66,33 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+
+
+    <style name="SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/globalRadius</item>
+    </style>
+
+
+    <style name="MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/globalRadius</item>
+    </style>
+
+
+
+    <style name="LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/globalRadius</item>
+    </style>
+
+    <style name="FieldTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusBottomEnd">@dimen/globalRadius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/globalRadius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/globalRadius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/globalRadius</item>
+        <item name="boxBackgroundColor">@color/my_app_field_backdrop</item>
+    </style>
 
 
 </resources>
