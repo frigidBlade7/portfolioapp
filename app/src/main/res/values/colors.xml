@@ -16,5 +16,6 @@
     <color name="my_app_color_on_secondary">#ffffff</color>
     <color name="my_app_color_on_background">#fedbd0</color>
     <color name="my_app_color_on_error">#ffffff</color>
+    <color name="my_app_grey">#c2c2c2</color>
 
 </resources>

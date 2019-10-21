@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
 
         <item name="colorPrimary">@color/my_app_primary_color</item>
+        <item name="colorPrimaryDark">@color/my_app_primary_variant_color</item>
         <item name="colorSecondary">@color/my_app_secondary_color</item>
         <item name="android:colorBackground">@color/my_app_background_color</item>
         <item name="colorError">@color/my_app_error_color</item>
@@ -35,27 +36,31 @@
     </style>
 
 
-        <style name="Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-            <item name="android:textColor">@color/my_app_color_on_primary</item>
-            <item name="android:gravity">center</item>
-            <item name="android:layout_gravity">center</item>
-            <item name="android:textSize">18sp</item>
-            <item name="android:textStyle">bold</item>
-            <item name="android:padding">20dp</item>
+    <style name="Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textColor">@color/my_app_color_on_primary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">@dimen/buttonPadding</item>
+        <item name="cornerRadius">@dimen/globalRadius</item>
 
-        </style>
+    </style>
 
-        <style name="ButtonOutline" parent="Widget.MaterialComponents.Button.OutlinedButton">
-            <item name="android:gravity">center</item>
-            <item name="android:layout_gravity">center</item>
-            <item name="android:textSize">18sp</item>
-            <item name="android:textStyle">bold</item>
-            <item name="android:padding">20dp</item>
+    <style name="ButtonOutline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">@dimen/buttonPadding</item>
+        <item name="android:textColor">@color/my_app_color_on_primary</item>
+        <item name="cornerRadius">@dimen/globalRadius</item>
+    </style>
 
-        </style>
 
-
-
+    <style name="FullScreen" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 
 
 

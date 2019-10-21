@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="buttonDefaultMargin">32dp</dimen>
+    <dimen name="tabIndicatorEndMargin">8dp</dimen>
+    <dimen name="tabIndicatorStartMargin">32dp</dimen>
+    <dimen name="buttonPadding">8dp</dimen>
+    <dimen name="globalRadius">8dp</dimen>
+    <dimen name="tabHeight">10dp</dimen>
+</resources>
