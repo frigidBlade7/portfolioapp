@@ -19,5 +19,14 @@
         android:id="@+id/authenticationFragment"
         android:name="com.codedevtech.portfolioapp.AuthenticationFragment"
         android:label="fragment_authentication"
-        tools:layout="@layout/fragment_authentication" />
+        tools:layout="@layout/fragment_authentication" >
+        <action
+            android:id="@+id/action_authenticationFragment_to_authenticationExtrasBottomSheet"
+            app:destination="@id/authenticationExtrasBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/authenticationExtrasBottomSheet"
+        android:name="com.codedevtech.portfolioapp.AuthenticationExtrasBottomSheet"
+        android:label="fragment_authentication_extras_bottom_sheet"
+        tools:layout="@layout/fragment_authentication_extras_bottom_sheet" />
 </navigation>
