@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/buttonPadding"
+        tools:context=".AuthenticationExtrasBottomSheet">
+
+        <!-- TODO: Update blank fragment layout -->
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/buttonPadding"
+            android:text="@string/continue_with"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/googleAuth"
+            app:layout_constraintEnd_toStartOf="@+id/googleAuth"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/googleAuth" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/facebookAuth"
+            style="@style/ButtonOutline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/buttonPadding"
+            android:layout_weight="1"
+            android:backgroundTint="@color/my_app_field_backdrop"
+            android:padding="@dimen/buttonBigPadding"
+            android:textAllCaps="false"
+            app:icon="@drawable/facebook_logo"
+            app:iconGravity="textStart"
+            app:iconTint="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/googleAuth"
+            app:layout_constraintEnd_toStartOf="@+id/twitterAuth"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/googleAuth"
+            app:layout_constraintTop_toTopOf="@+id/googleAuth"
+            app:strokeWidth="0.5dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/twitterAuth"
+            style="@style/ButtonOutline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/buttonPadding"
+            android:layout_weight="1"
+            android:backgroundTint="@color/my_app_field_backdrop"
+            android:padding="@dimen/buttonBigPadding"
+            android:textAllCaps="false"
+            app:icon="@drawable/twitter_logo"
+            app:iconGravity="textStart"
+            app:iconTint="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/facebookAuth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/facebookAuth"
+            app:layout_constraintTop_toTopOf="@+id/facebookAuth"
+            app:strokeWidth="0.5dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/buttonPadding"
+            android:backgroundTint="@android:color/white"
+            android:padding="@dimen/buttonBigPadding"
+            android:text="@string/or_create_an_account_with_us"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toTopOf="@+id/googleAuth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/googleAuth" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/googleAuth"
+            style="@style/ButtonOutline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/buttonPadding"
+            android:layout_weight="1"
+            android:backgroundTint="@color/my_app_field_backdrop"
+            android:padding="@dimen/buttonBigPadding"
+            android:textAllCaps="false"
+            app:icon="@drawable/google_logo"
+            app:iconGravity="textStart"
+            app:iconTint="@null"
+            app:layout_constraintBottom_toTopOf="@+id/register"
+            app:layout_constraintEnd_toStartOf="@+id/facebookAuth"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="0.5dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

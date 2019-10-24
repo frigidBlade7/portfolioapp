@@ -12,4 +12,9 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="or_create_an_account_with_us">Or, create an account with us</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="continue_with_twitter">Continue with Twitter</string>
+    <string name="continue_with">Continue with</string>
 </resources>

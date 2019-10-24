@@ -23,10 +23,19 @@
         <action
             android:id="@+id/action_authenticationFragment_to_authenticationExtrasBottomSheet"
             app:destination="@id/authenticationExtrasBottomSheet" />
+        <action
+            android:id="@+id/action_authenticationFragment_to_authenticationExtrasBottomSheetAlternate"
+            app:destination="@id/authenticationExtrasBottomSheetAlternate" />
     </fragment>
     <dialog
         android:id="@+id/authenticationExtrasBottomSheet"
         android:name="com.codedevtech.portfolioapp.AuthenticationExtrasBottomSheet"
         android:label="fragment_authentication_extras_bottom_sheet"
         tools:layout="@layout/fragment_authentication_extras_bottom_sheet" />
+
+    <dialog
+        android:id="@+id/authenticationExtrasBottomSheetAlternate"
+        android:name="com.codedevtech.portfolioapp.AuthenticationExtrasBottomSheetAlternate"
+        android:label="fragment_authentication_extras_bottom_sheet_alternate"
+        tools:layout="@layout/fragment_authentication_extras_bottom_sheet_alternate" />
 </navigation>

@@ -94,5 +94,10 @@
         <item name="boxBackgroundColor">@color/my_app_field_backdrop</item>
     </style>
 
+    <style name="ButtonOutlineThin" parent="ButtonOutline">
+        <item name="strokeWidth">@dimen/thin</item>
+    </style>
 
+
+    <item name="thin" type="dimen" format="float">0.5dp</item>
 </resources>

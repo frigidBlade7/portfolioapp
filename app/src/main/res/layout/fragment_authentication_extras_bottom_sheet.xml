@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,35 +11,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="@dimen/buttonPadding"
         tools:context=".AuthenticationExtrasBottomSheet">
 
         <!-- TODO: Update blank fragment layout -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button3"
+            android:id="@+id/googleAuth"
+            style="@style/ButtonOutlineThin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/buttonPadding"
             android:layout_weight="1"
-            android:text="Button" />
+            android:backgroundTint="@color/my_app_field_backdrop"
+            android:padding="@dimen/buttonBigPadding"
+            android:text="@string/continue_with_google"
+            android:textAllCaps="false"
+            app:icon="@drawable/google_logo"
+            app:iconTint="@null" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button2"
+            android:id="@+id/facebookAuth"
+            style="@style/ButtonOutlineThin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/buttonPadding"
             android:layout_weight="1"
-            android:text="Button" />
+            android:backgroundTint="@color/my_app_field_backdrop"
+            android:padding="@dimen/buttonBigPadding"
+            android:text="@string/continue_with_facebook"
+            android:textAllCaps="false"
+            app:icon="@drawable/facebook_logo"
+            app:iconTint="@null" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/twitterAuth"
+            style="@style/ButtonOutlineThin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/buttonPadding"
+            android:layout_weight="1"
+            android:backgroundTint="@color/my_app_field_backdrop"
+            android:padding="@dimen/buttonBigPadding"
+            android:text="@string/continue_with_twitter"
+            android:textAllCaps="false"
+            app:icon="@drawable/twitter_logo"
+            app:iconTint="@null" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"
-            android:textAlignment="center" />
+            android:layout_margin="@dimen/buttonPadding"
+            android:backgroundTint="@android:color/white"
+            android:padding="@dimen/buttonBigPadding"
+            android:text="@string/or_create_an_account_with_us"
+            android:textAlignment="center"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 </layout>

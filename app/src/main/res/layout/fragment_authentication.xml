@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewmodel"
+            type="com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel" />
 
     </data>
 
@@ -58,7 +60,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/guideline8"
                 app:layout_constraintEnd_toStartOf="@+id/guideline7"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toBottomOf="@+id/button" />
+                app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline8"
@@ -89,35 +91,36 @@
                 app:layout_constraintGuide_end="20dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button"
+                android:id="@+id/loginButton"
                 style="@style/Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/buttonBottomMargin"
-                android:padding="16dp"
+                android:padding="@dimen/buttonBigPadding"
                 android:text="@string/login"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/forgotPassword"
-                app:layout_constraintEnd_toStartOf="@+id/button5"
+                app:layout_constraintEnd_toStartOf="@+id/loginExtras"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
                 app:layout_constraintTop_toBottomOf="@+id/password_layout" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button5"
+                android:id="@+id/loginExtras"
                 style="@style/ButtonOutline"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="32dp"
                 app:icon="@drawable/add_user"
                 app:iconGravity="textStart"
+                android:onClick="@{(v)->viewmodel.goToAuthenticationExtras(v)}"
                 app:iconTint="@color/my_app_color_on_primary"
-                app:layout_constraintBottom_toBottomOf="@+id/button"
+                app:layout_constraintBottom_toBottomOf="@+id/loginButton"
                 app:layout_constraintEnd_toEndOf="@+id/password_layout"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button"
-                app:layout_constraintTop_toTopOf="@+id/button" />
+                app:layout_constraintStart_toEndOf="@+id/loginButton"
+                app:layout_constraintTop_toTopOf="@+id/loginButton" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_layout"
@@ -128,7 +131,7 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="1dp"
                 app:hintEnabled="false"
-                app:layout_constraintBottom_toTopOf="@+id/button"
+                app:layout_constraintBottom_toTopOf="@+id/loginButton"
                 app:layout_constraintEnd_toEndOf="@+id/email_layout"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"

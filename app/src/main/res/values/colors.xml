@@ -9,7 +9,7 @@
     <color name="my_app_primary_variant_color">#caa99f</color>
     <color name="my_app_secondary_variant_color">#29434e</color>
 
-    <color name="my_app_surface_color">#fedbd0</color>
+    <color name="my_app_surface_color">#ffffff</color>
     <color name="my_app_color_on_surface">#000000</color>
 
     <color name="my_app_color_on_primary">#000000</color>
