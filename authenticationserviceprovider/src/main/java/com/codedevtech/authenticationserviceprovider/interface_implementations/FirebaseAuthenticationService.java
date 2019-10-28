@@ -28,7 +28,7 @@ public class FirebaseAuthenticationService implements AuthenticationServiceInter
                 }else{
 /*
                     if(task.isCanceled())
-                        attemptLoginCallback.onErrorOccured(task.getException().getLocalizedMessage());*/
+                        attemptLoginCallback.onErrorOccurred(task.getException().getLocalizedMessage());*/
 
                     attemptLoginCallback.onAttemptLoginFailed(task.getException().getLocalizedMessage());
                 }

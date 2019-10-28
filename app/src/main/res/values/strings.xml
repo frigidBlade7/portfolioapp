@@ -17,4 +17,5 @@
     <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="continue_with_twitter">Continue with Twitter</string>
     <string name="continue_with">Continue with</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>

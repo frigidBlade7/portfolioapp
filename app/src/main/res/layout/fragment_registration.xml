@@ -24,43 +24,27 @@
 
             <ImageView
                 android:id="@+id/titleView"
-                android:layout_width="128dp"
+                android:layout_width="192dp"
                 android:layout_height="128dp"
                 android:layout_marginTop="64dp"
                 android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toTopOf="@+id/email_layout"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
                 app:layout_constraintTop_toTopOf="@+id/guideline6"
-                app:srcCompat="@drawable/folio" />
+                app:srcCompat="@drawable/register" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animView"
-                android:layout_width="128dp"
+                android:layout_width="194dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/titleView"
                 app:layout_constraintEnd_toEndOf="@+id/titleView"
                 app:layout_constraintStart_toStartOf="@+id/titleView"
                 app:layout_constraintTop_toTopOf="@+id/titleView"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="false"
                 app:lottie_enableMergePathsForKitKatAndAbove="true"
+                app:lottie_loop="false"
                 app:lottie_rawRes="@raw/confetti" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/forgotPassword"
-                style="@style/ButtonLight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="@android:color/white"
-                android:padding="@dimen/buttonPadding"
-                android:text="@string/forgot_password"
-                android:textAllCaps="false"
-                app:layout_constraintBottom_toTopOf="@+id/guideline8"
-                app:layout_constraintEnd_toStartOf="@+id/guideline7"
-                app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline8"
@@ -91,61 +75,20 @@
                 app:layout_constraintGuide_end="20dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/loginButton"
+                android:id="@+id/registerButton"
                 style="@style/Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/buttonBottomMargin"
                 android:padding="@dimen/buttonBigPadding"
-                android:text="@string/login"
+                android:text="@string/register"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/forgotPassword"
-                app:layout_constraintEnd_toStartOf="@+id/loginExtras"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toBottomOf="@+id/password_layout" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/loginExtras"
-                style="@style/ButtonOutline"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="32dp"
-                app:icon="@drawable/add_user"
-                app:iconGravity="textStart"
-                android:onClick="@{(v)->viewmodel.goToAuthenticationExtras(v)}"
-                app:iconTint="@color/my_app_color_on_primary"
-                app:layout_constraintBottom_toBottomOf="@+id/loginButton"
+                app:layout_constraintBottom_toTopOf="@+id/guideline8"
                 app:layout_constraintEnd_toEndOf="@+id/password_layout"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/loginButton"
-                app:layout_constraintTop_toTopOf="@+id/loginButton" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password_layout"
-                style="@style/FieldTextInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="1dp"
-                app:hintEnabled="false"
-                app:layout_constraintBottom_toTopOf="@+id/loginButton"
-                app:layout_constraintEnd_toEndOf="@+id/email_layout"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toBottomOf="@+id/email_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:maxLines="1" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@+id/password_confirmation_layout" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_layout"
@@ -174,6 +117,57 @@
                     android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_layout"
+                style="@style/FieldTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="1dp"
+                app:hintEnabled="false"
+                app:layout_constraintBottom_toTopOf="@+id/password_confirmation_layout"
+                app:layout_constraintEnd_toEndOf="@+id/email_layout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toBottomOf="@+id/email_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_confirmation_layout"
+                style="@style/FieldTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="1dp"
+                app:hintEnabled="false"
+                app:layout_constraintBottom_toTopOf="@+id/registerButton"
+                app:layout_constraintEnd_toEndOf="@+id/email_layout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toBottomOf="@+id/password_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_confirmation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/confirm_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

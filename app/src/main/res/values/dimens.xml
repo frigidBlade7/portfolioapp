@@ -9,4 +9,5 @@
     <dimen name="buttonBottomMargin">32dp</dimen>
     <dimen name="endMargins">32dp</dimen>
     <dimen name="buttonBigPadding">16dp</dimen>
+    <dimen name="thin">0.5dp</dimen>
 </resources>

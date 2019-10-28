@@ -6,6 +6,6 @@ public interface AttemptLoginCallback {
 
     void onAttemptLoginSuccess();
 
-    void onErrorOccured(String errorMessage);
+    void onErrorOccurred(String errorMessage);
 
 }
