@@ -69,4 +69,9 @@
         android:name="com.codedevtech.portfolioapp.CompleteProfileFragment"
         android:label="fragment_complete_profile"
         tools:layout="@layout/fragment_complete_profile" />
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.codedevtech.portfolioapp.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>
