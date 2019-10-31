@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/buttonPadding"
-        tools:context=".AuthenticationExtrasBottomSheet">
+        tools:context=".fragments.AuthenticationExtrasBottomSheet">
 
         <!-- TODO: Update blank fragment layout -->
 

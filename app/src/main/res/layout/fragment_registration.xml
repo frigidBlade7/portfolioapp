@@ -6,20 +6,20 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel" />
+            type="com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel" />
 
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".AuthenticationFragment">
+        tools:context=".fragments.AuthenticationFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            tools:context=".AuthenticationFragment">
+            tools:context=".fragments.AuthenticationFragment">
 
 
             <ImageView
@@ -81,7 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/buttonBottomMargin"
                 android:padding="@dimen/buttonBigPadding"
-                android:text="@string/register"
+                android:text="@string/continue_text"
+                android:onClick="@{(v)->viewmodel.goToCompleteProfile(v)}"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline8"

@@ -1,4 +1,4 @@
-package com.codedevtech.portfolioapp;
+package com.codedevtech.portfolioapp.fragments;
 
 
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentAuthenticationExtrasBottomSheetAlternateBinding;
 import com.codedevtech.portfolioapp.databinding.FragmentAuthenticationExtrasBottomSheetBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

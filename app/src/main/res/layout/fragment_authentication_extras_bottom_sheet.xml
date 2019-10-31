@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel" />
+
     </data>
 
     <LinearLayout
@@ -12,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/buttonPadding"
-        tools:context=".AuthenticationExtrasBottomSheet">
+        tools:context=".fragments.AuthenticationExtrasBottomSheet">
 
         <!-- TODO: Update blank fragment layout -->
 
@@ -66,6 +70,7 @@
             android:layout_margin="@dimen/buttonPadding"
             android:backgroundTint="@android:color/white"
             android:padding="@dimen/buttonBigPadding"
+            android:onClick="@{(v)->viewmodel.goToManualRegistration(v)}"
             android:text="@string/or_create_an_account_with_us"
             android:textAlignment="center"
             android:textAllCaps="false" />

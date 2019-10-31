@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
-        android:name="com.codedevtech.portfolioapp.AuthenticationFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.AuthenticationFragment"
         android:label="fragment_authentication"
         tools:layout="@layout/fragment_authentication" >
         <action
@@ -26,16 +26,47 @@
         <action
             android:id="@+id/action_authenticationFragment_to_authenticationExtrasBottomSheetAlternate"
             app:destination="@id/authenticationExtrasBottomSheetAlternate" />
+        <action
+            android:id="@+id/action_authenticationFragment_to_completeProfileFragment"
+            app:destination="@id/completeProfileFragment" />
     </fragment>
     <dialog
         android:id="@+id/authenticationExtrasBottomSheet"
-        android:name="com.codedevtech.portfolioapp.AuthenticationExtrasBottomSheet"
+        android:name="com.codedevtech.portfolioapp.fragments.AuthenticationExtrasBottomSheet"
         android:label="fragment_authentication_extras_bottom_sheet"
-        tools:layout="@layout/fragment_authentication_extras_bottom_sheet" />
+        tools:layout="@layout/fragment_authentication_extras_bottom_sheet" >
+        <action
+            android:id="@+id/action_authenticationExtrasBottomSheet_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_authenticationExtrasBottomSheet_to_completeProfileFragment"
+            app:destination="@id/completeProfileFragment" />
+    </dialog>
 
     <dialog
         android:id="@+id/authenticationExtrasBottomSheetAlternate"
-        android:name="com.codedevtech.portfolioapp.AuthenticationExtrasBottomSheetAlternate"
+        android:name="com.codedevtech.portfolioapp.fragments.AuthenticationExtrasBottomSheetAlternate"
         android:label="fragment_authentication_extras_bottom_sheet_alternate"
-        tools:layout="@layout/fragment_authentication_extras_bottom_sheet_alternate" />
+        tools:layout="@layout/fragment_authentication_extras_bottom_sheet_alternate" >
+        <action
+            android:id="@+id/action_authenticationExtrasBottomSheetAlternate_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_authenticationExtrasBottomSheetAlternate_to_completeProfileFragment"
+            app:destination="@id/completeProfileFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_completeProfileFragment"
+            app:destination="@id/completeProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/completeProfileFragment"
+        android:name="com.codedevtech.portfolioapp.CompleteProfileFragment"
+        android:label="fragment_complete_profile"
+        tools:layout="@layout/fragment_complete_profile" />
 </navigation>

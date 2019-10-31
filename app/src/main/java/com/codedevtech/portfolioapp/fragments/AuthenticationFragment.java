@@ -1,4 +1,4 @@
-package com.codedevtech.portfolioapp;
+package com.codedevtech.portfolioapp.fragments;
 
 
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentAuthenticationBinding;
-import com.codedevtech.portfolioapp.fragments.OnboardingFragment;
 import com.codedevtech.portfolioapp.navigation.Event;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 

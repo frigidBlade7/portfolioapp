@@ -21,5 +21,12 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         setDestinationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheetAlternate);
     }
 
+    public void goToCompleteProfileFederated(View view){
+        setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_completeProfileFragment);
+    }
+
+    public void goToCompleteProfile(View view){
+        setDestinationId(R.id.action_authenticationFragment_to_completeProfileFragment);
+    }
 
 }
