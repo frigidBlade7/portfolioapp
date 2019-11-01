@@ -21,7 +21,6 @@
         <item name="colorOnBackground">@color/my_app_color_on_background</item>
         <item name="colorOnError">@color/my_app_color_on_error</item>
         <item name="colorOnSurface">@color/my_app_color_on_surface</item>
-        <item name="scrimBackground">@color/mtrl_scrim_color</item>
         <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
@@ -63,7 +62,7 @@
 
 
     <style name="FullScreen" parent="AppTheme">
-        <item name="android:statusBarColor">@android:color/transparent</item>
+
     </style>
 
 

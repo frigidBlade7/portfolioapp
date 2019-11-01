@@ -10,7 +10,7 @@ public class Utility {
 
     public static final int[] imageRes = new int[]{R.drawable.profile ,R.drawable.meet, R.drawable.communicate};
 
-    public static final int[] descriptionRes = new int[]{R.string.profile, R.string.meet, R.string.communicate};
+    public static final int[] descriptionRes = new int[]{R.string.profile_text, R.string.meet, R.string.communicate};
 
 
     public static final List<OnboardingModel> onboardingModelList = Arrays.asList(

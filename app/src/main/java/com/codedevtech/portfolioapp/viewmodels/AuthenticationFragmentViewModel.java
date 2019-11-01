@@ -29,4 +29,12 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         setDestinationId(R.id.action_authenticationFragment_to_completeProfileFragment);
     }
 
+    public void goToForgotPassword(View view){
+        setDestinationId(R.id.action_authenticationFragment_to_forgotPasswordFragment);
+    }
+
+    public void goToDashboard(View view){
+        setDestinationId(R.id.action_authenticationFragment_to_dashboardFragment);
+    }
+
 }

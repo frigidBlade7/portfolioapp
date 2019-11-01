@@ -6,7 +6,7 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="get_started">Get started</string>
-    <string name="profile">Create and design your personal portfolio</string>
+    <string name="profile_text">Create and design your personal portfolio</string>
     <string name="meet">Meet new people and explore their profiles</string>
     <string name="communicate">Communicate and collaborate with clients and co-contributors</string>
     <string name="password">Password</string>
@@ -33,4 +33,10 @@
     <string name="enthusiast">Enthusiast</string>
     <string name="artisan">Artisan</string>
     <string name="photographer">Photographer</string>
+    <string name="reset_password">Reset password</string>
+    <string name="an_email_containing_instrustions_to_help_you_reset_your_password_will_be_sent_to_the_email_address_associated_with_your_account">An email containing instrustions to help you reset your password will be sent to the email address associated with your account</string>
+    <string name="feed">Feed</string>
+    <string name="explore">Explore</string>
+    <string name="messages">Messages</string>
+    <string name="profile">Profile</string>
 </resources>

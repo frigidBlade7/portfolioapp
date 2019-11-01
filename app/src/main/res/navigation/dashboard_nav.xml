@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dasboard_nav"
+    app:startDestination="@id/feedFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.MessagesFragment"
+        android:label="fragment_messages"
+        tools:layout="@layout/fragment_messages" />
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.ExploreFragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore" />
+</navigation>

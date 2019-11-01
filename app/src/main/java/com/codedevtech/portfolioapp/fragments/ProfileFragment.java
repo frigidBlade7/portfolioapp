@@ -1,4 +1,4 @@
-package com.codedevtech.portfolioapp;
+package com.codedevtech.portfolioapp.fragments;
 
 
 import android.os.Bundle;
@@ -9,14 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codedevtech.portfolioapp.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
 
-    public DashboardFragment() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +27,7 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
 }
