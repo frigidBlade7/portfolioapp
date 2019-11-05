@@ -41,7 +41,6 @@ public class AppInjector {
     public static void init(PortfolioApp portfolioApp) {
 
 
-
         /*DaggerPortfolioAppComponent.builder().application(portfolioApp)
                 .build().inject(portfolioApp);*/
 

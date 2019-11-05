@@ -18,8 +18,9 @@ public class PortfolioApp extends Application implements HasActivityInjector {
 
     @Override
     public void onCreate() {
-        AppInjector.init(this);
         super.onCreate();
+        AppInjector.init(this);
+
     }
 
     @Override
