@@ -41,18 +41,18 @@ dependencies {
 
 
     //navigation
-    implementation 'androidx.navigation:navigation-fragment:2.2.0-beta01'
-    implementation 'androidx.navigation:navigation-ui:2.2.0-beta01'
+    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc01'
+    implementation 'androidx.navigation:navigation-ui:2.2.0-rc01'
 
     //constraint
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
 
 
     //viewpager for onboarding
-    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta05'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-rc01'
 
     //analytics
-    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.1'
 
     //firebase auth
     //implementation 'com.google.firebase:firebase-auth:19.0.0'
@@ -67,15 +67,21 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
     //room
-    implementation "androidx.room:room-runtime:2.2.0"
-    annotationProcessor "androidx.room:room-compiler:2.2.0"
+    implementation "androidx.room:room-runtime:2.2.1"
+    annotationProcessor "androidx.room:room-compiler:2.2.1"
 
 
     //lifecycle extensions
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
     //layout
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
 
+    //dependency injection
+    implementation 'com.google.dagger:dagger:2.23.2'
+
+    implementation 'com.google.dagger:dagger-android:2.23.2'
+    implementation 'com.google.dagger:dagger-android-support:2.23.2' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.23.2'
 
 }
