@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 
 
 /**

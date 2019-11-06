@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/globalRadius"
             tools:context=".fragments.AuthenticationFragment">
 
 
@@ -101,7 +102,7 @@
                 android:text="@string/login"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                android:onClick="@{(v)->viewmodel.goToDashboard(v)}"
+                android:onClick="@{(v)->viewmodel.attemptLogin(v)}"
                 app:layout_constraintBottom_toTopOf="@+id/forgotPassword"
                 app:layout_constraintEnd_toStartOf="@+id/loginExtras"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -133,6 +134,7 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="1dp"
                 app:hintEnabled="false"
+                app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@+id/loginButton"
                 app:layout_constraintEnd_toEndOf="@+id/email_layout"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -144,6 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
+                    android:text="@={viewmodel.passwordMutableData}"
                     android:inputType="textPassword"
                     android:maxLines="1" />
 
@@ -172,6 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
+                    android:text="@={viewmodel.emailMutableLiveData}"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
 

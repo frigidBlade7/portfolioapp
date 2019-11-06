@@ -27,6 +27,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.codedevtech.portfolioapp.PortfolioApp;
+import com.codedevtech.portfolioapp.di.interfaces.DaggerAppComponent;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 
 import dagger.android.AndroidInjection;
@@ -40,9 +41,8 @@ public class AppInjector {
     private AppInjector() {}
     public static void init(PortfolioApp portfolioApp) {
 
-
-        /*DaggerPortfolioAppComponent.builder().application(portfolioApp)
-                .build().inject(portfolioApp);*/
+        DaggerAppComponent.builder().application(portfolioApp)
+                .build().inject(portfolioApp);
 
         portfolioApp
                 .registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {

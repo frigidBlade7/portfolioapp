@@ -23,6 +23,7 @@ android {
     }
 
 
+
 }
 
 dependencies {
@@ -83,5 +84,8 @@ dependencies {
     implementation 'com.google.dagger:dagger-android:2.23.2'
     implementation 'com.google.dagger:dagger-android-support:2.23.2' // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.23.2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.23.2'
+    implementation project(path: ':authenticationserviceprovider')
+
 
 }

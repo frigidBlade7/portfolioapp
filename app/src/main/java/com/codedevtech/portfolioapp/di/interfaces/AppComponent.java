@@ -5,30 +5,30 @@ import android.app.Application;
 
 import com.codedevtech.portfolioapp.PortfolioApp;
 import com.codedevtech.portfolioapp.di.modules.ActivityModule;
+import com.codedevtech.portfolioapp.di.modules.AppModule;
 import com.codedevtech.portfolioapp.di.modules.FragmentModule;
-import com.codedevtech.portfolioapp.di.modules.ViewModelModule;
 
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
+import dagger.android.support.AndroidSupportInjectionModule;
 
 @Singleton
 @Component(modules = {
-        AndroidInjectionModule.class,
+        AndroidSupportInjectionModule.class,
         ActivityModule.class,
         FragmentModule.class,
-        ViewModelModule.class
+        AppModule.class
 })
-public interface PortfolioAppComponent {
+public interface AppComponent {
 
     @Component.Builder
     interface Builder {
         @BindsInstance
         Builder application (Application application);
 
-        PortfolioAppComponent build();
+        AppComponent build();
     }
 
     void inject(PortfolioApp portfolioApp);

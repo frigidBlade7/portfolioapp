@@ -3,13 +3,13 @@ package com.codedevtech.authenticationserviceprovider.interface_implementations;
 import androidx.annotation.NonNull;
 
 import com.codedevtech.authenticationserviceprovider.callbacks.AttemptLoginCallback;
-import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationServiceInterface;
+import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class FirebaseAuthenticationService implements AuthenticationServiceInterface {
+public class FirebaseAuthenticationService implements AuthenticationService {
 
     private FirebaseAuth firebaseAuthInstance;
 
@@ -26,8 +26,7 @@ public class FirebaseAuthenticationService implements AuthenticationServiceInter
                 if(task.isSuccessful()){
                     attemptLoginCallback.onAttemptLoginSuccess();
                 }else{
-/*
-                    if(task.isCanceled())
+/*                    if(task.isCanceled())
                         attemptLoginCallback.onErrorOccurred(task.getException().getLocalizedMessage());*/
 
                     attemptLoginCallback.onAttemptLoginFailed(task.getException().getLocalizedMessage());

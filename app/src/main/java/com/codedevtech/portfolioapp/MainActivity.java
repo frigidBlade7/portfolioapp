@@ -8,7 +8,6 @@ import android.os.Bundle;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
-import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
@@ -25,16 +24,15 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        this.configureDagger();
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.configureDagger();
-
 
     }
 
     @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
+    public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
         return dispatchingAndroidInjector;
     }
 
