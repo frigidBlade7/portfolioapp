@@ -75,6 +75,9 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
 
     public void attemptLogin(View view){
+        //show loader
+        setDestinationId(R.id.loadingDialog);
+
         String passwordString = passwordMutableData.getValue(), emailString = emailMutableLiveData.getValue();
         //create new LoginCredentials object, set parameters
         LoginCredentials loginCredentials = new LoginCredentials();
@@ -88,12 +91,24 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                     new AttemptLoginCallback() {
                         @Override
                         public void onAttemptLoginFailed(String errorMessage) {
-                            setSnackbarMessage(errorMessage);
+                            //hide loader
+                            setDestinationId(0);
+
+                            Log.d(TAG, "onAttemptLoginFailed: "+errorMessage);
+
+                            //a little hack to prevent malicious users from experimenting with emails
+                            if(errorMessage.contains("user"))
+                                setSnackbarMessageUsingId(R.string.invalid_credentials);
+                            else
+                                setSnackbarMessage(errorMessage);
 
                         }
 
                         @Override
                         public void onAttemptLoginSuccess() {
+                            //hide loader
+                            setDestinationId(0);
+
                             goToDashboard();
                         }
 

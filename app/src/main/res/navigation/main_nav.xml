@@ -95,4 +95,9 @@
             android:label="fragment_dashboard"
             tools:layout="@layout/fragment_dashboard" />
     </navigation>
+    <dialog
+        android:id="@+id/loadingDialog"
+        android:name="com.codedevtech.portfolioapp.fragments.LoadingDialog"
+        android:label="loader"
+        tools:layout="@layout/loader" />
 </navigation>

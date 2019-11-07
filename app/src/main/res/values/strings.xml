@@ -41,4 +41,5 @@
     <string name="profile">Profile</string>
     <string name="invalid_credentials">Invalid credentials</string>
     <string name="okay">Okay</string>
+    <string name="special_thanks_to_olivier_umukura">Special thanks to Olivier Umukura</string>
 </resources>

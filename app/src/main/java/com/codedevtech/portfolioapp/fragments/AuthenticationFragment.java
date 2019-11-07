@@ -88,6 +88,25 @@ public class AuthenticationFragment extends Fragment implements Injectable{
             }
         });
 
+        authenticationFragmentViewModel.getSnackbarMessage().observe(this.getViewLifecycleOwner(), new Observer<Event<String>>() {
+            @Override
+            public void onChanged(Event<String> stringEvent) {
+                if(stringEvent.consume()==null)
+                    return;
+
+                final Snackbar snackbar = Snackbar.make(fragmentAuthenticationBinding.getRoot(), stringEvent.peek(), Snackbar.LENGTH_LONG);
+
+                snackbar.setAction(R.string.okay, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+
+                snackbar.show();
+            }
+        });
+
 
 
         return fragmentAuthenticationBinding.getRoot();

@@ -1,5 +1,7 @@
 package com.codedevtech.authenticationserviceprovider.interface_implementations;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.codedevtech.authenticationserviceprovider.callbacks.AttemptLoginCallback;
@@ -11,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class FirebaseAuthenticationService implements AuthenticationService {
 
+    private static final String TAG = "FirebaseAuthenticationS";
     private FirebaseAuth firebaseAuthInstance;
 
     public FirebaseAuthenticationService() {
@@ -28,6 +31,7 @@ public class FirebaseAuthenticationService implements AuthenticationService {
                 }else{
 /*                    if(task.isCanceled())
                         attemptLoginCallback.onErrorOccurred(task.getException().getLocalizedMessage());*/
+                    Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
 
                     attemptLoginCallback.onAttemptLoginFailed(task.getException().getLocalizedMessage());
                 }
