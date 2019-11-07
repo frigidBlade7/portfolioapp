@@ -1,8 +1,6 @@
-package com.codedevtech.portfolioapp.utilities;
+package com.codedevtech.Utilities;
 
 import android.util.Patterns;
-
-import java.util.regex.Pattern;
 
 public class LoginUtilities {
 

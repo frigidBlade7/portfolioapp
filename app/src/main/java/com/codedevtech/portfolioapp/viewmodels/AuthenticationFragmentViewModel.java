@@ -5,13 +5,12 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.codedevtech.authenticationserviceprovider.callbacks.AttemptLoginCallback;
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
+import com.codedevtech.models.LoginCredentials;
 import com.codedevtech.portfolioapp.R;
-import com.codedevtech.portfolioapp.utilities.LoginUtilities;
 
 import javax.inject.Inject;
 
@@ -41,27 +40,34 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         return passwordMutableData;
     }
 
+    //show authentication extras 
     public void goToAuthenticationExtras(View view){
         setDestinationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheet);
     }
 
+    //show authentication extras, but with a different view
     public void goToAuthenticationExtrasAlternate(View view){
         setDestinationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheetAlternate);
     }
 
+    //navigate to completeprofile fragment from federated identity auth
     public void goToCompleteProfileFederated(View view){
         setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_completeProfileFragment);
     }
+
+    //navigate to complete profile fragment
 
     public void goToCompleteProfile(View view){
         setDestinationId(R.id.action_authenticationFragment_to_completeProfileFragment);
     }
 
+    //navigate to forgotpassword fragment
     public void goToForgotPassword(View view){
         setDestinationId(R.id.action_authenticationFragment_to_forgotPasswordFragment);
     }
 
-    public void goToDashboard(View view){
+    //navigate to dashboard fragment
+    public void goToDashboard(){
         setDestinationId(R.id.action_authenticationFragment_to_dashboardFragment);
     }
 
@@ -70,8 +76,34 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
     public void attemptLogin(View view){
         String passwordString = passwordMutableData.getValue(), emailString = emailMutableLiveData.getValue();
+        //create new LoginCredentials object, set parameters
+        LoginCredentials loginCredentials = new LoginCredentials();
+        loginCredentials.setEmail(emailString);
+        loginCredentials.setPassword(passwordString);
+        
+        if(!loginCredentials.isEmailValid())
+            setSnackbarMessageUsingId(R.string.invalid_credentials);
+        else{
+            authenticationService.attemptLogin(loginCredentials.getEmail(), loginCredentials.getPassword(),
+                    new AttemptLoginCallback() {
+                        @Override
+                        public void onAttemptLoginFailed(String errorMessage) {
+                            setSnackbarMessage(errorMessage);
 
-        Log.d(TAG, "attemptLogin: "+passwordString+ emailString);
+                        }
+
+                        @Override
+                        public void onAttemptLoginSuccess() {
+                            goToDashboard();
+                        }
+
+                        @Override
+                        public void onErrorOccurred(String errorMessage) {
+                            Log.d(TAG, "onErrorOccurred: "+ errorMessage);
+                        }
+                    });
+        }
+
 
     }
 }

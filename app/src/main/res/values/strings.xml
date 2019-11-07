@@ -39,4 +39,6 @@
     <string name="explore">Explore</string>
     <string name="messages">Messages</string>
     <string name="profile">Profile</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+    <string name="okay">Okay</string>
 </resources>

@@ -19,12 +19,10 @@ import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentAuthenticationBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.navigation.Event;
-import com.codedevtech.portfolioapp.utilities.LoginUtilities;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
-
-import dagger.android.support.HasSupportFragmentInjector;
 
 
 /**
@@ -68,6 +66,25 @@ public class AuthenticationFragment extends Fragment implements Injectable{
                     NavHostFragment.findNavController(AuthenticationFragment.this).popBackStack();
                 else
                     NavHostFragment.findNavController(AuthenticationFragment.this).navigate(integerEvent.peek());
+            }
+        });
+
+        authenticationFragmentViewModel.getSnackbarMessageId().observe(this.getViewLifecycleOwner(), new Observer<Event<Integer>>() {
+            @Override
+            public void onChanged(Event<Integer> integerEvent) {
+                if(integerEvent.consume()==null)
+                    return;
+
+                final Snackbar snackbar = Snackbar.make(fragmentAuthenticationBinding.getRoot(), getString(integerEvent.peek()), Snackbar.LENGTH_LONG);
+
+                snackbar.setAction(R.string.okay, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+
+                snackbar.show();
             }
         });
 

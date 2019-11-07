@@ -12,6 +12,7 @@ import com.codedevtech.portfolioapp.navigation.Event;
 
 public class BaseViewModel extends AndroidViewModel {
     private MutableLiveData<Event<String>> snackbarMessage = new MutableLiveData<>();
+    private MutableLiveData<Event<Integer>> snackbarMessageId = new MutableLiveData<>();
     private MutableLiveData<Event<Integer>> destinationId = new MutableLiveData<>();
 
 
@@ -33,9 +34,19 @@ public class BaseViewModel extends AndroidViewModel {
         return snackbarMessage;
     }
 
+
+    public MutableLiveData<Event<Integer>> getSnackbarMessageId() {
+        return snackbarMessageId;
+    }
+
     //trigger snackbar event
     public void setSnackbarMessage(String snackbarMessage) {
         this.snackbarMessage.setValue(new Event<>(snackbarMessage));
+    }
+
+    //trigger snackbar event using id
+    public void setSnackbarMessageUsingId(int snackbarMessageId) {
+        this.snackbarMessageId.setValue(new Event<>(snackbarMessageId));
     }
 
 
