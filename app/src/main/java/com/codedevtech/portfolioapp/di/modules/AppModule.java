@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 
 import com.codedevtech.authenticationserviceprovider.interface_implementations.FirebaseAuthenticationService;
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
+import com.codedevtech.portfolioapp.R;
+import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -38,9 +40,18 @@ public final class AppModule {
     @NonNull
     public final GoogleSignInClient providesGoogleSignInClient(Application application){
          GoogleSignInOptions googleSignInOptions= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
+                 .requestIdToken(application.getString(R.string.default_web_client_id))
+                 .requestEmail()
                 .build();
 
          return GoogleSignIn.getClient(application.getApplicationContext(), googleSignInOptions);
     }
+
+    @Singleton
+    @Provides
+    @NonNull
+    public final CallbackManager providesCallbackManager(){
+        return CallbackManager.Factory.create();
+    }
+
 }

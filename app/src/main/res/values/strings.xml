@@ -48,5 +48,6 @@
 <!-- facebook keys-->
     <string name="facebook_app_id">984494681943294</string>
     <string name="fb_login_protocol_scheme">fb984494681943294</string>
+    <string name="failed_to_sign_in_with_your_facebook_account">Failed to sign in with your Facebook account</string>
 
 </resources>

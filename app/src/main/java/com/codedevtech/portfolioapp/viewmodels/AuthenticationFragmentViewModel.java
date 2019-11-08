@@ -2,6 +2,7 @@ package com.codedevtech.portfolioapp.viewmodels;
 
 import android.app.Application;
 import android.content.Intent;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 
@@ -13,6 +14,11 @@ import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationSe
 import com.codedevtech.models.LoginCredentials;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.navigation.Event;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,17 +34,47 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
     private static final String TAG = "AuthenticationFragmentV";
     private AuthenticationService authenticationService;
+    private CallbackManager callbackManager;
 
     private MutableLiveData<String> emailMutableLiveData = new MutableLiveData<>(), passwordMutableData = new MutableLiveData<>();
+    private MutableLiveData<Event<String>> facebookLoginParameter = new MutableLiveData<>();
     private MutableLiveData<Event<Intent>> signInIntent = new MutableLiveData<>();
     private GoogleSignInClient googleSignInClient;
 
     @Inject
     public AuthenticationFragmentViewModel(@NonNull Application application, AuthenticationService authenticationService,
-                                           GoogleSignInClient googleSignInClient) {
+                                           GoogleSignInClient googleSignInClient, CallbackManager callbackManager) {
         super(application);
         this.authenticationService = authenticationService;
         this.googleSignInClient = googleSignInClient;
+        this.callbackManager = callbackManager;
+
+        //initialise facebook login  callback manager
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                        goToDashboardFromAuthExtras();
+                        Log.d(TAG, "success: ");
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                        Log.d(TAG, "onCancel: ");
+                        setSnackbarMessageUsingId(R.string.failed_to_sign_in_with_your_facebook_account);
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                        Log.d(TAG, "onError: "+exception.getLocalizedMessage());
+                        setSnackbarMessage(exception.getLocalizedMessage());
+
+                    }
+                });
 
 
     }
@@ -56,9 +92,27 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         return passwordMutableData;
     }
 
+
     public void attemptGoogleSignIn(View view){
+        setDestinationId(0);
+
         setSignInIntent(googleSignInClient.getSignInIntent());
     }
+
+    public void setFacebookLoginParameter(String facebookLoginParameter) {
+        this.facebookLoginParameter.setValue(new Event<String>(facebookLoginParameter));
+    }
+
+    public MutableLiveData<Event<String>> getFacebookLoginParameter() {
+        return facebookLoginParameter;
+    }
+
+    public void attemptFacebookSignIn(View view){
+        setDestinationId(0);
+
+        setFacebookLoginParameter("email");
+    }
+
 
     //show authentication extras 
     public void goToAuthenticationExtras(View view){
@@ -160,6 +214,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     public void executeOnActivityResultCalled(int requestCode, int resultCode, Intent data) {
 
         if(requestCode == RC_SIGN_IN){
+            //google
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -173,7 +228,12 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                 setSnackbarMessageUsingId(R.string.failed_to_sign_in_with_your_google_account);
             }
 
+        }else {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+
         }
+
+
     }
 
 }
