@@ -13,9 +13,6 @@ public class RegistrationFragmentViewModel extends BaseViewModel {
         super(application);
     }
 
-    public void goToManualRegistration(View view){
-        setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_registrationFragment);
-    }
 
     public void goToCompleteProfile(View view){
         setDestinationId(R.id.action_registrationFragment_to_completeProfileFragment);

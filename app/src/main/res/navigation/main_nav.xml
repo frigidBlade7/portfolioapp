@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_authenticationExtrasBottomSheet_to_completeProfileFragment"
             app:destination="@id/completeProfileFragment" />
+        <action
+            android:id="@+id/action_authenticationExtrasBottomSheet_to_dashboardNavigation"
+            app:destination="@id/dashboardNavigation" />
     </dialog>
 
     <dialog

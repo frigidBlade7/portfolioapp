@@ -1,6 +1,7 @@
 package com.codedevtech.portfolioapp.viewmodels;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
@@ -11,8 +12,17 @@ import com.codedevtech.authenticationserviceprovider.callbacks.AttemptLoginCallb
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
 import com.codedevtech.models.LoginCredentials;
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.navigation.Event;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 import javax.inject.Inject;
+
+import static com.codedevtech.portfolioapp.utilities.RequestCodeUtilities.RC_SIGN_IN;
 
 public class AuthenticationFragmentViewModel extends BaseViewModel {
 
@@ -20,11 +30,17 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     private AuthenticationService authenticationService;
 
     private MutableLiveData<String> emailMutableLiveData = new MutableLiveData<>(), passwordMutableData = new MutableLiveData<>();
+    private MutableLiveData<Event<Intent>> signInIntent = new MutableLiveData<>();
+    private GoogleSignInClient googleSignInClient;
 
     @Inject
-    public AuthenticationFragmentViewModel(@NonNull Application application, AuthenticationService authenticationService) {
+    public AuthenticationFragmentViewModel(@NonNull Application application, AuthenticationService authenticationService,
+                                           GoogleSignInClient googleSignInClient) {
         super(application);
         this.authenticationService = authenticationService;
+        this.googleSignInClient = googleSignInClient;
+
+
     }
 
     public MutableLiveData<String> getEmailMutableLiveData() {
@@ -40,9 +56,17 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         return passwordMutableData;
     }
 
+    public void attemptGoogleSignIn(View view){
+        setSignInIntent(googleSignInClient.getSignInIntent());
+    }
+
     //show authentication extras 
     public void goToAuthenticationExtras(View view){
         setDestinationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheet);
+    }
+
+    public void goToManualRegistration(View view){
+        setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_registrationFragment);
     }
 
     //show authentication extras, but with a different view
@@ -72,7 +96,18 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     }
 
 
+    //navigate to dashboard fragment
+    public void goToDashboardFromAuthExtras(){
+        setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_dashboardNavigation);
+    }
 
+    public MutableLiveData<Event<Intent>> getSignInIntent() {
+        return signInIntent;
+    }
+
+    public void setSignInIntent(Intent signInIntent) {
+        this.signInIntent.setValue(new Event<Intent>(signInIntent));
+    }
 
     public void attemptLogin(View view){
         //show loader
@@ -121,4 +156,24 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
 
     }
+
+    public void executeOnActivityResultCalled(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == RC_SIGN_IN){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                // Signed in successfully, show authenticated UI.
+                goToDashboardFromAuthExtras();
+            } catch (ApiException e) {
+                // The ApiException status code indicates the detailed failure reason.
+                // Please refer to the GoogleSignInStatusCodes class reference for more information.
+                Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+                setSnackbarMessageUsingId(R.string.failed_to_sign_in_with_your_google_account);
+            }
+
+        }
+    }
+
 }

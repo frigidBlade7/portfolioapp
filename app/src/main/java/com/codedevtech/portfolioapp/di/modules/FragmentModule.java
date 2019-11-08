@@ -1,5 +1,6 @@
 package com.codedevtech.portfolioapp.di.modules;
 
+import com.codedevtech.portfolioapp.fragments.AuthenticationExtrasBottomSheet;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragment;
 import com.codedevtech.portfolioapp.fragments.DashboardFragment;
 
@@ -12,6 +13,9 @@ public abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract AuthenticationFragment contributesAuthenticationFragment();
+
+    @ContributesAndroidInjector
+    abstract AuthenticationExtrasBottomSheet contributesAuthenticationExtrasBottomSheet();
 
 
 }

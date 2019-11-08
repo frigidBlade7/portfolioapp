@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel" />
+            type="com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel" />
 
     </data>
 
@@ -30,6 +30,7 @@
             android:backgroundTint="@color/my_app_field_backdrop"
             android:padding="@dimen/buttonBigPadding"
             android:text="@string/continue_with_google"
+            android:onClick="@{(v)->viewmodel.attemptGoogleSignIn(v)}"
             android:textAllCaps="false"
             app:icon="@drawable/google_logo"
             app:iconTint="@null" />
