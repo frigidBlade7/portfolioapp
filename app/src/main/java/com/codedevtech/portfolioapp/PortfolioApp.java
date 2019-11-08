@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.codedevtech.portfolioapp.di.models.AppInjector;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 import javax.inject.Inject;
 
@@ -19,6 +21,10 @@ public class PortfolioApp extends Application implements HasActivityInjector {
     public void onCreate() {
         AppInjector.init(this);
         super.onCreate();
+
+        //initialise for fb app events logging
+        AppEventsLogger.activateApp(this);
+
 
     }
 

@@ -33,6 +33,10 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth:19.1.0'
     api 'com.google.android.gms:play-services-auth:17.0.0'
+    api 'com.google.firebase:firebase-auth:19.1.0'
+    api 'com.facebook.android:facebook-android-sdk:[5,6)'
+
+
 
 
 }
