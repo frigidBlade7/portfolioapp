@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
@@ -17,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
+    @Inject
+    FirebaseRemoteConfig firebaseRemoteConfig;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -28,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        firebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_default_values);
 
     }
 

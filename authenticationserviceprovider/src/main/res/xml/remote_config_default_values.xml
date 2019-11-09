@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>facebook_login_sdk_params</key>
+        <value>["email","public_profile","user_friends"]</value>
+    </entry>
+</defaultsMap>

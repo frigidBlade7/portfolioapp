@@ -12,6 +12,9 @@ import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.squareup.moshi.Moshi;
 
 import javax.inject.Singleton;
 
@@ -54,4 +57,33 @@ public final class AppModule {
         return CallbackManager.Factory.create();
     }
 
+    @Singleton
+    @Provides
+    @NonNull
+    public final FirebaseRemoteConfigSettings providesFirebaseRemoteConfigSettings(){
+        FirebaseRemoteConfigSettings firebaseRemoteConfigSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(86400)
+                .build();
+
+        return firebaseRemoteConfigSettings;
+    }
+
+    @Singleton
+    @Provides
+    @NonNull
+    public final FirebaseRemoteConfig providesFirebaseRemoteConfig(FirebaseRemoteConfigSettings firebaseRemoteConfigSettings){
+
+        FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        firebaseRemoteConfig.setConfigSettingsAsync(firebaseRemoteConfigSettings);
+
+        return firebaseRemoteConfig;
+    }
+
+    @Singleton
+    @Provides
+    @NonNull
+    public final Moshi providesMoshi(){
+        return new Moshi.Builder().build();
+
+    }
 }

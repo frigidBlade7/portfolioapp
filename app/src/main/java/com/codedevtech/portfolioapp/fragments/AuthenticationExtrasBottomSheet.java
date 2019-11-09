@@ -30,6 +30,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -93,13 +94,13 @@ public class AuthenticationExtrasBottomSheet extends BottomSheetDialogFragment i
             }
         });
 
-        authenticationFragmentViewModel.getFacebookLoginParameter().observe(this.getViewLifecycleOwner(), new Observer<Event<String>>() {
+        authenticationFragmentViewModel.getFacebookLoginParameter().observe(this.getViewLifecycleOwner(), new Observer<Event<List<String>>>() {
             @Override
-            public void onChanged(Event<String> stringEvent) {
-                if(stringEvent.consume()==null)
+            public void onChanged(Event<List<String>> listStringEvent) {
+                if(listStringEvent.consume()==null)
                     return;
 
-                LoginManager.getInstance().logInWithReadPermissions(AuthenticationExtrasBottomSheet.this, Arrays.asList(stringEvent.peek()));
+                LoginManager.getInstance().logInWithReadPermissions(AuthenticationExtrasBottomSheet.this, listStringEvent.peek());
             }
         });
 
@@ -110,8 +111,8 @@ public class AuthenticationExtrasBottomSheet extends BottomSheetDialogFragment i
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         authenticationFragmentViewModel.executeOnActivityResultCalled(requestCode,resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
     }
 

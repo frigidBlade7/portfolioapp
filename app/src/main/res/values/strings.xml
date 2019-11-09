@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PortfolioApp</string>
+    <string name="app_name">Portfolio</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -34,7 +34,7 @@
     <string name="artisan">Artisan</string>
     <string name="photographer">Photographer</string>
     <string name="reset_password">Reset password</string>
-    <string name="an_email_containing_instrustions_to_help_you_reset_your_password_will_be_sent_to_the_email_address_associated_with_your_account">An email containing instrustions to help you reset your password will be sent to the email address associated with your account</string>
+    <string name="an_email_containing_instrustions">An email containing instrustions to help you reset your password will be sent to the email address associated with your account</string>
     <string name="feed">Feed</string>
     <string name="explore">Explore</string>
     <string name="messages">Messages</string>
@@ -42,12 +42,12 @@
     <string name="invalid_credentials">Invalid credentials</string>
     <string name="okay">Okay</string>
     <string name="special_thanks_to_olivier_umukura">Special thanks to Olivier Umukura</string>
-    <string name="failed_to_sign_in_with_your_google_account">Failed to sign in with your Google account</string>
+    <string name="failed_to_sign_in_google">Failed to sign in with your Google account</string>
 
 
 <!-- facebook keys-->
     <string name="facebook_app_id">984494681943294</string>
     <string name="fb_login_protocol_scheme">fb984494681943294</string>
-    <string name="failed_to_sign_in_with_your_facebook_account">Failed to sign in with your Facebook account</string>
+    <string name="failed_to_sign_in_facebook">Failed to sign in with your Facebook account</string>
 
 </resources>

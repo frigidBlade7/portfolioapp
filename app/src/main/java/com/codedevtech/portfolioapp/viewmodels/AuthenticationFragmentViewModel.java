@@ -2,7 +2,6 @@ package com.codedevtech.portfolioapp.viewmodels;
 
 import android.app.Application;
 import android.content.Intent;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 
@@ -22,9 +21,17 @@ import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -35,19 +42,23 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     private static final String TAG = "AuthenticationFragmentV";
     private AuthenticationService authenticationService;
     private CallbackManager callbackManager;
-
+    private FirebaseRemoteConfig firebaseRemoteConfig;
+    private Moshi moshi;
     private MutableLiveData<String> emailMutableLiveData = new MutableLiveData<>(), passwordMutableData = new MutableLiveData<>();
-    private MutableLiveData<Event<String>> facebookLoginParameter = new MutableLiveData<>();
+    private MutableLiveData<Event<List<String>>> facebookLoginParameter = new MutableLiveData<>();
     private MutableLiveData<Event<Intent>> signInIntent = new MutableLiveData<>();
     private GoogleSignInClient googleSignInClient;
 
     @Inject
     public AuthenticationFragmentViewModel(@NonNull Application application, AuthenticationService authenticationService,
-                                           GoogleSignInClient googleSignInClient, CallbackManager callbackManager) {
+                                           GoogleSignInClient googleSignInClient, CallbackManager callbackManager,
+                                           FirebaseRemoteConfig firebaseRemoteConfig, Moshi moshi) {
         super(application);
         this.authenticationService = authenticationService;
         this.googleSignInClient = googleSignInClient;
         this.callbackManager = callbackManager;
+        this.firebaseRemoteConfig = firebaseRemoteConfig;
+        this.moshi = moshi;
 
         //initialise facebook login  callback manager
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -64,7 +75,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                     public void onCancel() {
                         // App code
                         Log.d(TAG, "onCancel: ");
-                        setSnackbarMessageUsingId(R.string.failed_to_sign_in_with_your_facebook_account);
+                        setSnackbarMessageUsingId(R.string.failed_to_sign_in_facebook);
                     }
 
                     @Override
@@ -94,23 +105,46 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
 
     public void attemptGoogleSignIn(View view){
-        setDestinationId(0);
-
         setSignInIntent(googleSignInClient.getSignInIntent());
     }
 
-    public void setFacebookLoginParameter(String facebookLoginParameter) {
-        this.facebookLoginParameter.setValue(new Event<String>(facebookLoginParameter));
+    public void setFacebookLoginParameter(List<String> facebookLoginParameter) {
+        this.facebookLoginParameter.setValue(new Event<List<String>>(facebookLoginParameter));
     }
 
-    public MutableLiveData<Event<String>> getFacebookLoginParameter() {
+    public MutableLiveData<Event<List<String>>> getFacebookLoginParameter() {
         return facebookLoginParameter;
     }
 
     public void attemptFacebookSignIn(View view){
-        setDestinationId(0);
 
-        setFacebookLoginParameter("email");
+        //use remote config to obtain facebook
+        firebaseRemoteConfig.fetchAndActivate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
+            @Override
+            public void onComplete(@NonNull Task<Boolean> task) {
+                if(task.isSuccessful()){
+
+                    //use moshi to convert json string returned from remote config to array
+                    Type type = Types.newParameterizedType(List.class, String.class);
+                    JsonAdapter<List<String>> adapter = moshi.adapter(type);
+                    try {
+
+                        //set as params list, try catch ensures the json string is appropriately formatted
+                        List<String> facebookParamsList = adapter.fromJson(firebaseRemoteConfig.getString("facebook_login_sdk_params"));
+
+                        Log.d(TAG, "onComplete: "+facebookParamsList);
+                        setFacebookLoginParameter(facebookParamsList);
+
+                    } catch (IOException e) {
+                        Log.d(TAG, "onComplete: "+e.getLocalizedMessage());
+                        setSnackbarMessageUsingId(R.string.failed_to_sign_in_facebook);
+                    }
+                }else{
+                    Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
+                    setSnackbarMessageUsingId(R.string.failed_to_sign_in_facebook);
+                }
+            }
+        });
     }
 
 
@@ -225,7 +259,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
                 Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-                setSnackbarMessageUsingId(R.string.failed_to_sign_in_with_your_google_account);
+                setSnackbarMessageUsingId(R.string.failed_to_sign_in_google);
             }
 
         }else {
