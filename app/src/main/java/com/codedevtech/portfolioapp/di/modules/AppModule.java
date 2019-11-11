@@ -12,6 +12,7 @@ import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.OAuthProvider;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.squareup.moshi.Moshi;
@@ -86,4 +87,15 @@ public final class AppModule {
         return new Moshi.Builder().build();
 
     }
+
+
+    @Singleton
+    @Provides
+    @NonNull
+    public final OAuthProvider providesOAuthProvider(){
+        OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
+
+        return provider.build();
+    }
+
 }

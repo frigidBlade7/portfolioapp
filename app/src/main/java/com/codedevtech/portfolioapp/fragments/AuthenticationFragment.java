@@ -21,6 +21,8 @@ import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.navigation.Event;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.OAuthProvider;
 
 import javax.inject.Inject;
 
@@ -104,6 +106,16 @@ public class AuthenticationFragment extends Fragment implements Injectable{
                 });
 
                 snackbar.show();
+            }
+        });
+
+        authenticationFragmentViewModel.getoAuthProvider().observe(this.getViewLifecycleOwner(), new Observer<Event<OAuthProvider>>() {
+            @Override
+            public void onChanged(Event<OAuthProvider> oAuthProviderEvent) {
+                if(oAuthProviderEvent.consume()==null)
+                    return;
+
+                authenticationFragmentViewModel.completeTwitterSignIn(FirebaseAuth.getInstance().startActivityForSignInWithProvider(AuthenticationFragment.this.getActivity(), oAuthProviderEvent.peek()));
             }
         });
 

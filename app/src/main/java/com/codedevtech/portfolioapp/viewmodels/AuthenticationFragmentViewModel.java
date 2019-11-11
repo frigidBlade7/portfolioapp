@@ -23,7 +23,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.OAuthProvider;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -47,18 +55,21 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     private MutableLiveData<String> emailMutableLiveData = new MutableLiveData<>(), passwordMutableData = new MutableLiveData<>();
     private MutableLiveData<Event<List<String>>> facebookLoginParameter = new MutableLiveData<>();
     private MutableLiveData<Event<Intent>> signInIntent = new MutableLiveData<>();
+    private MutableLiveData<Event<OAuthProvider>> oAuthProviderLiveData = new MutableLiveData<>();
+    private OAuthProvider oAuthProvider;
     private GoogleSignInClient googleSignInClient;
 
     @Inject
     public AuthenticationFragmentViewModel(@NonNull Application application, AuthenticationService authenticationService,
                                            GoogleSignInClient googleSignInClient, CallbackManager callbackManager,
-                                           FirebaseRemoteConfig firebaseRemoteConfig, Moshi moshi) {
+                                           FirebaseRemoteConfig firebaseRemoteConfig, Moshi moshi, OAuthProvider oAuthProvider) {
         super(application);
         this.authenticationService = authenticationService;
         this.googleSignInClient = googleSignInClient;
         this.callbackManager = callbackManager;
         this.firebaseRemoteConfig = firebaseRemoteConfig;
         this.moshi = moshi;
+        this.oAuthProvider = oAuthProvider;
 
         //initialise facebook login  callback manager
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -66,7 +77,9 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
-                        goToDashboardFromAuthExtras();
+                        //goToDashboardFromAuthExtras();
+                        validateAuthResultOnSuccessfulLogin(FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken()));
+
                         Log.d(TAG, "success: ");
 
                     }
@@ -88,6 +101,14 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                 });
 
 
+    }
+
+    public MutableLiveData<Event<OAuthProvider>> getoAuthProvider() {
+        return oAuthProviderLiveData;
+    }
+
+    public void setoAuthProvider(OAuthProvider oAuthProvider) {
+        this.oAuthProviderLiveData.setValue(new Event<OAuthProvider>(oAuthProvider));
     }
 
     public MutableLiveData<String> getEmailMutableLiveData() {
@@ -114,6 +135,27 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
     public MutableLiveData<Event<List<String>>> getFacebookLoginParameter() {
         return facebookLoginParameter;
+    }
+
+    public void attemptTwitterSignIn(View view){
+        Task<AuthResult> pendingTask = FirebaseAuth.getInstance().getPendingAuthResult();
+        if(pendingTask!=null){
+            //sign in flow is pending
+            pendingTask.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        //todo twitter login successful
+                    }else{
+                        //todo couldnt complete twitter login
+                    }
+                }
+            });
+        }else{
+            //start sign in flow
+            setoAuthProvider(oAuthProvider);
+
+        }
     }
 
     public void attemptFacebookSignIn(View view){
@@ -162,6 +204,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         setDestinationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheetAlternate);
     }
 
+/*
     //navigate to completeprofile fragment from federated identity auth
     public void goToCompleteProfileFederated(View view){
         setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_completeProfileFragment);
@@ -172,6 +215,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     public void goToCompleteProfile(View view){
         setDestinationId(R.id.action_authenticationFragment_to_completeProfileFragment);
     }
+*/
 
     //navigate to forgotpassword fragment
     public void goToForgotPassword(View view){
@@ -198,50 +242,61 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     }
 
     public void attemptLogin(View view){
-        //show loader
-        setDestinationId(R.id.loadingDialog);
+
 
         String passwordString = passwordMutableData.getValue(), emailString = emailMutableLiveData.getValue();
-        //create new LoginCredentials object, set parameters
-        LoginCredentials loginCredentials = new LoginCredentials();
-        loginCredentials.setEmail(emailString);
-        loginCredentials.setPassword(passwordString);
-        
-        if(!loginCredentials.isEmailValid())
+
+        if(emailString != null && passwordString != null && !emailString.isEmpty() && !passwordString.isEmpty()) {
+            //show loader
+            setDestinationId(R.id.loadingDialog);
+
+
+            //create new LoginCredentials object, set parameters
+            LoginCredentials loginCredentials = new LoginCredentials();
+            loginCredentials.setEmail(emailString);
+            loginCredentials.setPassword(passwordString);
+
+
+            if (!loginCredentials.isEmailValid()) {
+                setSnackbarMessageUsingId(R.string.invalid_credentials);
+                setDestinationId(0);
+            }
+            else {
+                authenticationService.attemptLogin(loginCredentials.getEmail(), loginCredentials.getPassword(),
+                        new AttemptLoginCallback() {
+                            @Override
+                            public void onAttemptLoginFailed(String errorMessage) {
+                                //hide loader
+                                setDestinationId(0);
+
+                                Log.d(TAG, "onAttemptLoginFailed: " + errorMessage);
+
+                                //a little hack to prevent malicious users from experimenting with emails
+                                if (errorMessage.contains("user"))
+                                    setSnackbarMessageUsingId(R.string.invalid_credentials);
+                                else
+                                    setSnackbarMessage(errorMessage);
+
+                            }
+
+                            @Override
+                            public void onAttemptLoginSuccess() {
+                                //hide loader
+                                setDestinationId(0);
+
+                                goToDashboard();
+                            }
+
+                            @Override
+                            public void onErrorOccurred(String errorMessage) {
+                                Log.d(TAG, "onErrorOccurred: " + errorMessage);
+                            }
+                        });
+            }
+
+        }else{
             setSnackbarMessageUsingId(R.string.invalid_credentials);
-        else{
-            authenticationService.attemptLogin(loginCredentials.getEmail(), loginCredentials.getPassword(),
-                    new AttemptLoginCallback() {
-                        @Override
-                        public void onAttemptLoginFailed(String errorMessage) {
-                            //hide loader
-                            setDestinationId(0);
-
-                            Log.d(TAG, "onAttemptLoginFailed: "+errorMessage);
-
-                            //a little hack to prevent malicious users from experimenting with emails
-                            if(errorMessage.contains("user"))
-                                setSnackbarMessageUsingId(R.string.invalid_credentials);
-                            else
-                                setSnackbarMessage(errorMessage);
-
-                        }
-
-                        @Override
-                        public void onAttemptLoginSuccess() {
-                            //hide loader
-                            setDestinationId(0);
-
-                            goToDashboard();
-                        }
-
-                        @Override
-                        public void onErrorOccurred(String errorMessage) {
-                            Log.d(TAG, "onErrorOccurred: "+ errorMessage);
-                        }
-                    });
         }
-
 
     }
 
@@ -252,9 +307,12 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+
+                validateAuthResultOnSuccessfulLogin(credential);
 
                 // Signed in successfully, show authenticated UI.
-                goToDashboardFromAuthExtras();
+                //goToDashboardFromAuthExtras();
             } catch (ApiException e) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -270,4 +328,47 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
     }
 
+    public void completeTwitterSignIn(Task<AuthResult> startActivityForSignInWithProvider) {
+        startActivityForSignInWithProvider.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onComplete: "+e.getLocalizedMessage());
+                setSnackbarMessageUsingId(R.string.failed_to_sign_in_google);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                validateAuthResultOnSuccessfulLogin(authResult.getCredential());
+            }
+        });
+    }
+
+
+    public void validateAuthResultOnSuccessfulLogin(AuthCredential authCredential){
+        authenticationService.attemptLoginWithCredential(authCredential,
+                new AttemptLoginCallback() {
+                    @Override
+                    public void onAttemptLoginFailed(String errorMessage) {
+                        //hide loader
+                        setDestinationId(0);
+
+                        Log.d(TAG, "onAttemptLoginFailed: " + errorMessage);
+                        setSnackbarMessageUsingId(R.string.invalid_credentials);
+
+                    }
+
+                    @Override
+                    public void onAttemptLoginSuccess() {
+                        //hide loader
+                        setDestinationId(0);
+
+                        //goToDashboard();
+                    }
+
+                    @Override
+                    public void onErrorOccurred(String errorMessage) {
+                        Log.d(TAG, "onErrorOccurred: " + errorMessage);
+                    }
+                });
+    }
 }
