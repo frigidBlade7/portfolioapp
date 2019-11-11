@@ -109,15 +109,7 @@ public class AuthenticationFragment extends Fragment implements Injectable{
             }
         });
 
-        authenticationFragmentViewModel.getoAuthProvider().observe(this.getViewLifecycleOwner(), new Observer<Event<OAuthProvider>>() {
-            @Override
-            public void onChanged(Event<OAuthProvider> oAuthProviderEvent) {
-                if(oAuthProviderEvent.consume()==null)
-                    return;
 
-                authenticationFragmentViewModel.completeTwitterSignIn(FirebaseAuth.getInstance().startActivityForSignInWithProvider(AuthenticationFragment.this.getActivity(), oAuthProviderEvent.peek()));
-            }
-        });
 
 
 

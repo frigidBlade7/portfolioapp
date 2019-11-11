@@ -360,8 +360,8 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                     @Override
                     public void onAttemptLoginSuccess() {
                         //hide loader
-                        setDestinationId(0);
-
+                        //setDestinationId(0);
+                        goToDashboardFromAuthExtras();
                         //goToDashboard();
                     }
 

@@ -28,6 +28,8 @@ import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.OAuthProvider;
 
 import java.util.Arrays;
 import java.util.List;
@@ -104,6 +106,15 @@ public class AuthenticationExtrasBottomSheet extends BottomSheetDialogFragment i
             }
         });
 
+        authenticationFragmentViewModel.getoAuthProvider().observe(this.getViewLifecycleOwner(), new Observer<Event<OAuthProvider>>() {
+            @Override
+            public void onChanged(Event<OAuthProvider> oAuthProviderEvent) {
+                if(oAuthProviderEvent.consume()==null)
+                    return;
+
+                authenticationFragmentViewModel.completeTwitterSignIn(FirebaseAuth.getInstance().startActivityForSignInWithProvider(AuthenticationExtrasBottomSheet.this.getActivity(), oAuthProviderEvent.peek()));
+            }
+        });
 
         return authenticationExtrasBottomSheetBinding.getRoot();
 

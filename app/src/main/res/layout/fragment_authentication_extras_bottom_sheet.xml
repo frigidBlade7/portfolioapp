@@ -59,6 +59,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/my_app_field_backdrop"
             android:padding="@dimen/buttonBigPadding"
+            android:onClick="@{(v)->viewmodel.attemptTwitterSignIn(v)}"
             android:text="@string/continue_with_twitter"
             android:textAllCaps="false"
             app:icon="@drawable/twitter_logo"
