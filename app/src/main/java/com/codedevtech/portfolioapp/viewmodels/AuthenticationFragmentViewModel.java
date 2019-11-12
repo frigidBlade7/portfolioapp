@@ -52,7 +52,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     private CallbackManager callbackManager;
     private FirebaseRemoteConfig firebaseRemoteConfig;
     private Moshi moshi;
-    private MutableLiveData<String> emailMutableLiveData = new MutableLiveData<>(), passwordMutableData = new MutableLiveData<>();
+    private MutableLiveData<String> emailMutableLiveData = new MutableLiveData<>(), passwordMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Event<List<String>>> facebookLoginParameter = new MutableLiveData<>();
     private MutableLiveData<Event<Intent>> signInIntent = new MutableLiveData<>();
     private MutableLiveData<Event<OAuthProvider>> oAuthProviderLiveData = new MutableLiveData<>();
@@ -117,11 +117,11 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         return emailMutableLiveData;
     }
 
-    public MutableLiveData<String> getPasswordMutableData() {
-        if(passwordMutableData == null)
+    public MutableLiveData<String> getPasswordMutableLiveData() {
+        if(passwordMutableLiveData == null)
             return new MutableLiveData<>();
 
-        return passwordMutableData;
+        return passwordMutableLiveData;
     }
 
 
@@ -136,6 +136,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     public MutableLiveData<Event<List<String>>> getFacebookLoginParameter() {
         return facebookLoginParameter;
     }
+
 
     public void attemptTwitterSignIn(View view){
         Task<AuthResult> pendingTask = FirebaseAuth.getInstance().getPendingAuthResult();
@@ -244,7 +245,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     public void attemptLogin(View view){
 
 
-        String passwordString = passwordMutableData.getValue(), emailString = emailMutableLiveData.getValue();
+        String passwordString = passwordMutableLiveData.getValue(), emailString = emailMutableLiveData.getValue();
 
         if(emailString != null && passwordString != null && !emailString.isEmpty() && !passwordString.isEmpty()) {
             //show loader

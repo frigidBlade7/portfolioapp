@@ -111,8 +111,6 @@ public class AuthenticationFragment extends Fragment implements Injectable{
 
 
 
-
-
         return fragmentAuthenticationBinding.getRoot();
 
     }
