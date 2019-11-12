@@ -43,6 +43,7 @@
     <string name="okay">Okay</string>
     <string name="special_thanks_to_olivier_umukura">Special thanks to Olivier Umukura</string>
     <string name="failed_to_sign_in_google">Failed to sign in with your Google account</string>
+    <string name="failed_to_sign_in_twitter">Failed to sign in with your Twitter account</string>
 
 
 <!-- facebook keys-->

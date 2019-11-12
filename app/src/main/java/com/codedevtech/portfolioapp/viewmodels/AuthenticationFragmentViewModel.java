@@ -333,7 +333,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "onComplete: "+e.getLocalizedMessage());
-                setSnackbarMessageUsingId(R.string.failed_to_sign_in_google);
+                setSnackbarMessageUsingId(R.string.failed_to_sign_in_twitter);
             }
         }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
