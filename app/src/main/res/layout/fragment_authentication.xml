@@ -135,6 +135,8 @@
                 app:boxStrokeWidthFocused="1dp"
                 app:hintEnabled="false"
                 app:errorEnabled="true"
+                app:passwordToggleEnabled="@{viewmodel.passwordMutableData.length > 0 ? true : false}"
+                app:passwordToggleDrawable="@drawable/visibility_selector"
                 app:layout_constraintBottom_toTopOf="@+id/loginButton"
                 app:layout_constraintEnd_toEndOf="@+id/email_layout"
                 app:layout_constraintHorizontal_bias="0.5"
