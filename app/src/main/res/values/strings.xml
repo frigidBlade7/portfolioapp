@@ -51,4 +51,9 @@
     <string name="fb_login_protocol_scheme">fb984494681943294</string>
     <string name="failed_to_sign_in_facebook">Failed to sign in with your Facebook account</string>
 
+    <!-- twitter keys-->
+
+    <string name="twitter_consumer_key" translatable="false">G91bGkC6YAvWcS9L12aMKdx9K</string>
+    <string name="twitter_consumer_secret" translatable="false">s6VeWvgx61tJsXJqRZyZN0Uhd5PxTt5osox1pABoXfMY8Nj9V9</string>
+
 </resources>
