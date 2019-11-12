@@ -53,7 +53,5 @@
 
     <!-- twitter keys-->
 
-    <string name="twitter_consumer_key" translatable="false">G91bGkC6YAvWcS9L12aMKdx9K</string>
-    <string name="twitter_consumer_secret" translatable="false">s6VeWvgx61tJsXJqRZyZN0Uhd5PxTt5osox1pABoXfMY8Nj9V9</string>
 
 </resources>
