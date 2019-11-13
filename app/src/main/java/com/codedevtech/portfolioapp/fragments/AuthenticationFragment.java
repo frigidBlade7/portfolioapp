@@ -21,6 +21,7 @@ import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.navigation.Event;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.OAuthProvider;
 
@@ -55,6 +56,8 @@ public class AuthenticationFragment extends Fragment implements Injectable{
                 .of(this, viewModelFactory).get(AuthenticationFragmentViewModel.class);
 
         fragmentAuthenticationBinding.setViewmodel(authenticationFragmentViewModel);
+
+        fragmentAuthenticationBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
         authenticationFragmentViewModel.getDestinationId().observe(this.getViewLifecycleOwner(), new Observer<Event<Integer>>() {
             @Override
@@ -110,6 +113,24 @@ public class AuthenticationFragment extends Fragment implements Injectable{
         });
 
 
+
+/*
+        //couldnt get my binding adapter to work so here we are
+        authenticationFragmentViewModel.getPasswordMutableLiveData().observe(this.getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+
+                if(s.length()>0) {
+                    fragmentAuthenticationBinding.passwordLayout.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
+                    fragmentAuthenticationBinding.passwordLayout.setEndIconDrawable(R.drawable.visibility_selector);
+                }
+                else
+                    fragmentAuthenticationBinding.passwordLayout.setEndIconMode(TextInputLayout.END_ICON_NONE);
+
+
+            }
+        });
+*/
 
         return fragmentAuthenticationBinding.getRoot();
 

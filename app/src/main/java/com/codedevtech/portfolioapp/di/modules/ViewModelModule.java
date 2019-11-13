@@ -8,6 +8,7 @@ import com.codedevtech.portfolioapp.di.models.FactoryViewModel;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragment;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
+import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -20,6 +21,12 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AuthenticationFragmentViewModel.class)
     abstract ViewModel bindAuthenticationFragmentViewModel(AuthenticationFragmentViewModel authenticationFragmentViewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RegistrationFragmentViewModel.class)
+    abstract ViewModel bindRegistrationFragmentViewModel(RegistrationFragmentViewModel registrationFragmentViewModel);
 
 
     @Binds

@@ -128,8 +128,8 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="1dp"
                 app:hintEnabled="false"
-                app:passwordToggleEnabled="true"
                 app:passwordToggleDrawable="@drawable/visibility_selector"
+                app:passwordToggleEnabled="@{viewmodel.passwordMutableLiveData.length() > 0 ? true : false}"
                 app:layout_constraintBottom_toTopOf="@+id/password_confirmation_layout"
                 app:layout_constraintEnd_toEndOf="@+id/email_layout"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -140,6 +140,7 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={viewmodel.passwordMutableLiveData}"
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLines="1" />
@@ -155,7 +156,7 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="1dp"
                 app:hintEnabled="false"
-                app:passwordToggleEnabled="true"
+                app:passwordToggleEnabled="@{viewmodel.passwordConfirmationMutableLiveData.length() > 0 ? true : false}"
                 app:passwordToggleDrawable="@drawable/visibility_selector"
                 app:layout_constraintBottom_toTopOf="@+id/registerButton"
                 app:layout_constraintEnd_toEndOf="@+id/email_layout"
@@ -168,6 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/confirm_password"
+                    android:text="@={viewmodel.passwordConfirmationMutableLiveData}"
                     android:inputType="textPassword"
                     android:maxLines="1" />
 

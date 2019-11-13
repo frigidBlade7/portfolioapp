@@ -10,25 +10,33 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentRegistrationBinding;
+import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.navigation.Event;
 import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
+
+import javax.inject.Inject;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegistrationFragment extends Fragment {
+public class RegistrationFragment extends Fragment implements Injectable {
 
     private static final String TAG = "AuthenticationFragment";
 
     public RegistrationFragment() {
         // Required empty public constructor
     }
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
 
     @Override
@@ -40,11 +48,13 @@ public class RegistrationFragment extends Fragment {
                 R.layout.fragment_registration, container, false);
 
         RegistrationFragmentViewModel registrationFragmentViewModel = ViewModelProviders
-                .of(this).get(RegistrationFragmentViewModel.class);
+                .of(this, viewModelFactory).get(RegistrationFragmentViewModel.class);
 
         fragmentRegistrationBinding.setViewmodel(registrationFragmentViewModel);
 
-        registrationFragmentViewModel.getDestinationId().observe(this, new Observer<Event<Integer>>() {
+        fragmentRegistrationBinding.setLifecycleOwner(this.getViewLifecycleOwner());
+
+        registrationFragmentViewModel.getDestinationId().observe(this.getViewLifecycleOwner(), new Observer<Event<Integer>>() {
             @Override
             public void onChanged(Event<Integer> integerEvent) {
 
