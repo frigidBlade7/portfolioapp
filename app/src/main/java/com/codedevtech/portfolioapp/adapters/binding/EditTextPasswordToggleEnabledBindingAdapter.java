@@ -14,28 +14,21 @@ public class EditTextPasswordToggleEnabledBindingAdapter {
 
     @BindingAdapter("app:passwordToggleEnabled")
     public static void setPasswordToggleEnabled(TextInputLayout view, Boolean visibilityToggle) {
-        //Check if password has text in it
 
-/*        Log.d(TAG, "setPasswordToggleEnabled: "+ password.getValue());
-        if(password.getValue()== null)
-            return;
+        Log.d(TAG, "setPasswordToggleEnabled: "+ visibilityToggle);
 
-        if(password.getValue().length()>0) {
+
+
+        //todo should use the setendiconmode instead of the deprecated toggle methods but aren't working as expected
+
+/*        if(visibilityToggle) {
             view.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
             view.setEndIconDrawable(R.drawable.visibility_selector);
         }
         else
             view.setEndIconMode(TextInputLayout.END_ICON_NONE);*/
 
-        Log.d(TAG, "setPasswordToggleEnabled: "+ visibilityToggle);
-
-
-        if(visibilityToggle) {
-            view.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
-            view.setEndIconDrawable(R.drawable.visibility_selector);
-        }
-        else
-            view.setEndIconMode(TextInputLayout.END_ICON_NONE);
-
+        view.setPasswordVisibilityToggleEnabled(visibilityToggle);
+        view.setPasswordVisibilityToggleDrawable(R.drawable.visibility_selector);
     }
 }

@@ -31,7 +31,8 @@ public class LoginCredentials {
     }
 
 
+    //email must not be null and email must be valid
     public boolean isEmailValid(){
-        return LoginUtilities.isEmailValid(email);
+        return (email!=null && LoginUtilities.isEmailValid(email));
     }
 }
