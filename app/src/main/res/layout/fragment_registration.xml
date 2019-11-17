@@ -82,7 +82,7 @@
                 android:layout_marginBottom="@dimen/buttonBottomMargin"
                 android:padding="@dimen/buttonBigPadding"
                 android:text="@string/continue_text"
-                android:onClick="@{(v)->viewmodel.goToCompleteProfile(v)}"
+                android:onClick="@{(v)->viewmodel.attemptRegistration(v)}"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline8"
@@ -113,6 +113,7 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={viewmodel.emailLiveData}"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />

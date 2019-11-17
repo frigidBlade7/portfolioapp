@@ -4,10 +4,12 @@ import android.util.Patterns;
 
 import com.codedevtech.Utilities.LoginUtilities;
 
+import java.util.regex.Pattern;
+
 public class RegistrationCredentials {
 
     //todo confirm this works
-    final String PASSWORD_REGEX = "(?=^.{10,}$)(?=.*\\d)(?=.*[a-zA-Z])(?!.*\\s)[0-9a-zA-Z*$-+?_&=!%{}/'.]*$";
+    final String PASSWORD_REGEX = "(?=^.{8,}$)(?=.*\\d)(?=.*[a-zA-Z])(?!.*\\s)[0-9a-zA-Z*$-+?_&=!%{}/'.]*$";
 
     private String email;
     private String password;
@@ -61,7 +63,7 @@ public class RegistrationCredentials {
 
     public boolean isPasswordValid(){
         return (password!=null
-                && !password.isEmpty()
+                && !password.isEmpty() && Pattern.compile(PASSWORD_REGEX).matcher(password).matches()
         );
     }
 }

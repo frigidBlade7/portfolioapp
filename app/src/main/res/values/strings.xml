@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Portfolio</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- facebook keys-->
+    <string name="facebook_app_id">984494681943294</string>
+    <string name="fb_login_protocol_scheme">fb984494681943294</string>
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
@@ -45,13 +49,10 @@
     <string name="failed_to_sign_in_google">Failed to sign in with your Google account</string>
     <string name="failed_to_sign_in_twitter">Failed to sign in with your Twitter account</string>
 
-
-<!-- facebook keys-->
-    <string name="facebook_app_id">984494681943294</string>
-    <string name="fb_login_protocol_scheme">fb984494681943294</string>
     <string name="failed_to_sign_in_facebook">Failed to sign in with your Facebook account</string>
-
-    <!-- twitter keys-->
+    <string name="email_invalid">Invalid email</string>
+    <string name="error_invalid_password_format">Password must be alphanumeric and not less than 8 characters long</string>
+    <string name="error_password_match">Passwords do not match</string>
 
 
 </resources>

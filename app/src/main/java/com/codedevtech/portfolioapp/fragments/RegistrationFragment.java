@@ -20,6 +20,7 @@ import com.codedevtech.portfolioapp.databinding.FragmentRegistrationBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.navigation.Event;
 import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
 
@@ -44,10 +45,10 @@ public class RegistrationFragment extends Fragment implements Injectable {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        FragmentRegistrationBinding fragmentRegistrationBinding = DataBindingUtil.inflate(inflater,
+        final FragmentRegistrationBinding fragmentRegistrationBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_registration, container, false);
 
-        RegistrationFragmentViewModel registrationFragmentViewModel = ViewModelProviders
+        final RegistrationFragmentViewModel registrationFragmentViewModel = ViewModelProviders
                 .of(this, viewModelFactory).get(RegistrationFragmentViewModel.class);
 
         fragmentRegistrationBinding.setViewmodel(registrationFragmentViewModel);
@@ -68,6 +69,45 @@ public class RegistrationFragment extends Fragment implements Injectable {
                     NavHostFragment.findNavController(RegistrationFragment.this).navigate(integerEvent.peek());
             }
         });
+
+        registrationFragmentViewModel.getSnackbarMessageId().observe(this.getViewLifecycleOwner(), new Observer<Event<Integer>>() {
+            @Override
+            public void onChanged(Event<Integer> integerEvent) {
+                if(integerEvent.consume()==null)
+                    return;
+
+                final Snackbar snackbar = Snackbar.make(fragmentRegistrationBinding.getRoot(), getString(integerEvent.peek()), Snackbar.LENGTH_LONG);
+
+                snackbar.setAction(R.string.okay, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+
+                snackbar.show();
+            }
+        });
+
+        registrationFragmentViewModel.getSnackbarMessage().observe(this.getViewLifecycleOwner(), new Observer<Event<String>>() {
+            @Override
+            public void onChanged(Event<String> stringEvent) {
+                if(stringEvent.consume()==null)
+                    return;
+
+                final Snackbar snackbar = Snackbar.make(fragmentRegistrationBinding.getRoot(), stringEvent.peek(), Snackbar.LENGTH_LONG);
+
+                snackbar.setAction(R.string.okay, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+
+                snackbar.show();
+            }
+        });
+
 
         return fragmentRegistrationBinding.getRoot();
 

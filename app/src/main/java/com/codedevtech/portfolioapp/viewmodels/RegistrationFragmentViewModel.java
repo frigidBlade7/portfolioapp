@@ -6,7 +6,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.codedevtech.authenticationserviceprovider.callbacks.AttemptRegistrationCallback;
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
+import com.codedevtech.models.RegistrationCredentials;
 import com.codedevtech.portfolioapp.R;
 
 import javax.inject.Inject;
@@ -26,7 +28,7 @@ public class RegistrationFragmentViewModel extends BaseViewModel {
     }
 
 
-    public void goToCompleteProfile(View view){
+    public void goToCompleteProfile() {
         setDestinationId(R.id.action_registrationFragment_to_completeProfileFragment);
     }
 
@@ -52,5 +54,52 @@ public class RegistrationFragmentViewModel extends BaseViewModel {
 
     public void setEmailLiveData(String email) {
         this.emailLiveData.setValue(email);
+    }
+
+    public void attemptRegistration(View view) {
+
+
+        RegistrationCredentials registrationCredentials = new RegistrationCredentials();
+        registrationCredentials.setEmail(emailLiveData.getValue());
+        registrationCredentials.setPassword(passwordMutableLiveData.getValue());
+        registrationCredentials.setPasswordConfirmation(passwordConfirmationMutableLiveData.getValue());
+
+        if(!registrationCredentials.isEmailValid()){
+            setSnackbarMessageUsingId(R.string.email_invalid);
+        }
+        else if(!registrationCredentials.isPasswordValid()){
+            setSnackbarMessageUsingId(R.string.error_invalid_password_format);
+        }
+        else if(!registrationCredentials.isPasswordsMatch()){
+            setSnackbarMessageUsingId(R.string.error_password_match);
+
+        }else{
+
+            setDestinationId(R.id.loadingDialog);
+
+            authenticationService.attemptRegistrationWithCredential(registrationCredentials.getEmail(), registrationCredentials.getPassword(), new AttemptRegistrationCallback() {
+                @Override
+                public void onAttemptRegistrationFailed(String errorMessage) {
+
+                    setDestinationId(0);
+                    setSnackbarMessage(errorMessage);
+                }
+
+                @Override
+                public void onAttemptRegistrationSuccess() {
+                    setDestinationId(0);
+                    goToCompleteProfile();
+
+                }
+
+                @Override
+                public void onErrorOccurred(String errorMessage) {
+                    //prolly gonna do same as the failed block
+                }
+            });
+        }
+
+
+
     }
 }

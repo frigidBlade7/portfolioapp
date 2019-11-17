@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.codedevtech.authenticationserviceprovider.callbacks.AttemptLoginCallback;
+import com.codedevtech.authenticationserviceprovider.callbacks.AttemptRegistrationCallback;
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,6 +54,23 @@ public class FirebaseAuthenticationService implements AuthenticationService {
                     Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
 
                     attemptLoginCallback.onAttemptLoginFailed(task.getException().getLocalizedMessage());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void attemptRegistrationWithCredential(String username, String password, final AttemptRegistrationCallback attemptRegistrationCallback) {
+        firebaseAuthInstance.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    attemptRegistrationCallback.onAttemptRegistrationSuccess();
+                }else{
+
+                    Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
+
+                    attemptRegistrationCallback.onAttemptRegistrationFailed(task.getException().getLocalizedMessage());
                 }
             }
         });
