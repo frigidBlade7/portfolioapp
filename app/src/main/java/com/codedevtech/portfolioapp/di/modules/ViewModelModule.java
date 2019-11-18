@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.codedevtech.portfolioapp.di.annotations.ViewModelKey;
 import com.codedevtech.portfolioapp.di.models.FactoryViewModel;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragment;
+import com.codedevtech.portfolioapp.fragments.CompleteProfileFragment;
+import com.codedevtech.portfolioapp.models.CompleteProfileViewModel;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
@@ -27,6 +29,12 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RegistrationFragmentViewModel.class)
     abstract ViewModel bindRegistrationFragmentViewModel(RegistrationFragmentViewModel registrationFragmentViewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CompleteProfileViewModel.class)
+    abstract ViewModel bindCompleteFragmentViewModel(CompleteProfileViewModel completeProfileViewModel);
 
 
     @Binds

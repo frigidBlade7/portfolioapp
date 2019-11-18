@@ -28,7 +28,7 @@
     <string name="name">Name</string>
     <string name="location">Location</string>
     <string name="role_selection">Select up to three (3) roles that best describe you</string>
-    <string name="bio">Bio</string>
+    <string name="bioLiveData">Bio</string>
     <string name="help_the_community_get_to_know_you_better">Help the community get to know you better</string>
     <string name="recruiter">Recruiter</string>
     <string name="designer">Designer</string>
