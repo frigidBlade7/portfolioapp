@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import com.codedevtech.authenticationserviceprovider.interface_implementations.FirebaseAuthenticationService;
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.interfaces.RegistrationService;
+import com.codedevtech.portfolioapp.service_implementations.FirebaseRegistrationService;
 import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -96,6 +98,13 @@ public final class AppModule {
         OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
 
         return provider.build();
+    }
+
+    @Singleton
+    @Provides
+    @NonNull
+    public final RegistrationService providesRegistrationService(){
+        return new FirebaseRegistrationService();
     }
 
 }

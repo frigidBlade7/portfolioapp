@@ -6,7 +6,7 @@ public interface AttemptLoginCallback {
     void onAttemptLoginFailed(String errorMessage);
 
     //to be called when we successfully login
-    void onAttemptLoginSuccess();
+    void onAttemptLoginSuccess(String userId);
 
     //sigh do i need this? maybe
     void onErrorOccurred(String errorMessage);

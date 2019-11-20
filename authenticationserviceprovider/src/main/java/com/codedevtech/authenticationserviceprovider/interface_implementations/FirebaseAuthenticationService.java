@@ -29,7 +29,7 @@ public class FirebaseAuthenticationService implements AuthenticationService {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    attemptLoginCallback.onAttemptLoginSuccess();
+                    attemptLoginCallback.onAttemptLoginSuccess(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 }else{
 /*                    if(task.isCanceled())
                         attemptLoginCallback.onErrorOccurred(task.getException().getLocalizedMessage());*/
@@ -47,7 +47,7 @@ public class FirebaseAuthenticationService implements AuthenticationService {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    attemptLoginCallback.onAttemptLoginSuccess();
+                    attemptLoginCallback.onAttemptLoginSuccess(FirebaseAuth.getInstance().getUid());
                 }else{
 /*                    if(task.isCanceled())
                         attemptLoginCallback.onErrorOccurred(task.getException().getLocalizedMessage());*/

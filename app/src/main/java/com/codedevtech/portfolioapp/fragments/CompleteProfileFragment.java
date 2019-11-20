@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentCompleteProfileBinding;
+import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.models.CompleteProfileViewModel;
 import com.codedevtech.portfolioapp.navigation.Event;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,7 +28,7 @@ import javax.inject.Inject;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CompleteProfileFragment extends Fragment {
+public class CompleteProfileFragment extends Fragment implements Injectable {
 
     private static final String TAG = "CompleteProfileFragment";
 
@@ -52,6 +53,7 @@ public class CompleteProfileFragment extends Fragment {
 
         CompleteProfileViewModel completeProfileViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(CompleteProfileViewModel.class);
+        
 
         fragmentCompleteProfileBinding.setViewmodel(completeProfileViewModel);
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.codedevtech.portfolioapp.models.NavigationCommand;
 import com.codedevtech.portfolioapp.navigation.Event;
 
 
@@ -14,6 +15,7 @@ public class BaseViewModel extends AndroidViewModel {
     private MutableLiveData<Event<String>> snackbarMessage = new MutableLiveData<>();
     private MutableLiveData<Event<Integer>> snackbarMessageId = new MutableLiveData<>();
     private MutableLiveData<Event<Integer>> destinationId = new MutableLiveData<>();
+    private MutableLiveData<NavigationCommand> navigationCommandMutableLiveData = new MutableLiveData<>();
 
 
     public BaseViewModel(@NonNull Application application) {
@@ -49,6 +51,11 @@ public class BaseViewModel extends AndroidViewModel {
         this.snackbarMessageId.setValue(new Event<>(snackbarMessageId));
     }
 
+    public MutableLiveData<NavigationCommand> getNavigationCommandMutableLiveData() {
+        return navigationCommandMutableLiveData;
+    }
 
-
+    public void setNavigationCommandMutableLiveData(NavigationCommand navigationCommand) {
+        this.navigationCommandMutableLiveData.setValue(navigationCommand);
+    }
 }

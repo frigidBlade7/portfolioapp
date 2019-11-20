@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 29
@@ -91,6 +92,8 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.23.2'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.23.2'
     implementation project(path: ':authenticationserviceprovider')
+
+    implementation 'com.google.firebase:firebase-firestore:21.3.0'
 
 
 }

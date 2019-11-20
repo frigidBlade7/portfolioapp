@@ -12,6 +12,12 @@ import com.codedevtech.authenticationserviceprovider.callbacks.AttemptLoginCallb
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
 import com.codedevtech.models.LoginCredentials;
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.callbacks.UserExistsCallback;
+import com.codedevtech.portfolioapp.di.models.FolioUser;
+import com.codedevtech.portfolioapp.fragments.AuthenticationFragmentDirections;
+import com.codedevtech.portfolioapp.interfaces.RegistrationService;
+import com.codedevtech.portfolioapp.models.NavigationCommand;
+import com.codedevtech.portfolioapp.models.User;
 import com.codedevtech.portfolioapp.navigation.Event;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -58,11 +64,13 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     private MutableLiveData<Event<OAuthProvider>> oAuthProviderLiveData = new MutableLiveData<>();
     private OAuthProvider oAuthProvider;
     private GoogleSignInClient googleSignInClient;
+    private RegistrationService registrationService;
 
     @Inject
     public AuthenticationFragmentViewModel(@NonNull Application application, AuthenticationService authenticationService,
                                            GoogleSignInClient googleSignInClient, CallbackManager callbackManager,
-                                           FirebaseRemoteConfig firebaseRemoteConfig, Moshi moshi, OAuthProvider oAuthProvider) {
+                                           FirebaseRemoteConfig firebaseRemoteConfig, Moshi moshi, OAuthProvider oAuthProvider,
+                                           RegistrationService registrationService) {
         super(application);
         this.authenticationService = authenticationService;
         this.googleSignInClient = googleSignInClient;
@@ -70,6 +78,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         this.firebaseRemoteConfig = firebaseRemoteConfig;
         this.moshi = moshi;
         this.oAuthProvider = oAuthProvider;
+        this.registrationService = registrationService;
 
         //initialise facebook login  callback manager
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -210,13 +219,16 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     public void goToCompleteProfileFederated(View view){
         setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_completeProfileFragment);
     }
-
+*/
     //navigate to complete profile fragment
 
-    public void goToCompleteProfile(View view){
+    public void goToCompleteProfile(String userId){
+
+        //todo AuthenticationFragmentDirections authenticationFragmentDirections
+        //AuthenticationFragmentDirections authenticationFragmentDirections;
         setDestinationId(R.id.action_authenticationFragment_to_completeProfileFragment);
     }
-*/
+
 
     //navigate to forgotpassword fragment
     public void goToForgotPassword(View view){
@@ -224,14 +236,46 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     }
 
     //navigate to dashboard fragment
-    public void goToDashboard(){
-        setDestinationId(R.id.action_authenticationFragment_to_dashboardFragment);
+    public void goToDashboard(String userId){
+
+        registrationService.userExists(userId, new UserExistsCallback() {
+            @Override
+            public void userExists(FolioUser folioUser) {
+                setDestinationId(R.id.action_authenticationFragment_to_dashboardFragment);
+            }
+
+            @Override
+            public void userDoesNotExist(String userId) {
+                goToCompleteProfile(userId);
+            }
+
+            @Override
+            public void error(String message) {
+                setSnackbarMessage(message);
+            }
+        });
     }
 
 
     //navigate to dashboard fragment
-    public void goToDashboardFromAuthExtras(){
-        setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_dashboardNavigation);
+    public void goToDashboardFromAuthExtras(String userId){
+        registrationService.userExists(userId, new UserExistsCallback() {
+            @Override
+            public void userExists(FolioUser folioUser) {
+                setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_dashboardNavigation);
+            }
+
+            @Override
+            public void userDoesNotExist(String userId) {
+
+            }
+
+            @Override
+            public void error(String message) {
+                setSnackbarMessage(message);
+            }
+        });
+
     }
 
     public MutableLiveData<Event<Intent>> getSignInIntent() {
@@ -281,11 +325,11 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                             }
 
                             @Override
-                            public void onAttemptLoginSuccess() {
+                            public void onAttemptLoginSuccess(String userId) {
                                 //hide loader
                                 setDestinationId(0);
 
-                                goToDashboard();
+                                goToDashboard(userId);
                             }
 
                             @Override
@@ -359,10 +403,10 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                     }
 
                     @Override
-                    public void onAttemptLoginSuccess() {
+                    public void onAttemptLoginSuccess(String userId) {
                         //hide loader
                         //setDestinationId(0);
-                        goToDashboardFromAuthExtras();
+                        goToDashboardFromAuthExtras(userId);
                         //goToDashboard();
                     }
 

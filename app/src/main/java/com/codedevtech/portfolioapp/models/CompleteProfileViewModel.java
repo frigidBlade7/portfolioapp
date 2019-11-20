@@ -5,7 +5,10 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.codedevtech.portfolioapp.interfaces.RegistrationService;
 import com.codedevtech.portfolioapp.viewmodels.BaseViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,11 +19,14 @@ public class CompleteProfileViewModel extends BaseViewModel {
     private MutableLiveData<String> firstNameLiveData = new MutableLiveData<>();
     private MutableLiveData<String> lastNameLiveData = new MutableLiveData<>();
     private MutableLiveData<String> bioLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<String>> roleFlags = new MutableLiveData<>();
+    private RegistrationService registrationService;
 
 
     @Inject
-    public CompleteProfileViewModel(@NonNull Application application) {
+    public CompleteProfileViewModel(@NonNull Application application, RegistrationService registrationService) {
         super(application);
+        this.registrationService = registrationService;
     }
 
     public MutableLiveData<String> getFirstNameLiveData() {
