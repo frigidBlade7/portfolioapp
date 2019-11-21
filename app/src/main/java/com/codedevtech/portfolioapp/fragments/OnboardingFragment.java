@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -23,7 +24,10 @@ import android.widget.TextView;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.adapters.recycler_view_adapters.OnboardingViewpagerAdapter;
 import com.codedevtech.portfolioapp.databinding.FragmentOnboardingBinding;
+import com.codedevtech.portfolioapp.models.NavigationCommand;
 import com.codedevtech.portfolioapp.navigation.Event;
+import com.codedevtech.portfolioapp.navigation.EventListener;
+import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.utilities.Utility;
 import com.codedevtech.portfolioapp.viewmodels.OnboardingFragmentViewModel;
 import com.google.android.material.tabs.TabLayout;
@@ -100,20 +104,27 @@ public class OnboardingFragment extends Fragment {
             }
         });
 
-        onboardingFragmentViewModel.getDestinationId().observe(this, new Observer<Event<Integer>>() {
+        onboardingFragmentViewModel.getNavigationCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<NavigationCommand>() {
             @Override
-            public void onChanged(Event<Integer> integerEvent) {
+            public void onEvent(NavigationCommand navigationCommand) {
+                if(navigationCommand instanceof NavigationCommand.NavigationAction){
+                    Log.d(TAG, "onChanged: command is action");
+                    NavDirections navDirections = ((NavigationCommand.NavigationAction) navigationCommand).getDirections();
+                    NavHostFragment.findNavController(OnboardingFragment.this).navigate(navDirections);
 
-                if(integerEvent.consume()==null)
-                    return;
 
-                Log.d(TAG, "onChanged: "+integerEvent.peek());
-                if(integerEvent.peek()== 0)
-                    NavHostFragment.findNavController(OnboardingFragment.this).popBackStack();
-                else
-                    NavHostFragment.findNavController(OnboardingFragment.this).navigate(integerEvent.peek());
+                }else if(navigationCommand instanceof NavigationCommand.NavigationId){
+                    Log.d(TAG, "onChanged: command is id");
+                    int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
+
+                    if(navigationId== 0)
+                        NavHostFragment.findNavController(OnboardingFragment.this).popBackStack();
+                    else
+                        NavHostFragment.findNavController(OnboardingFragment.this).navigate(navigationId);
+
+                }
             }
-        });
+        }));
 
 
         return fragmentOnboardingBinding.getRoot();

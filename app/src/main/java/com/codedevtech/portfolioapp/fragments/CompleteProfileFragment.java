@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
@@ -19,7 +20,11 @@ import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentCompleteProfileBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.models.CompleteProfileViewModel;
+import com.codedevtech.portfolioapp.models.NavigationCommand;
+import com.codedevtech.portfolioapp.models.SnackbarCommand;
 import com.codedevtech.portfolioapp.navigation.Event;
+import com.codedevtech.portfolioapp.navigation.EventListener;
+import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
@@ -57,28 +62,43 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
 
         fragmentCompleteProfileBinding.setViewmodel(completeProfileViewModel);
 
-        completeProfileViewModel.getDestinationId().observe(this.getViewLifecycleOwner(), new Observer<Event<Integer>>() {
+        completeProfileViewModel.getNavigationCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<NavigationCommand>() {
             @Override
-            public void onChanged(Event<Integer> integerEvent) {
+            public void onEvent(NavigationCommand navigationCommand) {
+                if(navigationCommand instanceof NavigationCommand.NavigationAction){
+                    Log.d(TAG, "onChanged: command is action");
+                    NavDirections navDirections = ((NavigationCommand.NavigationAction) navigationCommand).getDirections();
+                    NavHostFragment.findNavController(CompleteProfileFragment.this).navigate(navDirections);
 
-                if(integerEvent.consume()==null)
-                    return;
 
-                Log.d(TAG, "onChanged: "+integerEvent.peek());
-                if(integerEvent.peek()== 0)
-                    NavHostFragment.findNavController(CompleteProfileFragment.this).popBackStack();
-                else
-                    NavHostFragment.findNavController(CompleteProfileFragment.this).navigate(integerEvent.peek());
+                }else if(navigationCommand instanceof NavigationCommand.NavigationId){
+                    Log.d(TAG, "onChanged: command is id");
+                    int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
+
+                    if(navigationId== 0)
+                        NavHostFragment.findNavController(CompleteProfileFragment.this).popBackStack();
+                    else
+                        NavHostFragment.findNavController(CompleteProfileFragment.this).navigate(navigationId);
+
+                }
             }
-        });
+        }));
 
-        completeProfileViewModel.getSnackbarMessageId().observe(this.getViewLifecycleOwner(), new Observer<Event<Integer>>() {
+        completeProfileViewModel.getSnackbarCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<SnackbarCommand>() {
             @Override
-            public void onChanged(Event<Integer> integerEvent) {
-                if(integerEvent.consume()==null)
-                    return;
+            public void onEvent(SnackbarCommand snackbarCommand) {
+                String s;
 
-                final Snackbar snackbar = Snackbar.make(fragmentCompleteProfileBinding.getRoot(), getString(integerEvent.peek()), Snackbar.LENGTH_LONG);
+                if(snackbarCommand instanceof SnackbarCommand.SnackbarId){
+                    s = getString(((SnackbarCommand.SnackbarId) snackbarCommand).getSnackbarId());
+
+                }else if(snackbarCommand instanceof SnackbarCommand.SnackbarString){
+                    s = ((SnackbarCommand.SnackbarString) snackbarCommand).getSnackbarString();
+                }else{
+                    s = "";
+                }
+
+                final Snackbar snackbar = Snackbar.make(fragmentCompleteProfileBinding.getRoot(),s , Snackbar.LENGTH_LONG);
 
                 snackbar.setAction(R.string.okay, new View.OnClickListener() {
                     @Override
@@ -89,26 +109,7 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
 
                 snackbar.show();
             }
-        });
-
-        completeProfileViewModel.getSnackbarMessage().observe(this.getViewLifecycleOwner(), new Observer<Event<String>>() {
-            @Override
-            public void onChanged(Event<String> stringEvent) {
-                if(stringEvent.consume()==null)
-                    return;
-
-                final Snackbar snackbar = Snackbar.make(fragmentCompleteProfileBinding.getRoot(), stringEvent.peek(), Snackbar.LENGTH_LONG);
-
-                snackbar.setAction(R.string.okay, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        snackbar.dismiss();
-                    }
-                });
-
-                snackbar.show();
-            }
-        });
+        }));
 
 
         return fragmentCompleteProfileBinding.getRoot();

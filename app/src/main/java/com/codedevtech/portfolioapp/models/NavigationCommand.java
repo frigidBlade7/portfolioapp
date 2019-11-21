@@ -3,10 +3,10 @@ package com.codedevtech.portfolioapp.models;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavDirections;
 
-public class NavigationCommand {
+public abstract class NavigationCommand {
 
 
-    public class NavigationAction extends NavigationCommand {
+    public static class NavigationAction extends NavigationCommand {
 
         @NonNull
         private final NavDirections directions;
@@ -20,14 +20,10 @@ public class NavigationCommand {
             return directions;
         }
 
-/*        @NonNull
-        public final NavigationCommand.NavigationAction copy(@NonNull NavDirections directions) {
-            return new NavigationCommand.NavigationAction(directions);
-        }*/
     }
 
 
-    public class NavigationId{
+    public static class NavigationId extends NavigationCommand{
 
         @NonNull
         private final int navigationId;

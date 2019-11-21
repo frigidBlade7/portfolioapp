@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.models.NavigationCommand;
 
 public class OnboardingFragmentViewModel extends BaseViewModel {
 
@@ -15,7 +16,7 @@ public class OnboardingFragmentViewModel extends BaseViewModel {
     }
 
     public void goToAuthentication(View view){
-        setDestinationId(R.id.action_onboardingFragment_to_authenticationFragment);
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_onboardingFragment_to_authenticationFragment));
     }
 
 

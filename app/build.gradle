@@ -43,8 +43,8 @@ dependencies {
 
 
     //navigation
-    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc01'
-    implementation 'androidx.navigation:navigation-ui:2.2.0-rc01'
+    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc02'
+    implementation 'androidx.navigation:navigation-ui:2.2.0-rc02'
 
     //constraint
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'

@@ -17,6 +17,7 @@ import com.codedevtech.portfolioapp.di.models.FolioUser;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragmentDirections;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;
 import com.codedevtech.portfolioapp.models.NavigationCommand;
+import com.codedevtech.portfolioapp.models.SnackbarCommand;
 import com.codedevtech.portfolioapp.models.User;
 import com.codedevtech.portfolioapp.navigation.Event;
 import com.facebook.CallbackManager;
@@ -97,14 +98,14 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                     public void onCancel() {
                         // App code
                         Log.d(TAG, "onCancel: ");
-                        setSnackbarMessageUsingId(R.string.failed_to_sign_in_facebook);
+                        setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.failed_to_sign_in_facebook));
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
                         Log.d(TAG, "onError: "+exception.getLocalizedMessage());
-                        setSnackbarMessage(exception.getLocalizedMessage());
+                        setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(exception.getLocalizedMessage()));
 
                     }
                 });
@@ -189,11 +190,11 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
                     } catch (IOException e) {
                         Log.d(TAG, "onComplete: "+e.getLocalizedMessage());
-                        setSnackbarMessageUsingId(R.string.failed_to_sign_in_facebook);
+                        setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.failed_to_sign_in_facebook));
                     }
                 }else{
                     Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
-                    setSnackbarMessageUsingId(R.string.failed_to_sign_in_facebook);
+                    setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.failed_to_sign_in_facebook));
                 }
             }
         });
@@ -202,16 +203,16 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
     //show authentication extras 
     public void goToAuthenticationExtras(View view){
-        setDestinationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheet);
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheet));
     }
 
     public void goToManualRegistration(View view){
-        setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_registrationFragment);
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationExtrasBottomSheet_to_registrationFragment));
     }
 
     //show authentication extras, but with a different view
     public void goToAuthenticationExtrasAlternate(View view){
-        setDestinationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheetAlternate);
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheetAlternate));
     }
 
 /*
@@ -225,14 +226,18 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     public void goToCompleteProfile(String userId){
 
         //todo AuthenticationFragmentDirections authenticationFragmentDirections
-        //AuthenticationFragmentDirections authenticationFragmentDirections;
-        setDestinationId(R.id.action_authenticationFragment_to_completeProfileFragment);
+
+        AuthenticationFragmentDirections.ActionAuthenticationFragmentToCompleteProfileFragment action =
+                AuthenticationFragmentDirections.actionAuthenticationFragmentToCompleteProfileFragment(userId);
+
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_completeProfileFragment));
     }
 
 
     //navigate to forgotpassword fragment
     public void goToForgotPassword(View view){
-        setDestinationId(R.id.action_authenticationFragment_to_forgotPasswordFragment);
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_forgotPasswordFragment));
     }
 
     //navigate to dashboard fragment
@@ -241,7 +246,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         registrationService.userExists(userId, new UserExistsCallback() {
             @Override
             public void userExists(FolioUser folioUser) {
-                setDestinationId(R.id.action_authenticationFragment_to_dashboardFragment);
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_dashboardFragment));
             }
 
             @Override
@@ -251,7 +256,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
             @Override
             public void error(String message) {
-                setSnackbarMessage(message);
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(message));
             }
         });
     }
@@ -262,7 +267,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         registrationService.userExists(userId, new UserExistsCallback() {
             @Override
             public void userExists(FolioUser folioUser) {
-                setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_dashboardNavigation);
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationExtrasBottomSheet_to_dashboardNavigation));
             }
 
             @Override
@@ -272,7 +277,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
             @Override
             public void error(String message) {
-                setSnackbarMessage(message);
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(message));
             }
         });
 
@@ -293,7 +298,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
         if(emailString != null && passwordString != null && !emailString.isEmpty() && !passwordString.isEmpty()) {
             //show loader
-            setDestinationId(R.id.loadingDialog);
+            setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.loadingDialog));
 
 
             //create new LoginCredentials object, set parameters
@@ -303,8 +308,8 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
 
             if (!loginCredentials.isEmailValid()) {
-                setSnackbarMessageUsingId(R.string.invalid_credentials);
-                setDestinationId(0);
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.invalid_credentials));
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
             }
             else {
                 authenticationService.attemptLogin(loginCredentials.getEmail(), loginCredentials.getPassword(),
@@ -312,22 +317,22 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                             @Override
                             public void onAttemptLoginFailed(String errorMessage) {
                                 //hide loader
-                                setDestinationId(0);
+                                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
                                 Log.d(TAG, "onAttemptLoginFailed: " + errorMessage);
 
                                 //a little hack to prevent malicious users from experimenting with emails
                                 if (errorMessage.contains("user"))
-                                    setSnackbarMessageUsingId(R.string.invalid_credentials);
+                                    setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.invalid_credentials));
                                 else
-                                    setSnackbarMessage(errorMessage);
+                                    setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(errorMessage));
 
                             }
 
                             @Override
                             public void onAttemptLoginSuccess(String userId) {
                                 //hide loader
-                                setDestinationId(0);
+                                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
                                 goToDashboard(userId);
                             }
@@ -340,7 +345,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
             }
 
         }else{
-            setSnackbarMessageUsingId(R.string.invalid_credentials);
+            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.invalid_credentials));
         }
 
     }
@@ -362,7 +367,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
                 Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-                setSnackbarMessageUsingId(R.string.failed_to_sign_in_google);
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.failed_to_sign_in_google));
             }
 
         }else {
@@ -378,7 +383,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "onComplete: "+e.getLocalizedMessage());
-                setSnackbarMessageUsingId(R.string.failed_to_sign_in_twitter);
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.failed_to_sign_in_twitter));
             }
         }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
@@ -395,10 +400,10 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                     @Override
                     public void onAttemptLoginFailed(String errorMessage) {
                         //hide loader
-                        setDestinationId(0);
+                        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
                         Log.d(TAG, "onAttemptLoginFailed: " + errorMessage);
-                        setSnackbarMessageUsingId(R.string.invalid_credentials);
+                        setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.invalid_credentials));
 
                     }
 

@@ -10,6 +10,8 @@ import com.codedevtech.authenticationserviceprovider.callbacks.AttemptRegistrati
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
 import com.codedevtech.models.RegistrationCredentials;
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.models.NavigationCommand;
+import com.codedevtech.portfolioapp.models.SnackbarCommand;
 
 import javax.inject.Inject;
 
@@ -29,7 +31,7 @@ public class RegistrationFragmentViewModel extends BaseViewModel {
 
 
     public void goToCompleteProfile() {
-        setDestinationId(R.id.action_registrationFragment_to_completeProfileFragment);
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_registrationFragment_to_completeProfileFragment));
     }
 
     public MutableLiveData<String> getPasswordMutableLiveData() {
@@ -65,29 +67,29 @@ public class RegistrationFragmentViewModel extends BaseViewModel {
         registrationCredentials.setPasswordConfirmation(passwordConfirmationMutableLiveData.getValue());
 
         if(!registrationCredentials.isEmailValid()){
-            setSnackbarMessageUsingId(R.string.email_invalid);
+            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.email_invalid));
         }
         else if(!registrationCredentials.isPasswordValid()){
-            setSnackbarMessageUsingId(R.string.error_invalid_password_format);
+            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.error_invalid_password_format));
         }
         else if(!registrationCredentials.isPasswordsMatch()){
-            setSnackbarMessageUsingId(R.string.error_password_match);
+            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.error_password_match));
 
         }else{
 
-            setDestinationId(R.id.loadingDialog);
+            setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.loadingDialog));
 
             authenticationService.attemptRegistrationWithCredential(registrationCredentials.getEmail(), registrationCredentials.getPassword(), new AttemptRegistrationCallback() {
                 @Override
                 public void onAttemptRegistrationFailed(String errorMessage) {
 
-                    setDestinationId(0);
-                    setSnackbarMessage(errorMessage);
+                    setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+                    setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(errorMessage));
                 }
 
                 @Override
                 public void onAttemptRegistrationSuccess() {
-                    setDestinationId(0);
+                    setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
                     goToCompleteProfile();
 
                 }

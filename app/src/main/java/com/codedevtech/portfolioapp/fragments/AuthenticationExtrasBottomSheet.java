@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
@@ -22,7 +23,10 @@ import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentAuthenticationExtrasBottomSheetBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.di.models.FactoryViewModel;
+import com.codedevtech.portfolioapp.models.NavigationCommand;
 import com.codedevtech.portfolioapp.navigation.Event;
+import com.codedevtech.portfolioapp.navigation.EventListener;
+import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.utilities.RequestCodeUtilities;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
@@ -69,21 +73,27 @@ public class AuthenticationExtrasBottomSheet extends BottomSheetDialogFragment i
 
         authenticationExtrasBottomSheetBinding.setViewmodel(authenticationFragmentViewModel);
 
-        authenticationFragmentViewModel.getDestinationId().observe(this.getViewLifecycleOwner(), new Observer<Event<Integer>>() {
+        authenticationFragmentViewModel.getNavigationCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<NavigationCommand>() {
             @Override
-            public void onChanged(Event<Integer> integerEvent) {
+            public void onEvent(NavigationCommand navigationCommand) {
+                if(navigationCommand instanceof NavigationCommand.NavigationAction){
+                    Log.d(TAG, "onChanged: command is action");
+                    NavDirections navDirections = ((NavigationCommand.NavigationAction) navigationCommand).getDirections();
+                    NavHostFragment.findNavController(AuthenticationExtrasBottomSheet.this).navigate(navDirections);
 
-                if(integerEvent.consume()==null)
-                    return;
 
-                Log.d(TAG, "onChanged: "+integerEvent.peek());
+                }else if(navigationCommand instanceof NavigationCommand.NavigationId){
+                    Log.d(TAG, "onChanged: command is id");
+                    int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
 
-                if(integerEvent.peek()== 0)
-                    NavHostFragment.findNavController(AuthenticationExtrasBottomSheet.this).popBackStack();
-                else
-                    NavHostFragment.findNavController(AuthenticationExtrasBottomSheet.this).navigate(integerEvent.peek());
+                    if(navigationId== 0)
+                        NavHostFragment.findNavController(AuthenticationExtrasBottomSheet.this).popBackStack();
+                    else
+                        NavHostFragment.findNavController(AuthenticationExtrasBottomSheet.this).navigate(navigationId);
+
+                }
             }
-        });
+        }));
 
         authenticationFragmentViewModel.getSignInIntent().observe(this.getViewLifecycleOwner(), new Observer<Event<Intent>>() {
             @Override
