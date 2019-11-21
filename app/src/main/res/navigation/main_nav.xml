@@ -84,7 +84,7 @@
         android:label="fragment_complete_profile"
         tools:layout="@layout/fragment_complete_profile" >
         <argument
-            android:name="userId"
+            android:name="userAuthProviderId"
             app:argType="string" />
     </fragment>
     <dialog

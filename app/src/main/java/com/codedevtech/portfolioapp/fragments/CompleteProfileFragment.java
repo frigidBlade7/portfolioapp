@@ -53,7 +53,7 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        userAuthenticationId = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserId();
+        userAuthenticationId = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserAuthProviderId();
         Log.d(TAG, "onViewCreated: "+userAuthenticationId);
 
     }

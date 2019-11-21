@@ -243,9 +243,9 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     }
 
     //navigate to dashboard fragment
-    public void goToDashboard(String userId){
+    public void goToDashboard(String userAuthProviderId){
 
-        registrationService.userExists(userId, new UserExistsCallback() {
+        registrationService.userExists(userAuthProviderId, new UserExistsCallback() {
             @Override
             public void userExists(FolioUser folioUser) {
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_dashboardFragment));
@@ -265,8 +265,8 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
 
     //navigate to dashboard fragment
-    public void goToDashboardFromAuthExtras(String userId){
-        registrationService.userExists(userId, new UserExistsCallback() {
+    public void goToDashboardFromAuthExtras(String userAuthProviderId){
+        registrationService.userExists(userAuthProviderId, new UserExistsCallback() {
             @Override
             public void userExists(FolioUser folioUser) {
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationExtrasBottomSheet_to_dashboardNavigation));
@@ -332,11 +332,11 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                             }
 
                             @Override
-                            public void onAttemptLoginSuccess(String userId) {
+                            public void onAttemptLoginSuccess(String userAuthProviderId) {
                                 //hide loader
                                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
-                                goToDashboard(userId);
+                                goToDashboard(userAuthProviderId);
                             }
 
                             @Override
@@ -410,10 +410,10 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                     }
 
                     @Override
-                    public void onAttemptLoginSuccess(String userId) {
+                    public void onAttemptLoginSuccess(String userAuthProviderId) {
                         //hide loader
                         //setDestinationId(0);
-                        goToDashboardFromAuthExtras(userId);
+                        goToDashboardFromAuthExtras(userAuthProviderId);
                         //goToDashboard();
                     }
 

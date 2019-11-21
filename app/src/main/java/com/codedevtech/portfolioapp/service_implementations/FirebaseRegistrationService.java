@@ -20,8 +20,8 @@ public class FirebaseRegistrationService implements RegistrationService {
     }
 
     @Override
-    public void userExists(final String userId, final UserExistsCallback userExistsCallback) {
-        firestoreDb.collection("users").document(userId).get()
+    public void userExists(final String userAuthProviderId, final UserExistsCallback userExistsCallback) {
+        firestoreDb.collection("users").document(userAuthProviderId).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -32,7 +32,7 @@ public class FirebaseRegistrationService implements RegistrationService {
                         userExistsCallback.userExists(folioUser);
 
                     }else{
-                        userExistsCallback.userDoesNotExist(userId);
+                        userExistsCallback.userDoesNotExist(userAuthProviderId);
                     }
                 }else{
                     userExistsCallback.error(task.getException().getLocalizedMessage());
