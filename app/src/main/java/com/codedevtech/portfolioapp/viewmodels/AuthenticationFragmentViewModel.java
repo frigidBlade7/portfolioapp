@@ -13,7 +13,7 @@ import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationSe
 import com.codedevtech.models.LoginCredentials;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.callbacks.UserExistsCallback;
-import com.codedevtech.portfolioapp.di.models.FolioUser;
+import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.fragments.AuthenticationExtrasBottomSheetDirections;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragmentDirections;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;

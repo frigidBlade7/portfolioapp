@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.callbacks.UserExistsCallback;
-import com.codedevtech.portfolioapp.di.models.FolioUser;
+import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

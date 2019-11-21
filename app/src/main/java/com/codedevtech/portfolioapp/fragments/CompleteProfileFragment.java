@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentCompleteProfileBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
-import com.codedevtech.portfolioapp.models.CompleteProfileViewModel;
+import com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.navigation.EventListener;
@@ -36,10 +36,11 @@ import javax.inject.Inject;
 public class CompleteProfileFragment extends Fragment implements Injectable {
 
     private static final String TAG = "CompleteProfileFragment";
-    private String userAuthenticationId;
+    private String userAuthenticationId, email;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+    private CompleteProfileViewModel completeProfileViewModel;
 
 
     public CompleteProfileFragment() {
@@ -52,7 +53,10 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
         super.onViewCreated(view, savedInstanceState);
 
         userAuthenticationId = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserAuthProviderId();
+        email = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserAuthProviderId();
         Log.d(TAG, "onViewCreated: "+userAuthenticationId);
+
+        completeProfileViewModel.setUserAuthProviderId(userAuthenticationId);
 
     }
 
@@ -66,7 +70,7 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
 
         fragmentCompleteProfileBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
-        CompleteProfileViewModel completeProfileViewModel = ViewModelProviders.of(this, viewModelFactory)
+        completeProfileViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(CompleteProfileViewModel.class);
 
 

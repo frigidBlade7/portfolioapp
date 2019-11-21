@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.codedevtech.portfolioapp.models.CompleteProfileViewModel" />
+            type="com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel" />
     </data>
 
     <FrameLayout

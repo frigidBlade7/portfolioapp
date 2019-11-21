@@ -5,11 +5,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.codedevtech.portfolioapp.di.annotations.ViewModelKey;
 import com.codedevtech.portfolioapp.di.models.FactoryViewModel;
-import com.codedevtech.portfolioapp.fragments.AuthenticationFragment;
-import com.codedevtech.portfolioapp.fragments.CompleteProfileFragment;
-import com.codedevtech.portfolioapp.models.CompleteProfileViewModel;
+import com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
-import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
 
 import dagger.Binds;

@@ -1,4 +1,4 @@
-package com.codedevtech.portfolioapp.di.models;
+package com.codedevtech.portfolioapp.models;
 
 import android.widget.ListView;
 
@@ -7,11 +7,13 @@ import java.util.List;
 
 public class FolioUser {
     private String id;
+    private String email;
     private String firstName;
     private String lastName;
     private String bio;
-    private String email;
     private List<String> roleFlags;
+
+    private String errorReason;
 
     public FolioUser() {
     }
@@ -63,4 +65,36 @@ public class FolioUser {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getErrorReason() {
+        return errorReason;
+    }
+
+    public void setErrorReason(String errorReason) {
+        this.errorReason = errorReason;
+    }
+
+
+    public boolean isFirstNameValid(){
+        return (firstName!=null && !firstName.isEmpty());
+    }
+
+    public boolean isLastNameValid(){
+        return (lastName!=null && !lastName.isEmpty());
+    }
+
+    private boolean isIdValid(){
+        return (id!=null && !id.isEmpty());
+
+    }
+
+    private boolean isEmailValid(){
+        return (email!=null && !email.isEmpty());
+    }
+
+    private boolean isRoleFlagsValid(){
+        return (roleFlags!=null && roleFlags.size()>2);
+    }
+
+
 }

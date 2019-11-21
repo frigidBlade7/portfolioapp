@@ -2,7 +2,7 @@ package com.codedevtech.portfolioapp.interfaces;
 
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.callbacks.UserExistsCallback;
-import com.codedevtech.portfolioapp.di.models.FolioUser;
+import com.codedevtech.portfolioapp.models.FolioUser;
 
 public interface RegistrationService {
 

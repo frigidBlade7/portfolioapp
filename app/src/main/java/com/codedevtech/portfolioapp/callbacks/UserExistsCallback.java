@@ -1,6 +1,6 @@
 package com.codedevtech.portfolioapp.callbacks;
 
-import com.codedevtech.portfolioapp.di.models.FolioUser;
+import com.codedevtech.portfolioapp.models.FolioUser;
 
 public interface UserExistsCallback {
 
