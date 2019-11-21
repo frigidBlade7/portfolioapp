@@ -1,4 +1,4 @@
-package com.codedevtech.portfolioapp.models;
+package com.codedevtech.portfolioapp.commands;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavDirections;

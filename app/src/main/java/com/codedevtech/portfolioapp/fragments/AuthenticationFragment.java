@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
@@ -19,16 +18,12 @@ import android.view.ViewGroup;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentAuthenticationBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
-import com.codedevtech.portfolioapp.models.NavigationCommand;
-import com.codedevtech.portfolioapp.models.SnackbarCommand;
-import com.codedevtech.portfolioapp.navigation.Event;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
+import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.navigation.EventListener;
 import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.OAuthProvider;
 
 import javax.inject.Inject;
 

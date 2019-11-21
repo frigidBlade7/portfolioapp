@@ -10,8 +10,8 @@ import com.codedevtech.authenticationserviceprovider.callbacks.AttemptRegistrati
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
 import com.codedevtech.models.RegistrationCredentials;
 import com.codedevtech.portfolioapp.R;
-import com.codedevtech.portfolioapp.models.NavigationCommand;
-import com.codedevtech.portfolioapp.models.SnackbarCommand;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
+import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 
 import javax.inject.Inject;
 

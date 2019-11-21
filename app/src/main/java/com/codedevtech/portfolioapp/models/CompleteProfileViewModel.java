@@ -1,6 +1,8 @@
 package com.codedevtech.portfolioapp.models;
 
 import android.app.Application;
+import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -51,5 +53,14 @@ public class CompleteProfileViewModel extends BaseViewModel {
 
     public void setBioLiveData(String bioLiveData) {
         this.bioLiveData.setValue(bioLiveData);
+    }
+
+    public void attemptCompleteProfile(View view){
+
+
+        Log.d(TAG, "attemptCompleteProfile: "+firstNameLiveData.getValue());
+        Log.d(TAG, "attemptCompleteProfile: "+lastNameLiveData.getValue());
+        Log.d(TAG, "attemptCompleteProfile: "+bioLiveData.getValue());
+        Log.d(TAG, "attemptCompleteProfile: "+);
     }
 }

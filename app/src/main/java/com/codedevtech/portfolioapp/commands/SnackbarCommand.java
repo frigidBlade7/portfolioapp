@@ -1,6 +1,4 @@
-package com.codedevtech.portfolioapp.models;
-
-import com.google.android.material.snackbar.Snackbar;
+package com.codedevtech.portfolioapp.commands;
 
 public abstract class SnackbarCommand {
 

@@ -10,7 +10,7 @@
             type="com.codedevtech.portfolioapp.models.CompleteProfileViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.CompleteProfileFragment">
@@ -22,259 +22,271 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            app:layout_constraintBottom_toTopOf="@+id/guideline9"
-            app:layout_constraintEnd_toStartOf="@+id/guideline12"
+            android:onClick="@{(v)->viewmodel.attemptCompleteProfile(v)}"
+            android:layout_margin="@dimen/buttonDefaultMargin"
+            android:layout_gravity="bottom|end"
             app:srcCompat="@drawable/next" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="192dp"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="false"
-            app:lottie_enableMergePathsForKitKatAndAbove="true"
-            app:lottie_rawRes="@raw/confetti"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/bio_layout"
-            style="@style/FieldTextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/endMargins"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="1dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="240"
-            app:counterTextAppearance="@style/TextAppearance.MaterialComponents.Overline"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toTopOf="@+id/roleSectionTitle"
-            app:layout_constraintEnd_toStartOf="@+id/guideline12"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toBottomOf="@+id/bioSectionTitle"
-            app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/bioLiveData"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:hint="@string/help_the_community_get_to_know_you_better"
-                android:inputType="textMultiLine"
-                android:lines="3"
-                android:maxLines="3" />
+                android:paddingBottom="@dimen/buttonBottomMargin"
+                android:layout_height="wrap_content">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="192dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="false"
+                    app:lottie_enableMergePathsForKitKatAndAbove="true"
+                    app:lottie_rawRes="@raw/confetti"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/roleSectionTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/role_selection"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/roleGroup"
-            app:layout_constraintEnd_toStartOf="@+id/guideline12"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toBottomOf="@+id/bio_layout" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/bio_layout"
+                    style="@style/FieldTextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/endMargins"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="1dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="240"
+                    app:counterTextAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                    app:hintEnabled="false"
+                    app:layout_constraintBottom_toTopOf="@+id/roleSectionTitle"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/guideline10"
+                    app:layout_constraintTop_toBottomOf="@+id/bioSectionTitle"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:layout_constraintVertical_chainStyle="packed">
 
-        <TextView
-            android:id="@+id/nameSectionTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/name"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/first_name_layout"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/bioLiveData"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:hint="@string/help_the_community_get_to_know_you_better"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:maxLines="3" />
 
-        <TextView
-            android:id="@+id/bioSectionTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/bioLiveData"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/bio_layout"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toBottomOf="@+id/first_name_layout" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/first_name_layout"
-            style="@style/FieldTextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/endMargins"
-            android:layout_marginBottom="@dimen/endMargins"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="1dp"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toTopOf="@+id/bioSectionTitle"
-            app:layout_constraintEnd_toStartOf="@+id/last_name_layout"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toBottomOf="@+id/nameSectionTitle"
-            app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintVertical_chainStyle="packed">
+                <TextView
+                    android:id="@+id/roleSectionTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/role_selection"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/roleGroup"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline10"
+                    app:layout_constraintTop_toBottomOf="@+id/bio_layout" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/first_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/first"
-                android:inputType="textPersonName"
-                android:maxLines="1" />
+                <TextView
+                    android:id="@+id/nameSectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/name"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/first_name_layout"
+                    app:layout_constraintStart_toStartOf="@+id/guideline10"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/bioSectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/bioLiveData"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/bio_layout"
+                    app:layout_constraintStart_toStartOf="@+id/guideline10"
+                    app:layout_constraintTop_toBottomOf="@+id/first_name_layout" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/last_name_layout"
-            style="@style/FieldTextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="1dp"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toBottomOf="@+id/first_name_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline12"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/first_name_layout"
-            app:layout_constraintTop_toTopOf="@+id/first_name_layout">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/first_name_layout"
+                    style="@style/FieldTextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/endMargins"
+                    android:layout_marginBottom="@dimen/endMargins"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="1dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintBottom_toTopOf="@+id/bioSectionTitle"
+                    app:layout_constraintEnd_toStartOf="@+id/last_name_layout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/guideline10"
+                    app:layout_constraintTop_toBottomOf="@+id/nameSectionTitle"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:layout_constraintVertical_chainStyle="packed">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/last_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/last"
-                android:inputType="textPersonName"
-                android:maxLines="1" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/first_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/first"
+                        android:inputType="textPersonName"
+                        android:maxLines="1" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_end="20dp" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/last_name_layout"
+                    style="@style/FieldTextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="1dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/first_name_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/first_name_layout"
+                    app:layout_constraintTop_toTopOf="@+id/first_name_layout">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/last_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/last"
+                        android:inputType="textPersonName"
+                        android:maxLines="1" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="20dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="20dp" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_end="20dp" />
 
-        <TextView
-            android:id="@+id/imageView"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/endMargins"
-            android:text="complete\nyour\nprofile"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toTopOf="@+id/nameSectionTitle"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toTopOf="@+id/guideline11"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_chainStyle="packed" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/profilePhoto"
-            android:layout_width="@dimen/profileWidth"
-            android:layout_height="@dimen/profileHeight"
-            android:background="@drawable/profile_image_background"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toStartOf="@+id/guideline12"
-            app:srcCompat="@drawable/man" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="20dp" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/roleGroup"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline9"
-            app:layout_constraintEnd_toStartOf="@+id/guideline12"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toBottomOf="@+id/roleSectionTitle">
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="20dp" />
 
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/recruiter"
-                app:chipCornerRadius="@dimen/globalRadius" />
+                <TextView
+                    android:id="@+id/imageView"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="192dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/endMargins"
+                    android:text="complete\nyour\nprofile"
+                    android:textColor="@android:color/black"
+                    android:textSize="36sp"
+                    app:layout_constraintBottom_toTopOf="@+id/nameSectionTitle"
+                    app:layout_constraintStart_toStartOf="@+id/guideline10"
+                    app:layout_constraintTop_toTopOf="@+id/guideline11"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/designer"
-                app:chipCornerRadius="@dimen/globalRadius" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/profilePhoto"
+                    android:layout_width="@dimen/profileWidth"
+                    android:layout_height="@dimen/profileHeight"
+                    android:background="@drawable/profile_image_background"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                    app:srcCompat="@drawable/man" />
 
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/illustrator"
-                app:chipCornerRadius="@dimen/globalRadius" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/roleGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline9"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline10"
+                    app:layout_constraintTop_toBottomOf="@+id/roleSectionTitle">
 
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recruiter"
+                        app:chipCornerRadius="@dimen/globalRadius" />
 
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/photographer"
-                app:chipCornerRadius="@dimen/globalRadius" />
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/designer"
+                        app:chipCornerRadius="@dimen/globalRadius" />
 
-
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/developer"
-                app:chipCornerRadius="@dimen/globalRadius" />
-
-
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/artisan"
-                app:chipCornerRadius="@dimen/globalRadius" />
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/illustrator"
+                        app:chipCornerRadius="@dimen/globalRadius" />
 
 
-            <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/enthusiast"
-                app:chipCornerRadius="@dimen/globalRadius" />
-        </com.google.android.material.chip.ChipGroup>
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/photographer"
+                        app:chipCornerRadius="@dimen/globalRadius" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/developer"
+                        app:chipCornerRadius="@dimen/globalRadius" />
+
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/artisan"
+                        app:chipCornerRadius="@dimen/globalRadius" />
+
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enthusiast"
+                        app:chipCornerRadius="@dimen/globalRadius" />
+                </com.google.android.material.chip.ChipGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </FrameLayout>
 
 </layout>

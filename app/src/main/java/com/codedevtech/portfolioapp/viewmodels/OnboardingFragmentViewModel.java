@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.codedevtech.portfolioapp.R;
-import com.codedevtech.portfolioapp.models.NavigationCommand;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
 
 public class OnboardingFragmentViewModel extends BaseViewModel {
 
