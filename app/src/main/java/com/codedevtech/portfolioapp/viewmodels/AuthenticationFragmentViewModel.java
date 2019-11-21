@@ -14,6 +14,7 @@ import com.codedevtech.models.LoginCredentials;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.callbacks.UserExistsCallback;
 import com.codedevtech.portfolioapp.di.models.FolioUser;
+import com.codedevtech.portfolioapp.fragments.AuthenticationExtrasBottomSheetDirections;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragmentDirections;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;
 import com.codedevtech.portfolioapp.models.NavigationCommand;
@@ -215,12 +216,13 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheetAlternate));
     }
 
-/*
     //navigate to completeprofile fragment from federated identity auth
-    public void goToCompleteProfileFederated(View view){
-        setDestinationId(R.id.action_authenticationExtrasBottomSheet_to_completeProfileFragment);
+    public void goToCompleteProfileFederated(String userId){
+
+        AuthenticationExtrasBottomSheetDirections.ActionAuthenticationExtrasBottomSheetToCompleteProfileFragment action =
+                AuthenticationExtrasBottomSheetDirections.actionAuthenticationExtrasBottomSheetToCompleteProfileFragment(userId);
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
     }
-*/
     //navigate to complete profile fragment
 
     public void goToCompleteProfile(String userId){
@@ -231,7 +233,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
                 AuthenticationFragmentDirections.actionAuthenticationFragmentToCompleteProfileFragment(userId);
 
         setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
-        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_completeProfileFragment));
+        //setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_completeProfileFragment));
     }
 
 
@@ -272,7 +274,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
             @Override
             public void userDoesNotExist(String userId) {
-
+                goToCompleteProfileFederated(userId);
             }
 
             @Override

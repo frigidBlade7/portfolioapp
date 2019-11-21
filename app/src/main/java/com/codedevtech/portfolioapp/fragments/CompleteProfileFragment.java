@@ -3,6 +3,8 @@ package com.codedevtech.portfolioapp.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -36,6 +38,7 @@ import javax.inject.Inject;
 public class CompleteProfileFragment extends Fragment implements Injectable {
 
     private static final String TAG = "CompleteProfileFragment";
+    private String userAuthenticationId;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -45,6 +48,15 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
         // Required empty public constructor
     }
 
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        userAuthenticationId = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserId();
+        Log.d(TAG, "onViewCreated: "+userAuthenticationId);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,7 +70,7 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
 
         CompleteProfileViewModel completeProfileViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(CompleteProfileViewModel.class);
-        
+
 
         fragmentCompleteProfileBinding.setViewmodel(completeProfileViewModel);
 
