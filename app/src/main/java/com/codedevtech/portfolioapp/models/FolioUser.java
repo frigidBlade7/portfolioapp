@@ -83,17 +83,17 @@ public class FolioUser {
         return (lastName!=null && !lastName.isEmpty());
     }
 
-    private boolean isIdValid(){
+    public boolean isIdValid(){
         return (id!=null && !id.isEmpty());
 
     }
 
-    private boolean isEmailValid(){
+    public boolean isEmailValid(){
         return (email!=null && !email.isEmpty());
     }
 
-    private boolean isRoleFlagsValid(){
-        return (roleFlags!=null && roleFlags.size()>2);
+    public boolean isRoleFlagsValid(){
+        return (roleFlags!=null /*&& roleFlags.size()<4*/ && roleFlags.size()>0);
     }
 
 

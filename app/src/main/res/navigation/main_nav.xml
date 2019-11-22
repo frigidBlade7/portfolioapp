@@ -36,10 +36,7 @@
             app:destination="@id/forgotPasswordFragment" />
         <action
             android:id="@+id/action_authenticationFragment_to_dashboardFragment"
-            app:destination="@id/dashboardNavigation" />
-        <action
-            android:id="@+id/action_authenticationFragment_to_dashboardNavigation"
-            app:destination="@id/dashboardNavigation" />
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <dialog
         android:id="@+id/authenticationExtrasBottomSheet"
@@ -53,8 +50,8 @@
             android:id="@+id/action_authenticationExtrasBottomSheet_to_completeProfileFragment"
             app:destination="@id/completeProfileFragment" />
         <action
-            android:id="@+id/action_authenticationExtrasBottomSheet_to_dashboardNavigation"
-            app:destination="@id/dashboardNavigation" />
+            android:id="@+id/action_authenticationExtrasBottomSheet_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </dialog>
 
     <dialog
@@ -86,6 +83,9 @@
         <argument
             android:name="userAuthProviderId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_completeProfileFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <dialog
         android:id="@+id/forgotPasswordFragment"
@@ -93,18 +93,23 @@
         android:label="ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password"/>
 
-    <navigation
-        android:id="@+id/dashboardNavigation"
-        app:startDestination="@id/dashboardFragment" >
-        <fragment
-            android:id="@+id/dashboardFragment"
-            android:name="com.codedevtech.portfolioapp.fragments.DashboardFragment"
-            android:label="fragment_dashboard"
-            tools:layout="@layout/fragment_dashboard" />
-    </navigation>
     <dialog
         android:id="@+id/loadingDialog"
         android:name="com.codedevtech.portfolioapp.fragments.LoadingDialog"
         android:label="loader"
         tools:layout="@layout/loader" />
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_dashboardFragment_pop_including_main_nav"
+            app:popUpTo="@id/onboardingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action android:id="@+id/action_global_dashboardFragment" app:destination="@id/dashboardFragment" />
 </navigation>

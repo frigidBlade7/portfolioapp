@@ -15,7 +15,7 @@ public class OnboardingFragmentViewModel extends BaseViewModel {
         super(application);
     }
 
-    public void goToAuthentication(View view){
+    public void goToAuthentication(){
         setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_onboardingFragment_to_authenticationFragment));
     }
 

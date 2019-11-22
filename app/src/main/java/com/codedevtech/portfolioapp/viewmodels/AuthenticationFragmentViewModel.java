@@ -135,7 +135,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     }
 
 
-    public void attemptGoogleSignIn(View view){
+    public void attemptGoogleSignIn(){
         setSignInIntent(googleSignInClient.getSignInIntent());
     }
 
@@ -148,7 +148,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     }
 
 
-    public void attemptTwitterSignIn(View view){
+    public void attemptTwitterSignIn(){
         Task<AuthResult> pendingTask = FirebaseAuth.getInstance().getPendingAuthResult();
         if(pendingTask!=null){
             //sign in flow is pending
@@ -169,7 +169,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         }
     }
 
-    public void attemptFacebookSignIn(View view){
+    public void attemptFacebookSignIn(){
 
         //use remote config to obtain facebook
         firebaseRemoteConfig.fetchAndActivate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
@@ -202,16 +202,16 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
 
     //show authentication extras 
-    public void goToAuthenticationExtras(View view){
+    public void goToAuthenticationExtras(){
         setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheet));
     }
 
-    public void goToManualRegistration(View view){
+    public void goToManualRegistration(){
         setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationExtrasBottomSheet_to_registrationFragment));
     }
 
     //show authentication extras, but with a different view
-    public void goToAuthenticationExtrasAlternate(View view){
+    public void goToAuthenticationExtrasAlternate(){
         setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_authenticationExtrasBottomSheetAlternate));
     }
 
@@ -237,7 +237,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
 
     //navigate to forgotpassword fragment
-    public void goToForgotPassword(View view){
+    public void goToForgotPassword(){
         setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_forgotPasswordFragment));
     }
 
@@ -247,7 +247,11 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         registrationService.userExists(userAuthProviderId, new UserExistsCallback() {
             @Override
             public void userExists(FolioUser folioUser) {
-                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationFragment_to_dashboardFragment));
+
+                AuthenticationFragmentDirections.ActionAuthenticationFragmentToDashboardFragment action =
+                        AuthenticationFragmentDirections.actionAuthenticationFragmentToDashboardFragment(folioUser.getId());
+
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
             }
 
             @Override
@@ -268,7 +272,11 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         registrationService.userExists(userAuthProviderId, new UserExistsCallback() {
             @Override
             public void userExists(FolioUser folioUser) {
-                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_authenticationExtrasBottomSheet_to_dashboardNavigation));
+                AuthenticationExtrasBottomSheetDirections.ActionAuthenticationExtrasBottomSheetToDashboardFragment action =
+                        AuthenticationExtrasBottomSheetDirections.actionAuthenticationExtrasBottomSheetToDashboardFragment(folioUser.getId());
+
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
+
             }
 
             @Override
@@ -292,7 +300,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         this.signInIntent.setValue(new Event<Intent>(signInIntent));
     }
 
-    public void attemptLogin(View view){
+    public void attemptLogin(){
 
 
         String passwordString = passwordMutableLiveData.getValue(), emailString = emailMutableLiveData.getValue();

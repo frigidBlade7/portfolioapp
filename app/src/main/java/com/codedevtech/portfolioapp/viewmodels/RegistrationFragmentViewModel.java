@@ -58,7 +58,7 @@ public class RegistrationFragmentViewModel extends BaseViewModel {
         this.emailLiveData.setValue(email);
     }
 
-    public void attemptRegistration(View view) {
+    public void attemptRegistration() {
 
 
         RegistrationCredentials registrationCredentials = new RegistrationCredentials();

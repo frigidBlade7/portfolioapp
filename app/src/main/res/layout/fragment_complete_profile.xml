@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{(v)->viewmodel.attemptCompleteProfile(v)}"
+            android:onClick="@{()->viewmodel.attemptCompleteProfile()}"
             android:layout_margin="@dimen/buttonDefaultMargin"
             android:layout_gravity="bottom|end"
             app:srcCompat="@drawable/next" />
@@ -73,6 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start"
+                        android:text="@={viewmodel.bioLiveData}"
                         android:hint="@string/help_the_community_get_to_know_you_better"
                         android:inputType="textMultiLine"
                         android:lines="3"
@@ -139,6 +140,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/first"
+                        android:text="@={viewmodel.firstNameLiveData}"
                         android:inputType="textPersonName"
                         android:maxLines="1" />
 
@@ -164,6 +166,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/last"
+                        android:text="@={viewmodel.lastNameLiveData}"
                         android:inputType="textPersonName"
                         android:maxLines="1" />
 
@@ -228,25 +231,32 @@
                     app:layout_constraintBottom_toTopOf="@+id/guideline9"
                     app:layout_constraintEnd_toStartOf="@+id/guideline12"
                     app:layout_constraintHorizontal_bias="1.0"
+                    android:layout_marginBottom="@dimen/buttonBottomMargin"
                     app:layout_constraintStart_toStartOf="@+id/guideline10"
                     app:layout_constraintTop_toBottomOf="@+id/roleSectionTitle">
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/recruiter"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
                         android:layout_width="wrap_content"
+                        android:onClick="@{(v)->viewmodel.toggleRoleSelected(v)}"
                         android:layout_height="wrap_content"
                         android:text="@string/recruiter"
                         app:chipCornerRadius="@dimen/globalRadius" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/designer"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
                         android:layout_width="wrap_content"
+                        android:onClick="@{(v)->viewmodel.toggleRoleSelected(v)}"
                         android:layout_height="wrap_content"
                         android:text="@string/designer"
                         app:chipCornerRadius="@dimen/globalRadius" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/illustrator"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:onClick="@{(v)->viewmodel.toggleRoleSelected(v)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/illustrator"
@@ -254,7 +264,9 @@
 
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/photographer"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:onClick="@{(v)->viewmodel.toggleRoleSelected(v)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/photographer"
@@ -262,7 +274,9 @@
 
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/developer"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:onClick="@{(v)->viewmodel.toggleRoleSelected(v)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/developer"
@@ -270,16 +284,20 @@
 
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/artisan"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{(v)->viewmodel.toggleRoleSelected(v)}"
                         android:text="@string/artisan"
                         app:chipCornerRadius="@dimen/globalRadius" />
 
 
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:id="@+id/enthusiast"
                         android:layout_width="wrap_content"
+                        android:onClick="@{(v)->viewmodel.toggleRoleSelected(v)}"
                         android:layout_height="wrap_content"
                         android:text="@string/enthusiast"
                         app:chipCornerRadius="@dimen/globalRadius" />

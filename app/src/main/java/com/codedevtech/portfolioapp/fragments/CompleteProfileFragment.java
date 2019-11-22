@@ -25,7 +25,10 @@ import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.navigation.EventListener;
 import com.codedevtech.portfolioapp.navigation.EventObserver;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -109,7 +112,7 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
                 }else if(snackbarCommand instanceof SnackbarCommand.SnackbarString){
                     s = ((SnackbarCommand.SnackbarString) snackbarCommand).getSnackbarString();
                 }else{
-                    s = "";
+                    return;
                 }
 
                 final Snackbar snackbar = Snackbar.make(fragmentCompleteProfileBinding.getRoot(),s , Snackbar.LENGTH_LONG);
@@ -124,6 +127,8 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
                 snackbar.show();
             }
         }));
+
+
 
 
         return fragmentCompleteProfileBinding.getRoot();

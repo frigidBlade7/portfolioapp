@@ -70,11 +70,12 @@ public class AuthenticationFragment extends Fragment implements Injectable{
 
                 }else if(snackbarCommand instanceof SnackbarCommand.SnackbarString){
                     s = ((SnackbarCommand.SnackbarString) snackbarCommand).getSnackbarString();
-                }else{
-                    s = "";
+                }
+                else {
+                    return;
                 }
 
-                final Snackbar snackbar = Snackbar.make(fragmentAuthenticationBinding.getRoot(),s , Snackbar.LENGTH_LONG);
+                final Snackbar snackbar = Snackbar.make(fragmentAuthenticationBinding.getRoot(), s , Snackbar.LENGTH_LONG);
 
                 snackbar.setAction(R.string.okay, new View.OnClickListener() {
                     @Override

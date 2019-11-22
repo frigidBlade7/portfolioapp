@@ -53,6 +53,10 @@
     <string name="email_invalid">Invalid email</string>
     <string name="error_invalid_password_format">Password must be alphanumeric and not less than 8 characters long</string>
     <string name="error_password_match">Passwords do not match</string>
+    <string name="first_name_required">First name is required</string>
+    <string name="last_name_required">Last name is required</string>
+    <string name="email_retrieval_error">We could not find a valid email associated with this account</string>
+    <string name="select_at_least_one_role">Select at least one role</string>
 
 
 </resources>

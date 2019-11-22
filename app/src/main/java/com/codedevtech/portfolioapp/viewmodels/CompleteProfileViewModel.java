@@ -1,15 +1,23 @@
 package com.codedevtech.portfolioapp.viewmodels;
 
 import android.app.Application;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
+import com.codedevtech.portfolioapp.commands.SnackbarCommand;
+import com.codedevtech.portfolioapp.fragments.CompleteProfileFragmentDirections;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;
+import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,7 +30,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
     private MutableLiveData<String> lastNameLiveData = new MutableLiveData<>();
     private MutableLiveData<String> bioLiveData = new MutableLiveData<>();
     private String userAuthProviderId;
-    private MutableLiveData<List<String>> roleFlags = new MutableLiveData<>();
+    private ArrayList<String> roleFlags;
     private RegistrationService registrationService;
 
 
@@ -30,6 +38,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
     public CompleteProfileViewModel(@NonNull Application application, RegistrationService registrationService) {
         super(application);
         this.registrationService = registrationService;
+        this.roleFlags = new ArrayList<>();
     }
 
     public MutableLiveData<String> getFirstNameLiveData() {
@@ -56,7 +65,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
         this.bioLiveData.setValue(bioLiveData);
     }
 
-    public void attemptCompleteProfile(View view){
+    public void attemptCompleteProfile(){
 
         FolioUser folioUser = new FolioUser();
         folioUser.setId(userAuthProviderId);
@@ -64,10 +73,48 @@ public class CompleteProfileViewModel extends BaseViewModel {
         folioUser.setFirstName(firstNameLiveData.getValue());
         folioUser.setLastName(lastNameLiveData.getValue());
         folioUser.setBio(bioLiveData.getValue());
-        folioUser.setRoleFlags(roleFlags.getValue());
+        folioUser.setRoleFlags(roleFlags);
 
+        if(!folioUser.isFirstNameValid()){
+            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.first_name_required));
+        }
+        else if(!folioUser.isLastNameValid()){
+            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.last_name_required));
+        }
 
+        else if(!folioUser.isEmailValid()){
+            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.email_retrieval_error));
+        }
 
+        else if (!folioUser.isRoleFlagsValid()){
+            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.select_at_least_one_role));
+        }
+
+        else{
+            setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.loadingDialog));
+            storeUserData(folioUser);
+        }
+
+    }
+
+    private void storeUserData(FolioUser folioUser) {
+        registrationService.registerUser(folioUser, new SuccessCallback() {
+            @Override
+            public void success(String id) {
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+
+                CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =
+                        CompleteProfileFragmentDirections.actionCompleteProfileFragmentToDashboardFragment(id);
+
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
+            }
+
+            @Override
+            public void failure(String message) {
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(message));
+            }
+        });
     }
 
     public void setUserAuthProviderId(String userAuthProviderId) {
@@ -75,7 +122,23 @@ public class CompleteProfileViewModel extends BaseViewModel {
     }
 
     //get email (by using id maybe??)
-    public String obtainEmail() {
+    private String obtainEmail() {
         return FirebaseAuth.getInstance().getCurrentUser().getEmail();
+    }
+
+    public void toggleRoleSelected(View view){
+
+
+        //Log.d(TAG, "toggleRoleSelected: "+view.getId());
+
+        String chipString = ((Chip)view).getText().toString();
+
+        if(roleFlags.contains(chipString)){
+            roleFlags.remove(chipString);
+        }else{
+            roleFlags.add(chipString);
+        }
+
+
     }
 }

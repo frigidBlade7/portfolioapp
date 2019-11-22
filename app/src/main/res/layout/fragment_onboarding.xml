@@ -60,7 +60,7 @@
             android:layout_marginEnd="@dimen/buttonDefaultMargin"
             android:layout_marginBottom="@dimen/buttonDefaultMargin"
             android:text="@string/get_started"
-            android:onClick="@{(v)->onboardingFragmentViewModel.goToAuthentication(v)}"
+            android:onClick="@{()->onboardingFragmentViewModel.goToAuthentication()}"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
