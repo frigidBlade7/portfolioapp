@@ -36,7 +36,9 @@
             app:destination="@id/forgotPasswordFragment" />
         <action
             android:id="@+id/action_authenticationFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@+id/onboardingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <dialog
         android:id="@+id/authenticationExtrasBottomSheet"
@@ -51,7 +53,9 @@
             app:destination="@id/completeProfileFragment" />
         <action
             android:id="@+id/action_authenticationExtrasBottomSheet_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@+id/onboardingFragment"
+            app:popUpToInclusive="true"/>
     </dialog>
 
     <dialog
@@ -85,7 +89,9 @@
             app:argType="string" />
         <action
             android:id="@+id/action_completeProfileFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@+id/onboardingFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <dialog
         android:id="@+id/forgotPasswordFragment"
