@@ -112,10 +112,6 @@
         <argument
             android:name="userId"
             app:argType="string" />
-        <action
-            android:id="@+id/action_dashboardFragment_pop_including_main_nav"
-            app:popUpTo="@id/onboardingFragment"
-            app:popUpToInclusive="true" />
     </fragment>
     <action android:id="@+id/action_global_dashboardFragment" app:destination="@id/dashboardFragment" />
 </navigation>
