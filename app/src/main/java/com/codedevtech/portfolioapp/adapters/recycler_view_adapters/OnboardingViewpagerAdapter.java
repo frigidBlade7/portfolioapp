@@ -51,7 +51,7 @@ public class OnboardingViewpagerAdapter extends RecyclerView.Adapter<OnboardingV
         ImageView titleImage;
         TextView titleText;
 
-        public OnboardingScreenViewHolder(@NonNull View itemView) {
+        private OnboardingScreenViewHolder(@NonNull View itemView) {
             super(itemView);
 
             titleImage = itemView.findViewById(R.id.titleImage);
