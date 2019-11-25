@@ -67,13 +67,13 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     private OAuthProvider oAuthProvider;
     private GoogleSignInClient googleSignInClient;
     private RegistrationService registrationService;
-    private SharedPreferences.Editor sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
     @Inject
     public AuthenticationFragmentViewModel(@NonNull Application application, AuthenticationService authenticationService,
                                            GoogleSignInClient googleSignInClient, CallbackManager callbackManager,
                                            FirebaseRemoteConfig firebaseRemoteConfig, Moshi moshi, OAuthProvider oAuthProvider,
-                                           RegistrationService registrationService, SharedPreferences.Editor sharedPreferences) {
+                                           RegistrationService registrationService, SharedPreferences sharedPreferences) {
         super(application);
         this.authenticationService = authenticationService;
         this.googleSignInClient = googleSignInClient;
@@ -302,7 +302,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     }
 
     private void saveIdToSharedPrefs(String userId) {
-        sharedPreferences.putString("userAuthId", userId).apply();
+        sharedPreferences.edit().putString("userAuthId", userId).apply();
     }
 
     public MutableLiveData<Event<Intent>> getSignInIntent() {

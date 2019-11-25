@@ -33,11 +33,11 @@ public class CompleteProfileViewModel extends BaseViewModel {
     private String userAuthProviderId;
     private ArrayList<String> roleFlags;
     private RegistrationService registrationService;
-    private SharedPreferences.Editor sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
 
     @Inject
-    public CompleteProfileViewModel(@NonNull Application application, RegistrationService registrationService, SharedPreferences.Editor sharedPreferences) {
+    public CompleteProfileViewModel(@NonNull Application application, RegistrationService registrationService, SharedPreferences sharedPreferences) {
         super(application);
         this.registrationService = registrationService;
         this.roleFlags = new ArrayList<>();
@@ -106,7 +106,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
             public void success(String id) {
 
                 //save user id to shared pref
-                sharedPreferences.putString("userAuthId", id);
+                sharedPreferences.edit().putString("userAuthId", id).apply();
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
                 CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =

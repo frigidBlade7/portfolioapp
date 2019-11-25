@@ -118,12 +118,14 @@ public final class AppModule {
     @Singleton
     @Provides
     @NonNull
-    public final SharedPreferences.Editor sharedPreferences(Application application) throws GeneralSecurityException, IOException {
+    public final SharedPreferences sharedPreferences(Application application)  {
 
-        KeyGenParameterSpec keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC;
-        String masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec);
 
-        SharedPreferences encryptedSharedPreferences = EncryptedSharedPreferences
+       try{
+           KeyGenParameterSpec keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC;
+           String masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec);
+
+           SharedPreferences encryptedSharedPreferences = EncryptedSharedPreferences
                 .create(
                         "folioSharedPreferences",
                         masterKeyAlias,
@@ -132,6 +134,11 @@ public final class AppModule {
                         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
                 );
 
-        return encryptedSharedPreferences.edit();
+
+        return encryptedSharedPreferences;
+       }
+       catch (GeneralSecurityException| IOException e){
+           return application.getSharedPreferences("folioSharedPreferences",Context.MODE_PRIVATE);
+       }
     }
 }

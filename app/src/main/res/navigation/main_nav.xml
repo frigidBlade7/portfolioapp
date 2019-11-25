@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    app:startDestination="@id/onboardingFragment">
+    app:startDestination="@id/splashScreenFragment">
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="com.codedevtech.portfolioapp.fragments.OnboardingFragment"
@@ -114,4 +114,16 @@
             app:argType="string" />
     </fragment>
     <action android:id="@+id/action_global_dashboardFragment" app:destination="@id/dashboardFragment" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.codedevtech.portfolioapp.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 </navigation>

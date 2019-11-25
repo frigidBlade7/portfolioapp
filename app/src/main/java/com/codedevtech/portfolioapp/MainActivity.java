@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         setContentView(R.layout.activity_main);
         firebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_default_values);
 
+
     }
 
     @Override
