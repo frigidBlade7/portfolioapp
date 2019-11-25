@@ -1,6 +1,7 @@
 package com.codedevtech.portfolioapp.viewmodels;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 
@@ -32,13 +33,15 @@ public class CompleteProfileViewModel extends BaseViewModel {
     private String userAuthProviderId;
     private ArrayList<String> roleFlags;
     private RegistrationService registrationService;
+    private SharedPreferences.Editor sharedPreferences;
 
 
     @Inject
-    public CompleteProfileViewModel(@NonNull Application application, RegistrationService registrationService) {
+    public CompleteProfileViewModel(@NonNull Application application, RegistrationService registrationService, SharedPreferences.Editor sharedPreferences) {
         super(application);
         this.registrationService = registrationService;
         this.roleFlags = new ArrayList<>();
+        this.sharedPreferences = sharedPreferences;
     }
 
     public MutableLiveData<String> getFirstNameLiveData() {
@@ -101,6 +104,9 @@ public class CompleteProfileViewModel extends BaseViewModel {
         registrationService.registerUser(folioUser, new SuccessCallback() {
             @Override
             public void success(String id) {
+
+                //save user id to shared pref
+                sharedPreferences.putString("userAuthId", id);
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
                 CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =

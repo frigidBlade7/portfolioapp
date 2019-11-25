@@ -2,8 +2,12 @@ package com.codedevtech.portfolioapp.di.modules;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.security.keystore.KeyGenParameterSpec;
 
 import androidx.annotation.NonNull;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.codedevtech.authenticationserviceprovider.interface_implementations.FirebaseAuthenticationService;
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
@@ -19,6 +23,10 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.squareup.moshi.Moshi;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import javax.annotation.Nonnegative;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -107,4 +115,23 @@ public final class AppModule {
         return new FirebaseRegistrationService();
     }
 
+    @Singleton
+    @Provides
+    @NonNull
+    public final SharedPreferences.Editor sharedPreferences(Application application) throws GeneralSecurityException, IOException {
+
+        KeyGenParameterSpec keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC;
+        String masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec);
+
+        SharedPreferences encryptedSharedPreferences = EncryptedSharedPreferences
+                .create(
+                        "folioSharedPreferences",
+                        masterKeyAlias,
+                        application.getBaseContext(),
+                        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                );
+
+        return encryptedSharedPreferences.edit();
+    }
 }

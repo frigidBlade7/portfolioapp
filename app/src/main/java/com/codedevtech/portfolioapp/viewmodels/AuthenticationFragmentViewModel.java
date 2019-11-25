@@ -2,6 +2,7 @@ package com.codedevtech.portfolioapp.viewmodels;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 
@@ -66,12 +67,13 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     private OAuthProvider oAuthProvider;
     private GoogleSignInClient googleSignInClient;
     private RegistrationService registrationService;
+    private SharedPreferences.Editor sharedPreferences;
 
     @Inject
     public AuthenticationFragmentViewModel(@NonNull Application application, AuthenticationService authenticationService,
                                            GoogleSignInClient googleSignInClient, CallbackManager callbackManager,
                                            FirebaseRemoteConfig firebaseRemoteConfig, Moshi moshi, OAuthProvider oAuthProvider,
-                                           RegistrationService registrationService) {
+                                           RegistrationService registrationService, SharedPreferences.Editor sharedPreferences) {
         super(application);
         this.authenticationService = authenticationService;
         this.googleSignInClient = googleSignInClient;
@@ -80,6 +82,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         this.moshi = moshi;
         this.oAuthProvider = oAuthProvider;
         this.registrationService = registrationService;
+        this.sharedPreferences = sharedPreferences;
 
         //initialise facebook login  callback manager
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -248,6 +251,9 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
             @Override
             public void userExists(FolioUser folioUser) {
 
+                //save user id to shared pref
+                saveIdToSharedPrefs(folioUser.getId());
+
                 AuthenticationFragmentDirections.ActionAuthenticationFragmentToDashboardFragment action =
                         AuthenticationFragmentDirections.actionAuthenticationFragmentToDashboardFragment(folioUser.getId());
 
@@ -272,6 +278,9 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
         registrationService.userExists(userAuthProviderId, new UserExistsCallback() {
             @Override
             public void userExists(FolioUser folioUser) {
+
+                //save user id to shared pref
+                saveIdToSharedPrefs(folioUser.getId());
                 AuthenticationExtrasBottomSheetDirections.ActionAuthenticationExtrasBottomSheetToDashboardFragment action =
                         AuthenticationExtrasBottomSheetDirections.actionAuthenticationExtrasBottomSheetToDashboardFragment(folioUser.getId());
 
@@ -290,6 +299,10 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
             }
         });
 
+    }
+
+    private void saveIdToSharedPrefs(String userId) {
+        sharedPreferences.putString("userAuthId", userId).apply();
     }
 
     public MutableLiveData<Event<Intent>> getSignInIntent() {
