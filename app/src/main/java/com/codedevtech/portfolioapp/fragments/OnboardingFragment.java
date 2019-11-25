@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
@@ -22,6 +23,7 @@ import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.adapters.recycler_view_adapters.OnboardingViewpagerAdapter;
 import com.codedevtech.portfolioapp.databinding.FragmentOnboardingBinding;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
+import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.navigation.EventListener;
 import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.utilities.Utility;
@@ -29,12 +31,17 @@ import com.codedevtech.portfolioapp.viewmodels.OnboardingFragmentViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import javax.inject.Inject;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OnboardingFragment extends Fragment {
+public class OnboardingFragment extends Fragment implements Injectable {
 
     private static final String TAG = "OnboardingFragment";
+
+    @Inject
+    ViewModelProvider.Factory viewmodelFactory;
 
     public OnboardingFragment() {
         // Required empty public constructor
@@ -52,7 +59,7 @@ public class OnboardingFragment extends Fragment {
 
         fragmentOnboardingBinding.setLifecycleOwner(this);
 
-        final OnboardingFragmentViewModel onboardingFragmentViewModel = ViewModelProviders.of(this)
+        final OnboardingFragmentViewModel onboardingFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory)
                 .get(OnboardingFragmentViewModel.class);
 
         fragmentOnboardingBinding.setOnboardingFragmentViewModel(onboardingFragmentViewModel);

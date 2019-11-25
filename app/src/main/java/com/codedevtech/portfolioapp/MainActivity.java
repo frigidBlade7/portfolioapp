@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //remove splash screen theme
+        setTheme(R.style.AppTheme);
+
         this.configureDagger();
         
         super.onCreate(savedInstanceState);

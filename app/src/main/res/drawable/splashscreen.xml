@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- The android:opacity=”opaque” line — this is critical in preventing a flash of black as your theme transitions. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+
+    <!-- The background color, preferably the same as your normal theme -->
+    <item android:drawable="@color/my_app_background_color"/>
+
+    <item>
+
+        <bitmap
+            android:src="@drawable/folio_png"
+            android:tint="@color/my_app_primary_variant_color"
+            android:gravity="center"/>
+
+    </item>
+
+</layer-list>

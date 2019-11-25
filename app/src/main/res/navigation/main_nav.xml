@@ -121,7 +121,9 @@
         tools:layout="@layout/fragment_splash_screen" >
         <action
             android:id="@+id/action_splashScreenFragment_to_onboardingFragment"
-            app:destination="@id/onboardingFragment" />
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@+id/splashScreenFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_splashScreenFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
