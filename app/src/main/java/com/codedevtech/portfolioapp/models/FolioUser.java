@@ -13,7 +13,6 @@ public class FolioUser {
     private String bio;
     private List<String> roleFlags;
 
-    private String errorReason;
 
     public FolioUser() {
     }
@@ -66,13 +65,6 @@ public class FolioUser {
         this.id = id;
     }
 
-    public String getErrorReason() {
-        return errorReason;
-    }
-
-    public void setErrorReason(String errorReason) {
-        this.errorReason = errorReason;
-    }
 
 
     public boolean isFirstNameValid(){
