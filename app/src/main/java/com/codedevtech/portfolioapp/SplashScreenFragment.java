@@ -57,9 +57,14 @@ public class SplashScreenFragment extends Fragment implements Injectable {
             @Override
             public void onEvent(String s) {
                 if(s==null || s.isEmpty()){
+
                     onboardingFragmentViewModel.setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_splashScreenFragment_to_onboardingFragment));
                 }else{
-                    onboardingFragmentViewModel.setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_splashScreenFragment_to_dashboardFragment));
+
+                    SplashScreenFragmentDirections.ActionSplashScreenFragmentToDashboardFragment action =
+                            SplashScreenFragmentDirections.actionSplashScreenFragmentToDashboardFragment(s);
+
+                    onboardingFragmentViewModel.setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
 
                 }
             }
