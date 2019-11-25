@@ -1,5 +1,6 @@
 package com.codedevtech.portfolioapp.di.modules;
 
+import com.codedevtech.portfolioapp.SplashScreenFragment;
 import com.codedevtech.portfolioapp.fragments.AuthenticationExtrasBottomSheet;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragment;
 import com.codedevtech.portfolioapp.fragments.CompleteProfileFragment;
@@ -25,5 +26,11 @@ public abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract CompleteProfileFragment contributesCompleteProfileFragment();
+
+    @ContributesAndroidInjector
+    abstract DashboardFragment contributesDashboardFragment();
+
+    @ContributesAndroidInjector
+    abstract SplashScreenFragment splashScreenFragment();
 
 }

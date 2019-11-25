@@ -54,6 +54,7 @@ public class OnboardingFragment extends Fragment {
 
         final OnboardingFragmentViewModel onboardingFragmentViewModel = ViewModelProviders.of(this)
                 .get(OnboardingFragmentViewModel.class);
+
         fragmentOnboardingBinding.setOnboardingFragmentViewModel(onboardingFragmentViewModel);
 
         //set adapter for viewpager2

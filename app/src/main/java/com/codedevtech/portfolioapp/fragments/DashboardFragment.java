@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
@@ -22,17 +24,23 @@ import com.facebook.share.Share;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
+import javax.inject.Inject;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements Injectable{
 
     private static final String TAG = "DashboardFragment";
 
     public DashboardFragment() {
         // Required empty public constructor
     }
+
+    @Inject
+    ViewModelProvider.Factory viewmodelFactory;
+
 
 
     @Override
@@ -47,27 +55,7 @@ public class DashboardFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-        try {
-            Log.d(TAG, "onCreate: "+getSharedPref().getString("userAuthId","error"));
-        } catch (GeneralSecurityException | IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
-    SharedPreferences getSharedPref() throws GeneralSecurityException, IOException {
-        KeyGenParameterSpec keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC;
-        String masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec);
 
-        SharedPreferences encryptedSharedPreferences = EncryptedSharedPreferences
-                .create(
-                        "folioSharedPreferences",
-                        masterKeyAlias,
-                        getContext(),
-                        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-                );
-
-        return encryptedSharedPreferences;
-    }
 }
