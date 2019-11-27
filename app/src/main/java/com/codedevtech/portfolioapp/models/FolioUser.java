@@ -1,16 +1,31 @@
 package com.codedevtech.portfolioapp.models;
 
-import android.widget.ListView;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
-import java.util.ArrayList;
+import com.codedevtech.portfolioapp.converters.DateConverter;
+import com.codedevtech.portfolioapp.converters.RoomListConverter;
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
 import java.util.List;
 
+@Entity
 public class FolioUser {
+    @PrimaryKey
+    @NonNull
     private String id;
+
     private String email;
     private String firstName;
     private String lastName;
     private String bio;
+    private @ServerTimestamp @TypeConverters(DateConverter.class)
+    Date createdAt;
+
+    @TypeConverters(RoomListConverter.class)
     private List<String> roleFlags;
 
 
