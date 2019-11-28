@@ -1,5 +1,9 @@
 package com.codedevtech.portfolioapp.repositories.interfaces;
 
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
+
 public interface DataRepositoryInterface<T> {
 
     //add item
@@ -11,6 +15,8 @@ public interface DataRepositoryInterface<T> {
     //delete an item
     void remove(T item);
 
-    //LiveData<T> queryItem (String specification);
+/*    LiveData<T> queryItem (String specification);
+
+    LiveData<List<T>> queryItemList (String specification);*/
 
 }
