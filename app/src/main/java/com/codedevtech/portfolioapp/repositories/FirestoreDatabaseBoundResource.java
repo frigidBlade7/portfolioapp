@@ -10,16 +10,17 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 //creating a class to abstract querysnapshot data (from firestore) into livedata object
 //this enables us to automatically set and remove listeners whenever the livedata is available by
 // overriding its onactive and oninactive methods
-public class FirestoreDatabaseBoundResourceCollection extends LiveData<Resource<QuerySnapshot>> {
+public class FirestoreDatabaseBoundResource extends LiveData<Resource<QuerySnapshot>>  {
 
     private static final String TAG = "FirestoreDBBoundRC";
     //the firebase query object
-    private final CollectionReference collectionReference;
+    private final Query query;
     //class implementing the firestore event listener interface
     //we could have passed this as new , and overridden the setvalue method,
     // but that means creating a new object every time on active/inactive is called
@@ -43,8 +44,8 @@ public class FirestoreDatabaseBoundResourceCollection extends LiveData<Resource<
     };
 
     //default constructor (i am unsure if we will need a default empty. i doubt
-    public FirestoreDatabaseBoundResourceCollection(CollectionReference collectionReference){
-        this.collectionReference =  collectionReference;
+    public FirestoreDatabaseBoundResource(Query query){
+        this.query =  query;
 
     }
 
@@ -58,7 +59,7 @@ public class FirestoreDatabaseBoundResourceCollection extends LiveData<Resource<
         }
         else {
             //used to be just this method without the checks
-            registration = collectionReference.addSnapshotListener(firestoreEventListener);
+            registration = query.addSnapshotListener(firestoreEventListener);
         }
 
         listenerRemovePending = false;
