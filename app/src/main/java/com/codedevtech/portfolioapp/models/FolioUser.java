@@ -7,6 +7,7 @@ import androidx.room.TypeConverters;
 
 import com.codedevtech.portfolioapp.converters.DateConverter;
 import com.codedevtech.portfolioapp.converters.RoomListConverter;
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
@@ -22,8 +23,8 @@ public class FolioUser {
     private String firstName;
     private String lastName;
     private String bio;
-    private @ServerTimestamp @TypeConverters(DateConverter.class)
-    Date createdAt;
+    @TypeConverters(DateConverter.class) @ServerTimestamp
+    private Date createdAt;
 
     @TypeConverters(RoomListConverter.class)
     private List<String> roleFlags;
@@ -80,25 +81,38 @@ public class FolioUser {
         this.id = id;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
+    //checks
+
+    @Exclude
     public boolean isFirstNameValid(){
         return (firstName!=null && !firstName.isEmpty());
     }
 
+    @Exclude
     public boolean isLastNameValid(){
         return (lastName!=null && !lastName.isEmpty());
     }
 
+    @Exclude
     public boolean isIdValid(){
         return (id!=null && !id.isEmpty());
 
     }
 
+    @Exclude
     public boolean isEmailValid(){
         return (email!=null && !email.isEmpty());
     }
 
+    @Exclude
     public boolean isRoleFlagsValid(){
         return (roleFlags!=null /*&& roleFlags.size()<4*/ && roleFlags.size()>0);
     }

@@ -32,7 +32,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/email_layout"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
                 app:layout_constraintTop_toTopOf="@+id/guideline6"
-                app:srcCompat="@drawable/folio_png" />
+                app:srcCompat="@drawable/folio" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animView"
@@ -49,7 +49,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/forgotPassword"
-                style="@style/ButtonLight"
+                style="@style/ButtonOutline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

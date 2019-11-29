@@ -6,7 +6,7 @@ public interface AttemptRegistrationCallback {
     void onAttemptRegistrationFailed(String errorMessage);
 
     //to be called when we successfully register a user
-    void onAttemptRegistrationSuccess();
+    void onAttemptRegistrationSuccess(String userId);
 
     //sigh do i need this? maybe
     void onErrorOccurred(String errorMessage);

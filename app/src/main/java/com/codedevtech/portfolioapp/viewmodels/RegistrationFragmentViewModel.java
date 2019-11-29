@@ -12,6 +12,7 @@ import com.codedevtech.models.RegistrationCredentials;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
+import com.codedevtech.portfolioapp.fragments.RegistrationFragmentDirections;
 
 import javax.inject.Inject;
 
@@ -30,8 +31,12 @@ public class RegistrationFragmentViewModel extends BaseViewModel {
     }
 
 
-    public void goToCompleteProfile() {
-        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_registrationFragment_to_completeProfileFragment));
+    public void goToCompleteProfile(String userId) {
+        RegistrationFragmentDirections.ActionRegistrationFragmentToCompleteProfileFragment action =
+                RegistrationFragmentDirections.actionRegistrationFragmentToCompleteProfileFragment(userId);
+
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
+        //setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_registrationFragment_to_completeProfileFragment));
     }
 
     public MutableLiveData<String> getPasswordMutableLiveData() {
@@ -88,9 +93,9 @@ public class RegistrationFragmentViewModel extends BaseViewModel {
                 }
 
                 @Override
-                public void onAttemptRegistrationSuccess() {
+                public void onAttemptRegistrationSuccess(String userId) {
                     setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
-                    goToCompleteProfile();
+                    goToCompleteProfile(userId);
 
                 }
 

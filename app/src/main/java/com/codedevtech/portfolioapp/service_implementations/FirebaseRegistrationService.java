@@ -6,6 +6,8 @@ import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.callbacks.UserExistsCallback;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;
+import com.codedevtech.portfolioapp.repositories.interfaces.DataRepositoryService;
+import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -14,9 +16,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class FirebaseRegistrationService implements RegistrationService {
 
     private final FirebaseFirestore firestoreDb;
+    private DataRepositoryService firebaseUserDataRepositoryService;
 
     public FirebaseRegistrationService() {
         firestoreDb = FirebaseFirestore.getInstance();
+        firebaseUserDataRepositoryService = new FirebaseFolioUserRepository(firestoreDb.collection("users").getPath());
     }
 
     @Override
@@ -45,7 +49,7 @@ public class FirebaseRegistrationService implements RegistrationService {
     @Override
     public void registerUser(final FolioUser folioUser, final SuccessCallback successCallback) {
 
-        firestoreDb.collection("users").document(folioUser.getId())
+        /*        firestoreDb.collection("users").document(folioUser.getId())
                 .set(folioUser).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -55,6 +59,11 @@ public class FirebaseRegistrationService implements RegistrationService {
                     successCallback.failure(task.getException().getLocalizedMessage());
                 }
             }
-        });
+        });*/
+
+        //edited to use datarepositoryservice
+        firebaseUserDataRepositoryService.add(folioUser,successCallback);
+
+
     }
 }
