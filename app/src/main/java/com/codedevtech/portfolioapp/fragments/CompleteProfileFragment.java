@@ -39,7 +39,7 @@ import javax.inject.Inject;
 public class CompleteProfileFragment extends Fragment implements Injectable {
 
     private static final String TAG = "CompleteProfileFragment";
-    private String userAuthenticationId, email;
+    private String userAuthenticationId;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -51,16 +51,19 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
     }
 
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        userAuthenticationId = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserAuthProviderId();
+        Log.d(TAG, "onViewCreated: "+userAuthenticationId);
+
+        completeProfileViewModel.setUserAuthProviderId(userAuthenticationId);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        userAuthenticationId = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserAuthProviderId();
-        email = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserAuthProviderId();
-        Log.d(TAG, "onViewCreated: "+userAuthenticationId);
-
-        completeProfileViewModel.setUserAuthProviderId(userAuthenticationId);
 
         // Inflate the layout for this fragment
 
@@ -72,8 +75,8 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
         completeProfileViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(CompleteProfileViewModel.class);
 
-
         fragmentCompleteProfileBinding.setViewmodel(completeProfileViewModel);
+
 
         completeProfileViewModel.getNavigationCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<NavigationCommand>() {
             @Override

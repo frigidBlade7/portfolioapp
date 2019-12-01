@@ -55,7 +55,7 @@
             android:id="@+id/action_authenticationExtrasBottomSheet_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@+id/splashScreenFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </dialog>
 
     <dialog
@@ -91,7 +91,7 @@
             android:id="@+id/action_completeProfileFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@+id/splashScreenFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <dialog
         android:id="@+id/forgotPasswordFragment"
@@ -113,7 +113,6 @@
             android:name="userId"
             app:argType="string" />
     </fragment>
-    <action android:id="@+id/action_global_dashboardFragment" app:destination="@id/dashboardFragment" />
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.codedevtech.portfolioapp.SplashScreenFragment"
@@ -121,9 +120,8 @@
         tools:layout="@layout/fragment_splash_screen" >
         <action
             android:id="@+id/action_splashScreenFragment_to_onboardingFragment"
-            app:destination="@id/onboardingFragment"
-            app:popUpTo="@+id/splashScreenFragment"
-            app:popUpToInclusive="true"/>
+            app:destination="@id/onboardingFragment" />
+
         <action
             android:id="@+id/action_splashScreenFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"

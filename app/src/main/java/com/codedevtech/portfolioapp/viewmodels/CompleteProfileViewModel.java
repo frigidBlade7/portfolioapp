@@ -36,7 +36,6 @@ public class CompleteProfileViewModel extends BaseViewModel {
     private ArrayList<String> roleFlags;
     private RegistrationService registrationService;
     private SharedPreferences sharedPreferences;
-    private final DataRepositoryService<FolioUser> firebaseUserDataRepositoryService;
 
 
     @Inject
@@ -45,8 +44,6 @@ public class CompleteProfileViewModel extends BaseViewModel {
         this.registrationService = registrationService;
         this.roleFlags = new ArrayList<>();
         this.sharedPreferences = sharedPreferences;
-        this.firebaseUserDataRepositoryService = new FirebaseFolioUserRepository("users");
-
     }
 
     public MutableLiveData<String> getFirstNameLiveData() {
@@ -107,31 +104,10 @@ public class CompleteProfileViewModel extends BaseViewModel {
 
     private void storeUserData(FolioUser folioUser) {
 
-/*        registrationService.registerUser(folioUser, new SuccessCallback() {
+        registrationService.registerUser(folioUser, new SuccessCallback() {
             @Override
             public void success(String id) {
 
-                //save user id to shared pref
-                sharedPreferences.edit().putString("userAuthId", id).apply();
-                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
-
-                CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =
-                        CompleteProfileFragmentDirections.actionCompleteProfileFragmentToDashboardFragment(id);
-
-                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
-            }
-
-            @Override
-            public void failure(String message) {
-                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
-                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(message));
-            }
-        });*/
-
-        //changed to use firebaseUserDataRepositoryService
-        firebaseUserDataRepositoryService.add(folioUser, new SuccessCallback() {
-            @Override
-            public void success(String id) {
                 //save user id to shared pref
                 sharedPreferences.edit().putString("userAuthId", id).apply();
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));

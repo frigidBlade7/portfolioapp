@@ -49,6 +49,7 @@ public class FirestoreDatabaseBoundResourceDocument extends LiveData<Resource<Do
     public FirestoreDatabaseBoundResourceDocument(DocumentReference documentReference){
         this.documentReference =  documentReference;
 
+
     }
 
     @Override
@@ -86,6 +87,8 @@ public class FirestoreDatabaseBoundResourceDocument extends LiveData<Resource<Do
         // onEvent will be called with the new value or the error if an error occurred.
         // It's guaranteed that exactly one of value or error will be non-null.
         //isnt that lovely???
+
+        //todo find a place to setValue(Resource.loading)
 
 
         @Override

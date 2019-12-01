@@ -15,17 +15,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class FirebaseRegistrationService implements RegistrationService {
 
-    private final FirebaseFirestore firestoreDb;
-    private DataRepositoryService firebaseUserDataRepositoryService;
+    private FirebaseFolioUserRepository firebaseUserDataRepositoryService;
 
     public FirebaseRegistrationService() {
-        firestoreDb = FirebaseFirestore.getInstance();
-        firebaseUserDataRepositoryService = new FirebaseFolioUserRepository(firestoreDb.collection("users").getPath());
+        firebaseUserDataRepositoryService = new FirebaseFolioUserRepository("users");
     }
 
     @Override
     public void userExists(final String userAuthProviderId, final UserExistsCallback userExistsCallback) {
-        firestoreDb.collection("users").document(userAuthProviderId).get()
+        //todo create an exists implementation in your firebaseuserdatarepository class
+        firebaseUserDataRepositoryService.getCollectionReference().document(userAuthProviderId).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

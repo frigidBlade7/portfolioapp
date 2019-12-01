@@ -3,8 +3,8 @@ package com.codedevtech.portfolioapp.repositories.interfaces;
 import androidx.lifecycle.LiveData;
 
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
-
-import java.util.List;
+import com.codedevtech.portfolioapp.repositories.Resource;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public interface DataRepositoryService<T> {
 
@@ -17,8 +17,9 @@ public interface DataRepositoryService<T> {
     //delete an item
     void remove(T item, SuccessCallback successCallback);
 
-/*    LiveData<T> queryItem (String specification);
+/*    LiveData<Resource<QuerySnapshot>> queryItem (String specificationPath);
 
-    LiveData<List<T>> queryItemList (String specification);*/
+
+   LiveData<List<T>> queryItemList (String specification);*/
 
 }

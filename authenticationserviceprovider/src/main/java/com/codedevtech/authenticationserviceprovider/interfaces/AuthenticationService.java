@@ -16,6 +16,6 @@ public interface AuthenticationService {
 
     //for registration
 
-    void attemptRegistrationWithCredential(String username, String password, AttemptRegistrationCallback attemptRegistrationCallback);
+    void attemptRegistrationWithCredential(String username, String password, AttemptLoginCallback attemptLoginCallback);
 
 }

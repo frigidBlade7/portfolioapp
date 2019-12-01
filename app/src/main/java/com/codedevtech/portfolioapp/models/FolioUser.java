@@ -1,12 +1,15 @@
 package com.codedevtech.portfolioapp.models;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.codedevtech.portfolioapp.converters.DateConverter;
 import com.codedevtech.portfolioapp.converters.RoomListConverter;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
@@ -24,6 +27,7 @@ public class FolioUser {
     private String lastName;
     private String bio;
     @TypeConverters(DateConverter.class) @ServerTimestamp
+    //only ignored because we want firestore to save the timestamp
     private Date createdAt;
 
     @TypeConverters(RoomListConverter.class)
@@ -86,7 +90,7 @@ public class FolioUser {
     }
 
     public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+        this.createdAt = Timestamp.now().toDate();
     }
 
     //checks

@@ -7,12 +7,12 @@ import androidx.lifecycle.LiveData;
 
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.models.FolioUser;
-import com.codedevtech.portfolioapp.repositories.FirestoreDatabaseBoundResource;
+import com.codedevtech.portfolioapp.repositories.FirestoreDatabaseBoundResourceDocument;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -21,13 +21,12 @@ public class FirebaseFolioUserRepository implements DataRepositoryService<FolioU
     private static final String TAG = "FirebaseFolioUserReposi";
 
     private CollectionReference collectionReference;
-    private FirestoreDatabaseBoundResource firestoreDatabaseBoundResource;
+    private FirestoreDatabaseBoundResourceDocument firestoreDatabaseBoundResourceDocument;
     private final FirebaseFirestore firestoreDB;
 
     public FirebaseFolioUserRepository(String collectionPath) {
         this.firestoreDB = FirebaseFirestore.getInstance();
         this.collectionReference = firestoreDB.collection(collectionPath);
-        this.firestoreDatabaseBoundResource = new FirestoreDatabaseBoundResource(collectionReference);
     }
 
 
@@ -48,6 +47,8 @@ public class FirebaseFolioUserRepository implements DataRepositoryService<FolioU
         });
     }
 
+
+    //todo edit this to provide field specific update
     @Override
     public void update(FolioUser item, SuccessCallback successCallback) {
         //todo to be implemented
@@ -81,12 +82,17 @@ public class FirebaseFolioUserRepository implements DataRepositoryService<FolioU
         });
     }
 
-    public LiveData<Resource<QuerySnapshot>> getFolioUserById(String userId) {
-        return firestoreDatabaseBoundResource;
+
+    public LiveData<Resource<DocumentSnapshot>> getFolioUserById(String userId) {
+        firestoreDatabaseBoundResourceDocument = new FirestoreDatabaseBoundResourceDocument(collectionReference.document(userId));
+        return firestoreDatabaseBoundResourceDocument;
     }
 
+    public CollectionReference getCollectionReference() {
+        return collectionReference;
+    }
 
- /*   public CollectionReference getCollectionReference() {
+    /*   public CollectionReference getCollectionReference() {
         return collectionReference;
     }*/
 }

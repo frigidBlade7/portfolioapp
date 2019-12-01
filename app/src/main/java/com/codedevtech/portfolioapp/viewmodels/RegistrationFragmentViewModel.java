@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.codedevtech.authenticationserviceprovider.callbacks.AttemptLoginCallback;
 import com.codedevtech.authenticationserviceprovider.callbacks.AttemptRegistrationCallback;
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
 import com.codedevtech.models.RegistrationCredentials;
@@ -84,16 +85,16 @@ public class RegistrationFragmentViewModel extends BaseViewModel {
 
             setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.loadingDialog));
 
-            authenticationService.attemptRegistrationWithCredential(registrationCredentials.getEmail(), registrationCredentials.getPassword(), new AttemptRegistrationCallback() {
+            authenticationService.attemptRegistrationWithCredential(registrationCredentials.getEmail(), registrationCredentials.getPassword(), new AttemptLoginCallback() {
                 @Override
-                public void onAttemptRegistrationFailed(String errorMessage) {
+                public void onAttemptLoginFailed(String errorMessage) {
 
                     setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
                     setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(errorMessage));
                 }
 
                 @Override
-                public void onAttemptRegistrationSuccess(String userId) {
+                public void onAttemptLoginSuccess(String userId) {
                     setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
                     goToCompleteProfile(userId);
 

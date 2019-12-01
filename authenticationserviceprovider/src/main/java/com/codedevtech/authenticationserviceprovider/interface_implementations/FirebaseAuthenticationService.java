@@ -60,17 +60,17 @@ public class FirebaseAuthenticationService implements AuthenticationService {
     }
 
     @Override
-    public void attemptRegistrationWithCredential(String username, String password, final AttemptRegistrationCallback attemptRegistrationCallback) {
+    public void attemptRegistrationWithCredential(String username, String password, final AttemptLoginCallback attemptLoginCallback) {
         firebaseAuthInstance.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    attemptRegistrationCallback.onAttemptRegistrationSuccess();
+                    attemptLoginCallback.onAttemptLoginSuccess(task.getResult().getUser().getUid());
                 }else{
 
                     Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
 
-                    attemptRegistrationCallback.onAttemptRegistrationFailed(task.getException().getLocalizedMessage());
+                    attemptLoginCallback.onAttemptLoginFailed(task.getException().getLocalizedMessage());
                 }
             }
         });
