@@ -18,7 +18,6 @@
         android:padding="@dimen/buttonPadding"
         tools:context=".fragments.AuthenticationExtrasBottomSheet">
 
-        <!-- TODO: Update blank fragment layout -->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/googleAuth"

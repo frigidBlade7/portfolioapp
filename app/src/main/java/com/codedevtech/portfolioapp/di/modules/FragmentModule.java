@@ -13,7 +13,7 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class FragmentModule {
-    //todo update this file with abstract methods for AndroidInjector contributing fragments
+    // update this file with abstract methods for AndroidInjector contributing fragments
 
     @ContributesAndroidInjector
     abstract AuthenticationFragment contributesAuthenticationFragment();

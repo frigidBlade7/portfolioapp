@@ -57,6 +57,7 @@
     <string name="last_name_required">Last name is required</string>
     <string name="email_retrieval_error">We could not find a valid email associated with this account</string>
     <string name="select_at_least_one_role">Select at least one role</string>
+    <string name="overflow">Overflow</string>
 
 
 </resources>

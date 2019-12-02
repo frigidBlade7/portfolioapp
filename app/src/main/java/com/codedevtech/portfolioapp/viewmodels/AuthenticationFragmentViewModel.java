@@ -229,8 +229,6 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
 
     public void goToCompleteProfile(String userId){
 
-        //todo AuthenticationFragmentDirections authenticationFragmentDirections
-
         AuthenticationFragmentDirections.ActionAuthenticationFragmentToCompleteProfileFragment action =
                 AuthenticationFragmentDirections.actionAuthenticationFragmentToCompleteProfileFragment(userId);
 

@@ -7,7 +7,7 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class ActivityModule {
-    //todo update this file with abstract methods for AndroidInjector contributing activities
+    // update this file with abstract methods for AndroidInjector contributing activities
 
     @ContributesAndroidInjector(modules = FragmentModule.class)
     abstract MainActivity contributesMainActivity();
