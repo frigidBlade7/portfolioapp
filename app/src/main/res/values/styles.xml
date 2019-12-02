@@ -64,9 +64,9 @@
         <item name="android:windowBackground">@drawable/splashscreen</item>
     </style>
 
-    <style name="CurvedCollapsingToolbarLayout" parent="Widget.Design.CollapsingToolbar">
-        <item name="android:bottomRightRadius">@dimen/cardview_default_radius</item>
-        <item name="android:bottomLeftRadius">@dimen/cardview_default_radius</item>
+    <style name="CurvedAppBarLayout" parent="Widget.Design.AppBarLayout">
+        <item name="android:bottomRightRadius">@dimen/globalRadius</item>
+        <item name="android:bottomLeftRadius">@dimen/globalRadius</item>
     </style>
 
 

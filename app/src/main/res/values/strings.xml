@@ -58,6 +58,9 @@
     <string name="email_retrieval_error">We could not find a valid email associated with this account</string>
     <string name="select_at_least_one_role">Select at least one role</string>
     <string name="overflow">Overflow</string>
+    <string name="_1_s_likes">%1$s likes</string>
+    <string name="_1_s_followers">%1$s followers</string>
+    <string name="role_role_role">Role | Role | Role</string>
 
 
 </resources>

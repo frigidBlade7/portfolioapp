@@ -12,7 +12,6 @@
     <dimen name="thin">0.5dp</dimen>
     <dimen name="profileWidth">100dp</dimen>
     <dimen name="profileHeight">100dp</dimen>
-
     <dimen name="expanded_title_margin_bottom">96dp</dimen>
     <dimen name="app_bar_height">192dp</dimen>
 </resources>
