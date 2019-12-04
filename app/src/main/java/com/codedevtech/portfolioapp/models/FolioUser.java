@@ -29,6 +29,8 @@ public class FolioUser {
     @TypeConverters(DateConverter.class) @ServerTimestamp
     //only ignored because we want firestore to save the timestamp
     private Date createdAt;
+    private int followCount;
+    private int likeCount;
 
     @TypeConverters(RoomListConverter.class)
     private List<String> roleFlags;
@@ -91,6 +93,22 @@ public class FolioUser {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = Timestamp.now().toDate();
+    }
+
+    public int getFollowCount() {
+        return followCount;
+    }
+
+    public void setFollowCount(int followCount) {
+        this.followCount = followCount;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 
     //checks

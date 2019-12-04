@@ -68,13 +68,13 @@ public class DashboardFragment extends Fragment implements Injectable{
         DashboardFragmentViewModel dashboardFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory)
                 .get(DashboardFragmentViewModel.class);
 
-
+/*
         dashboardFragmentViewModel.getFolioUserLiveData().observe(this.getViewLifecycleOwner(), new Observer<Resource<FolioUser>>() {
             @Override
             public void onChanged(Resource<FolioUser> folioUserResource) {
                 Log.d(TAG, "onChanged: "+folioUserResource.data.getId());
             }
-        });
+        });*/
 
         return fragmentDashboardBinding.getRoot();
     }

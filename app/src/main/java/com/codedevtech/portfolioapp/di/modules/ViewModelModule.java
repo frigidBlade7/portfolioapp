@@ -46,6 +46,11 @@ public abstract class ViewModelModule {
     @ViewModelKey(OnboardingFragmentViewModel.class)
     abstract ViewModel bindOnboardingFragmentViewModel(OnboardingFragmentViewModel onboardingFragmentViewModel);
 
+/*    @Binds
+    @IntoMap
+    @ViewModelKey(DashboardFragmentViewModel.class)
+    abstract ViewModel bindDashboardFragmentViewModel(DashboardFragmentViewModel dashboardFragmentViewModel);*/
+
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelProviderFactory (FactoryViewModel factoryViewModel);

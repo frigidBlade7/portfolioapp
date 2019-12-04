@@ -91,7 +91,7 @@ public class AuthenticationExtrasBottomSheet extends BottomSheetDialogFragment i
             }
         }));
 
-        authenticationFragmentViewModel.getSignInIntent().observe(this.getViewLifecycleOwner(), new Observer<Event<Intent>>() {
+/*        authenticationFragmentViewModel.getSignInIntent().observe(this.getViewLifecycleOwner(), new Observer<Event<Intent>>() {
             @Override
             public void onChanged(Event<Intent> intentEvent) {
                 if(intentEvent.consume()==null)
@@ -100,9 +100,17 @@ public class AuthenticationExtrasBottomSheet extends BottomSheetDialogFragment i
                 startActivityForResult(intentEvent.peek(), RequestCodeUtilities.RC_SIGN_IN);
 
             }
-        });
+        });*/
 
-        authenticationFragmentViewModel.getFacebookLoginParameter().observe(this.getViewLifecycleOwner(), new Observer<Event<List<String>>>() {
+        authenticationFragmentViewModel.getSignInIntent().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<Intent>() {
+            @Override
+            public void onEvent(Intent intent) {
+                startActivityForResult(intent, RequestCodeUtilities.RC_SIGN_IN);
+
+            }
+        }));
+
+/*        authenticationFragmentViewModel.getFacebookLoginParameter().observe(this.getViewLifecycleOwner(), new Observer<Event<List<String>>>() {
             @Override
             public void onChanged(Event<List<String>> listStringEvent) {
                 if(listStringEvent.consume()==null)
@@ -110,9 +118,17 @@ public class AuthenticationExtrasBottomSheet extends BottomSheetDialogFragment i
 
                 LoginManager.getInstance().logInWithReadPermissions(AuthenticationExtrasBottomSheet.this, listStringEvent.peek());
             }
-        });
+        });*/
 
-        authenticationFragmentViewModel.getoAuthProvider().observe(this.getViewLifecycleOwner(), new Observer<Event<OAuthProvider>>() {
+        authenticationFragmentViewModel.getFacebookLoginParameter().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<List<String>>() {
+            @Override
+            public void onEvent(List<String> permissionsList) {
+                LoginManager.getInstance().logInWithReadPermissions(AuthenticationExtrasBottomSheet.this, permissionsList);
+
+            }
+        }));
+
+/*        authenticationFragmentViewModel.getoAuthProvider().observe(this.getViewLifecycleOwner(), new Observer<Event<OAuthProvider>>() {
             @Override
             public void onChanged(Event<OAuthProvider> oAuthProviderEvent) {
                 if(oAuthProviderEvent.consume()==null)
@@ -120,7 +136,15 @@ public class AuthenticationExtrasBottomSheet extends BottomSheetDialogFragment i
 
                 authenticationFragmentViewModel.completeTwitterSignIn(FirebaseAuth.getInstance().startActivityForSignInWithProvider(AuthenticationExtrasBottomSheet.this.getActivity(), oAuthProviderEvent.peek()));
             }
-        });
+        });*/
+
+        authenticationFragmentViewModel.getoAuthProvider().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<OAuthProvider>() {
+            @Override
+            public void onEvent(OAuthProvider oAuthProvider) {
+                authenticationFragmentViewModel.completeTwitterSignIn(FirebaseAuth.getInstance().startActivityForSignInWithProvider(AuthenticationExtrasBottomSheet.this.getActivity(), oAuthProvider));
+
+            }
+        }));
 
         return authenticationExtrasBottomSheetBinding.getRoot();
 

@@ -61,6 +61,7 @@
     <string name="_1_s_likes">%1$s likes</string>
     <string name="_1_s_followers">%1$s followers</string>
     <string name="role_role_role">Role | Role | Role</string>
+    <string name="full_name">%1$s %2$s</string>
 
 
 </resources>

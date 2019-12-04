@@ -6,6 +6,7 @@ import com.codedevtech.portfolioapp.fragments.AuthenticationFragment;
 import com.codedevtech.portfolioapp.fragments.CompleteProfileFragment;
 import com.codedevtech.portfolioapp.fragments.DashboardFragment;
 import com.codedevtech.portfolioapp.fragments.OnboardingFragment;
+import com.codedevtech.portfolioapp.fragments.ProfileFragment;
 import com.codedevtech.portfolioapp.fragments.RegistrationFragment;
 
 import dagger.Module;
@@ -37,5 +38,8 @@ public abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract SplashScreenFragment splashScreenFragment();
+
+    @ContributesAndroidInjector
+    abstract ProfileFragment profileFragment();
 
 }
