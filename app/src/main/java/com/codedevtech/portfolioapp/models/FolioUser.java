@@ -27,7 +27,6 @@ public class FolioUser {
     private String lastName;
     private String bio;
     @TypeConverters(DateConverter.class) @ServerTimestamp
-    //only ignored because we want firestore to save the timestamp
     private Date createdAt;
     private int followCount;
     private int likeCount;

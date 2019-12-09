@@ -16,4 +16,6 @@
     <dimen name="expanded_title_margin_bottom">96dp</dimen>
     <dimen name="app_bar_height">192dp</dimen>
     <dimen name="photo_elevation">4dp</dimen>
+    <dimen name="maxImageHeight">400dp</dimen>
+    <dimen name="app_bar_feed">92dp</dimen>
 </resources>

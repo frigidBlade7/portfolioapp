@@ -67,15 +67,17 @@ public class FirebaseFolioUserRepository implements DataRepositoryService<FolioU
     }
 
     @Override
-    public void remove(FolioUser item, SuccessCallback successCallback) {
+    public void remove(final FolioUser item, final SuccessCallback successCallback) {
         //todo to be implemented
         collectionReference.document(item.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    successCallback.success(item.getId());
                     Log.d(TAG, "onComplete: remove successful");
                 }
                 else{
+                    successCallback.failure(task.getException().getLocalizedMessage());
                     Log.d(TAG, "onComplete: remove failed");
                 }
             }

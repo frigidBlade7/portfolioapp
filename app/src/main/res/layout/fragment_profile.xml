@@ -37,9 +37,10 @@
                 app:toolbarId="@+id/toolbar">
 
 
-                <androidx.appcompat.widget.Toolbar
+                <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
+                    app:title="@string/feed"
                     android:layout_height="150dp"
                     app:layout_collapseMode="pin"
                     app:menu="@menu/overflow" />
