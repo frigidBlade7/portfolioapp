@@ -1,14 +1,18 @@
 package com.codedevtech.portfolioapp.di.modules;
 
+import android.view.View;
+
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.codedevtech.portfolioapp.di.annotations.ViewModelKey;
 import com.codedevtech.portfolioapp.di.models.FactoryViewModel;
+import com.codedevtech.portfolioapp.fragments.FeedFragment;
 import com.codedevtech.portfolioapp.fragments.OnboardingFragment;
 import com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
+import com.codedevtech.portfolioapp.viewmodels.FeedFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.OnboardingFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
 
@@ -46,7 +50,12 @@ public abstract class ViewModelModule {
     @ViewModelKey(OnboardingFragmentViewModel.class)
     abstract ViewModel bindOnboardingFragmentViewModel(OnboardingFragmentViewModel onboardingFragmentViewModel);
 
-/*    @Binds
+    @Binds
+    @IntoMap
+    @ViewModelKey(FeedFragmentViewModel.class)
+    abstract ViewModel bindFeedFragmentViewModel(FeedFragmentViewModel feedFragmentViewModel);
+/*
+    @Binds
     @IntoMap
     @ViewModelKey(DashboardFragmentViewModel.class)
     abstract ViewModel bindDashboardFragmentViewModel(DashboardFragmentViewModel dashboardFragmentViewModel);*/

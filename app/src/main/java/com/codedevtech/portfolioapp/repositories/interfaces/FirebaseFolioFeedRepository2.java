@@ -3,28 +3,22 @@ package com.codedevtech.portfolioapp.repositories.interfaces;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import androidx.paging.PagedList;
 
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.repositories.FirestoreDatabaseBoundResourceCollection;
-import com.codedevtech.portfolioapp.repositories.FirestoreDatabaseBoundResourceDocument;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.List;
-
-public class FirebaseFolioFeedRepository implements DataRepositoryService<FeedPost> {
+public class FirebaseFolioFeedRepository2 implements DataRepositoryService<FeedPost> {
 
     private static final String TAG = "FirebaseFolioFeedReposi";
 
@@ -33,7 +27,7 @@ public class FirebaseFolioFeedRepository implements DataRepositoryService<FeedPo
     private final FirebaseFirestore firestoreDB;
 
 
-    public FirebaseFolioFeedRepository(String collectionPath) {
+    public FirebaseFolioFeedRepository2(String collectionPath) {
 
         this.firestoreDB = FirebaseFirestore.getInstance();
         this.collectionReference = firestoreDB.collection(collectionPath);
@@ -82,12 +76,7 @@ public class FirebaseFolioFeedRepository implements DataRepositoryService<FeedPo
     }
 
 
-    public LiveData<Resource<QuerySnapshot>> getFeedPosts(String userId){
-        firestoreDatabaseBoundResourceCollection = new FirestoreDatabaseBoundResourceCollection(collectionReference.document(userId).collection("postIds"));
-        return firestoreDatabaseBoundResourceCollection;
-    }
-
-    public Query getPaginatedFeedPosts(String userId){
+    public Query getFeedPosts(String userId){
 
         return collectionReference.document(userId).collection("postIds");
 

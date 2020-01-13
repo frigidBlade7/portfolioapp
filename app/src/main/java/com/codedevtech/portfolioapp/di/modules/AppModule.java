@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.security.keystore.KeyGenParameterSpec;
 
 import androidx.annotation.NonNull;
+import androidx.paging.PagedList;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -93,6 +95,19 @@ public final class AppModule {
     @Singleton
     @Provides
     @NonNull
+
+    public final PagedList.Config providesConfig(){
+
+        return new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPrefetchDistance(10)
+                .setPageSize(20)
+                .build();
+    }
+
+    @Singleton
+    @Provides
+    @NonNull
     public final Moshi providesMoshi(){
         return new Moshi.Builder().build();
 
@@ -120,12 +135,12 @@ public final class AppModule {
     @NonNull
     public final SharedPreferences sharedPreferences(Application application)  {
 
-
+        //use encrypted shared preferences
        try{
            KeyGenParameterSpec keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC;
            String masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec);
 
-           SharedPreferences encryptedSharedPreferences = EncryptedSharedPreferences
+           return EncryptedSharedPreferences
                 .create(
                         "folioSharedPreferences",
                         masterKeyAlias,
@@ -133,11 +148,10 @@ public final class AppModule {
                         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
                 );
-
-
-        return encryptedSharedPreferences;
        }
        catch (GeneralSecurityException| IOException e){
+
+           //if error, make use of normal shared preferences
            return application.getSharedPreferences("folioSharedPreferences",Context.MODE_PRIVATE);
        }
     }
