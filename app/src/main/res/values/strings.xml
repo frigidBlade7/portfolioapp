@@ -70,6 +70,7 @@
     <string name="notifications">Notifications</string>
     <string name="edit_profile">Edit profile</string>
     <string name="share_profile">Share profile</string>
+    <string name="quick_settings">Quick settings</string>
 
 
 </resources>

@@ -40,7 +40,7 @@
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    app:title="@string/feed"
+                    app:title="@string/profile"
                     android:layout_height="150dp"
                     app:layout_collapseMode="pin"
                     app:menu="@menu/overflow" />
@@ -187,7 +187,7 @@
                     android:layout_gravity="center"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
-                    android:drawableStart="@drawable/posts"
+                    android:drawableStart="@drawable/post"
                     android:drawablePadding="20dp"
                     android:focusable="true"
                     android:gravity="center_vertical"
@@ -229,7 +229,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Quick settings"
+                    android:text="@string/quick_settings"
                     android:textColor="@color/my_app_secondary_color"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/notifications"
