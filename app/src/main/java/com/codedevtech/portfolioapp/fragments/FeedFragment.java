@@ -54,7 +54,7 @@ public class FeedFragment extends Fragment implements Injectable {
         fragmentFeedBinding.setViewmodel(feedFragmentViewModel);
 
 
-       /* feedFragmentViewModel.getQueryLiveData().observe(getViewLifecycleOwner(), new Observer<Query>() {
+        feedFragmentViewModel.getQueryLiveData().observe(getViewLifecycleOwner(), new Observer<Query>() {
             @Override
             public void onChanged(Query query) {
                 options = new FirestorePagingOptions.Builder<FeedDocument>()
@@ -63,7 +63,6 @@ public class FeedFragment extends Fragment implements Injectable {
                         .build();
             }
         });
-*/
         fragmentFeedBinding.setLifecycleOwner(this);
 
         return fragmentFeedBinding.getRoot();

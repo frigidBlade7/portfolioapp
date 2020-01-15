@@ -115,6 +115,8 @@ public class CompleteProfileViewModel extends BaseViewModel {
                 CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =
                         CompleteProfileFragmentDirections.actionCompleteProfileFragmentToDashboardFragment(id);
 
+
+
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
             }
 
