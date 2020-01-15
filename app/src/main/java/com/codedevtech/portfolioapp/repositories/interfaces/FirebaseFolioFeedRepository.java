@@ -89,7 +89,7 @@ public class FirebaseFolioFeedRepository implements DataRepositoryService<FeedPo
 
     public Query getPaginatedFeedPosts(String userId){
 
-        return collectionReference.document(userId).collection("postIds");
+        return collectionReference.document(userId).collection("posts");
 
     }
 /*

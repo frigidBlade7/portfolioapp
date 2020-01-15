@@ -33,7 +33,7 @@ public class FeedFragmentViewModel extends BaseViewModel {
         userAuthId = sharedPreferences.getString("userAuth","");
         dataRepositoryService = new FirebaseFolioFeedRepository("feed");
 
-        //setQueryLiveData(dataRepositoryService.getPaginatedFeedPosts(userAuthId));
+        setQueryLiveData(dataRepositoryService.getPaginatedFeedPosts(userAuthId));
 
     }
 
