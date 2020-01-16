@@ -72,5 +72,9 @@
     <string name="share_profile">Share profile</string>
     <string name="quick_settings">Quick settings</string>
 
+    <string-array name="list_defaults">
+        <item>First</item>
+        <item>Second</item>
+    </string-array>
 
 </resources>

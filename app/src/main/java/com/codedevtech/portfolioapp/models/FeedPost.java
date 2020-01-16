@@ -20,6 +20,10 @@ public class FeedPost {
     private Date createdAt;
 
 
+    public FeedPost() {
+        //no args constructor
+    }
+
     public FeedPost(String userId) {
         this.userId = userId;
     }
@@ -27,6 +31,7 @@ public class FeedPost {
     public String getPostId() {
         return postId;
     }
+
 
     public void setCaption(String caption) {
         this.caption = caption;

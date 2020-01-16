@@ -1,17 +1,16 @@
 package com.codedevtech.portfolioapp.viewmodels;
 
 import android.app.Application;
-import android.app.DownloadManager;
-import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.codedevtech.portfolioapp.adapters.pagination.FireStoreFeedDocumentPagingAdapter;
 import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
-import com.codedevtech.portfolioapp.utilities.Utility;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.Query;
 
 import java.util.List;
@@ -22,8 +21,8 @@ public class FeedFragmentViewModel extends BaseViewModel {
 
     private FirebaseFolioFeedRepository dataRepositoryService;
 
-    //private LiveData<Resource<List<FeedPost>>> userFeedLiveData = new MutableLiveData<>();
-    private MutableLiveData<Query> queryLiveData = new MutableLiveData<>();
+    private MutableLiveData<Resource<List<FeedPost>>> userFeedLiveData = new MutableLiveData<>();
+    private Query userFeedQuery;
 
 
     @Inject
@@ -36,11 +35,13 @@ public class FeedFragmentViewModel extends BaseViewModel {
 
     }
 
-    public LiveData<Query> getQueryLiveData() {
-        return queryLiveData;
+    public Query getUserFeedQuery() {
+        return userFeedQuery;
     }
 
     public void setQueryLiveData(String userAuthId) {
-        this.queryLiveData.setValue(dataRepositoryService.getPaginatedFeedPosts(userAuthId));
+        this.userFeedQuery = dataRepositoryService.getPaginatedFeedPosts(userAuthId);
     }
+
+
 }

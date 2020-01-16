@@ -43,8 +43,30 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/cardListShim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:shimmer_auto_start="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/list_defaults"
+                android:orientation="vertical"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                tools:listitem="@layout/post_item_placeholder">
+
+            </ListView>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+<!--        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cardList"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -54,8 +76,7 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             tools:listitem="@layout/post_item" >
 
-        </androidx.recyclerview.widget.RecyclerView>
-
+        </androidx.recyclerview.widget.RecyclerView>-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
