@@ -90,12 +90,6 @@ public class FirebaseFolioFeedRepository implements DataRepositoryService<FeedPo
     public Query getPaginatedFeedPosts(String userId){
 
         //Log.d(TAG, "getPaginatedFeedPosts: "+collectionReference.document(userId).collection("posts").getPath());
-
-        Log.d(TAG, "getPaginatedFeedPosts1: "+userId);
-        Log.d(TAG, "getPaginatedFeedPosts2: "+collectionReference.getPath());
-
-        Log.d(TAG, "getPaginatedFeedPosts3: "+collectionReference.document(userId).getPath());
-
         return collectionReference.document(userId).collection("posts");
 
     }

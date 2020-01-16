@@ -7,13 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.adapters.pagination.FireStoreFeedDocumentPagingAdapter;
@@ -23,6 +27,10 @@ import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.FeedFragmentViewModel;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.inject.Inject;
 
@@ -55,7 +63,7 @@ public class FeedFragment extends Fragment implements Injectable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FragmentFeedBinding fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
+        final FragmentFeedBinding fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
         feedFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(FeedFragmentViewModel.class);
         dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
@@ -76,11 +84,37 @@ public class FeedFragment extends Fragment implements Injectable {
                 .setQuery(feedFragmentViewModel.getUserFeedQuery(), config, FeedPost.class)
                 .build();
 
+
+
         //create document adapter with options
         fireStoreFeedDocumentPagingAdapter = new FireStoreFeedDocumentPagingAdapter(options, this.getContext());
 
-
         fragmentFeedBinding.cardList.setAdapter(fireStoreFeedDocumentPagingAdapter);
+
+        fireStoreFeedDocumentPagingAdapter.addLoadStateListener(new PagedList.LoadStateListener() {
+            @Override
+            public void onLoadStateChanged(@NonNull PagedList.LoadType type, @NonNull PagedList.LoadState state, @Nullable Throwable error) {
+                //todo show the loaders
+
+            }
+        });
+
+
+/*        //todo find another implementation for this
+        feedFragmentViewModel.getUserFeedQuery().addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(queryDocumentSnapshots.isEmpty()){
+                    //todo show the user to some hey there make a new post stuff
+                }else{
+                    fragmentFeedBinding.cardListShim.stopShimmer();
+                    fragmentFeedBinding.cardListShim.setVisibility(View.GONE);
+                    fragmentFeedBinding.cardList.setVisibility(View.VISIBLE);
+                }
+            }
+        });*/
+
+
 
         return fragmentFeedBinding.getRoot();
     }
