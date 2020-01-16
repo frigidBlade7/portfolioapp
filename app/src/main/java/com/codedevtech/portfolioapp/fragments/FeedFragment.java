@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.FeedFragmentViewModel;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.api.Quota;
 import com.google.firebase.firestore.Query;
 
 import javax.inject.Inject;
@@ -35,6 +37,7 @@ import javax.inject.Inject;
  */
 public class FeedFragment extends Fragment implements Injectable {
 
+    private static final String TAG = "FeedFragment";
 
     @Inject
     ViewModelProvider.Factory viewmodelFactory;
@@ -53,15 +56,17 @@ public class FeedFragment extends Fragment implements Injectable {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-/*        feedFragmentViewModel.getQueryLiveData().observe(getViewLifecycleOwner(), new Observer<Query>() {
+        feedFragmentViewModel.getQueryLiveData().observe(getViewLifecycleOwner(), new Observer<Query>() {
             @Override
             public void onChanged(Query query) {
+
+                Log.d(TAG, "onChanged: "+ query.toString());
                 options = new FirestorePagingOptions.Builder<FeedDocument>()
                         .setLifecycleOwner(FeedFragment.this)
                         .setQuery(query, config, FeedDocument.class)
                         .build();
             }
-        });*/
+        });
     }
 
     @Override
@@ -70,10 +75,12 @@ public class FeedFragment extends Fragment implements Injectable {
         // Inflate the layout for this fragment
         FragmentFeedBinding fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
         feedFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(FeedFragmentViewModel.class);
-        dashboardFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(DashboardFragmentViewModel.class);
+        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
         fragmentFeedBinding.setViewmodel(feedFragmentViewModel);
         fragmentFeedBinding.setDashboardViewModel(dashboardFragmentViewModel);
+
+        feedFragmentViewModel.setQueryLiveData(dashboardFragmentViewModel.getUserAuthId());
 
 
         fragmentFeedBinding.setLifecycleOwner(this.getViewLifecycleOwner());
