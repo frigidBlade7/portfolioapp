@@ -48,7 +48,7 @@
             android:id="@+id/cardListShim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             app:shimmer_auto_start="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
@@ -70,7 +70,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cardList"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -81,6 +81,16 @@
             tools:listitem="@layout/post_item" >
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_margin="@dimen/buttonBigPadding"
+            android:layout_gravity="bottom|end"
+            app:srcCompat="@drawable/post" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

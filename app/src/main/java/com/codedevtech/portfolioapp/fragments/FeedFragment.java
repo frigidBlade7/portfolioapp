@@ -27,6 +27,7 @@ import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.FeedFragmentViewModel;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -52,12 +53,24 @@ public class FeedFragment extends Fragment implements Injectable {
     private FeedFragmentViewModel feedFragmentViewModel;
     private DashboardFragmentViewModel dashboardFragmentViewModel;
     private FireStoreFeedDocumentPagingAdapter fireStoreFeedDocumentPagingAdapter;
+    private FloatingActionButton newPost;
 
     public FeedFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        newPost.hide();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        newPost.show();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +80,7 @@ public class FeedFragment extends Fragment implements Injectable {
         feedFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(FeedFragmentViewModel.class);
         dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
+        newPost = fragmentFeedBinding.floatingActionButton;
         //add viewmodel for both dashboard and feed fragments
         fragmentFeedBinding.setViewmodel(feedFragmentViewModel);
         fragmentFeedBinding.setDashboardViewModel(dashboardFragmentViewModel);
