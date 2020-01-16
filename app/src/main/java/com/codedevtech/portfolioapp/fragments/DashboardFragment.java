@@ -4,6 +4,7 @@ package com.codedevtech.portfolioapp.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -44,6 +45,7 @@ import javax.inject.Inject;
 public class DashboardFragment extends Fragment implements Injectable{
 
     private static final String TAG = "DashboardFragment";
+    private DashboardFragmentViewModel dashboardFragmentViewModel;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -53,6 +55,38 @@ public class DashboardFragment extends Fragment implements Injectable{
     ViewModelProvider.Factory viewmodelFactory;
 
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //get userauthid from navargs
+        String userAuthId = DashboardFragmentArgs.fromBundle(getArguments()).getUserId();
+
+
+        //instantiate viewmodel from onviewcreated to allow userauthid to be retrieved first
+
+
+
+        //save userauthid to dashboard fragment
+        dashboardFragmentViewModel.setUserAuthId(userAuthId);
+        //save userauthid to shared prefs
+        dashboardFragmentViewModel.saveUserAuthIdToSharedPrefs(userAuthId);
+
+        dashboardFragmentViewModel.setFolioUserLiveData(userAuthId);
+
+
+
+        //observe all changes here
+
+        dashboardFragmentViewModel.getFolioUserLiveData().observe(this.getViewLifecycleOwner(), new Observer<Resource<FolioUser>>() {
+            @Override
+            public void onChanged(Resource<FolioUser> folioUserResource) {
+                Log.d(TAG, "onChanged: "+folioUserResource.data.getId());
+
+            }
+        });
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,17 +98,10 @@ public class DashboardFragment extends Fragment implements Injectable{
         NavigationUI.setupWithNavController(fragmentDashboardBinding.bottomNavigationView,
                 NavHostFragment.findNavController(getChildFragmentManager().findFragmentById(R.id.fragment)));
 
-
-        DashboardFragmentViewModel dashboardFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory)
+        dashboardFragmentViewModel = ViewModelProviders.of(getChildFragmentManager().findFragmentById(R.id.fragment), viewmodelFactory)
                 .get(DashboardFragmentViewModel.class);
 
-/*
-        dashboardFragmentViewModel.getFolioUserLiveData().observe(this.getViewLifecycleOwner(), new Observer<Resource<FolioUser>>() {
-            @Override
-            public void onChanged(Resource<FolioUser> folioUserResource) {
-                Log.d(TAG, "onChanged: "+folioUserResource.data.getId());
-            }
-        });*/
+        fragmentDashboardBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
         return fragmentDashboardBinding.getRoot();
     }

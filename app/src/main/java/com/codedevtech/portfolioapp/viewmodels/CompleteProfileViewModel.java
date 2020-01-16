@@ -17,6 +17,7 @@ import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;
 import com.codedevtech.portfolioapp.repositories.interfaces.DataRepositoryService;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
+import com.codedevtech.portfolioapp.utilities.Utility;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -109,7 +110,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
             public void success(String id) {
 
                 //save user id to shared pref
-                sharedPreferences.edit().putString("userAuthId", id).apply();
+                sharedPreferences.edit().putString(Utility.USER_AUTH_ID, id).apply();
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
                 CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =

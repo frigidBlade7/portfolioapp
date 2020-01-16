@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.navigation.Event;
+import com.codedevtech.portfolioapp.utilities.Utility;
 
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ public class OnboardingFragmentViewModel extends BaseViewModel {
         super(application);
         this.sharedPreferences = sharedPreferences;
 
-        setUserAuthId(sharedPreferences.getString("userAuthId",""));
+        setUserAuthId(sharedPreferences.getString(Utility.USER_AUTH_ID,""));
     }
 
     public void goToAuthentication(){

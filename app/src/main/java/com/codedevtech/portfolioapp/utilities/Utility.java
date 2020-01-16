@@ -18,6 +18,8 @@ public class Utility {
             new OnboardingModel(descriptionRes[1], imageRes[1]),
             new OnboardingModel(descriptionRes[2], imageRes[2]));
 
+    public static final String USER_AUTH_ID = "userAuthId";
+
 
 
 }

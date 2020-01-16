@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
+import com.codedevtech.portfolioapp.utilities.Utility;
 import com.google.firebase.firestore.Query;
 
 import java.util.List;
@@ -23,17 +24,15 @@ public class FeedFragmentViewModel extends BaseViewModel {
 
     //private LiveData<Resource<List<FeedPost>>> userFeedLiveData = new MutableLiveData<>();
     private MutableLiveData<Query> queryLiveData = new MutableLiveData<>();
-    private String userAuthId;
 
 
     @Inject
-    public FeedFragmentViewModel(@NonNull Application application, SharedPreferences sharedPreferences) {
+    public FeedFragmentViewModel(@NonNull Application application) {
         super(application);
 
-        userAuthId = sharedPreferences.getString("userAuth","");
         dataRepositoryService = new FirebaseFolioFeedRepository("feed");
 
-        setQueryLiveData(dataRepositoryService.getPaginatedFeedPosts(userAuthId));
+
 
     }
 
@@ -41,7 +40,7 @@ public class FeedFragmentViewModel extends BaseViewModel {
         return queryLiveData;
     }
 
-    public void setQueryLiveData(Query liveData) {
-        this.queryLiveData.setValue(liveData);
+    public void setQueryLiveData(String userAuthId) {
+        this.queryLiveData.setValue(dataRepositoryService.getPaginatedFeedPosts(userAuthId));
     }
 }

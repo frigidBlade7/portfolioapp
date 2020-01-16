@@ -18,19 +18,10 @@ import javax.inject.Inject;
 
 public class ProfileFragmentViewModel extends BaseViewModel {
 
-    private MutableLiveData<FolioUser> userLiveData = new MutableLiveData<>();
 
     @Inject
-    public ProfileFragmentViewModel(@NonNull Application application, SharedPreferences sharedPreferences) {
+    public ProfileFragmentViewModel(@NonNull Application application) {
         super(application);
 
-    }
-
-    public LiveData<FolioUser> getUserLiveData() {
-        return userLiveData;
-    }
-
-    public void setUserLiveData(FolioUser folioUser) {
-        this.userLiveData.setValue(folioUser);
     }
 }

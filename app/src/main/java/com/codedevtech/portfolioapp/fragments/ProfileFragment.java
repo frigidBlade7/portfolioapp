@@ -3,6 +3,8 @@ package com.codedevtech.portfolioapp.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -40,6 +42,8 @@ public class ProfileFragment extends Fragment implements Injectable {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+    private DashboardFragmentViewModel dashboardFragmentViewModel;
+    private ProfileFragmentViewModel profileFragmentViewModel;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -47,24 +51,35 @@ public class ProfileFragment extends Fragment implements Injectable {
 
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         FragmentProfileBinding fragmentProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
-        DashboardFragmentViewModel dashboardFragmentViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardFragmentViewModel.class);
 
-        //ProfileFragmentViewModel profileFragmentViewModel = ViewModelProviders.of(this, viewModelFactory).get(ProfileFragmentViewModel.class);
+        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
+        profileFragmentViewModel = ViewModelProviders.of(this, viewModelFactory).get(ProfileFragmentViewModel.class);
+
+        fragmentProfileBinding.setViewmodel(profileFragmentViewModel);
+        fragmentProfileBinding.setDashboardviewmodel(dashboardFragmentViewModel);
 
         fragmentProfileBinding.setLifecycleOwner(this.getViewLifecycleOwner());
-        //fragmentProfileBinding.setViewmodel(profileFragmentViewModel);
-        fragmentProfileBinding.setDashboardviewmodel(dashboardFragmentViewModel);
+
 
         dashboardFragmentViewModel.getFolioUserLiveData().observe(this.getViewLifecycleOwner(), new Observer<Resource<FolioUser>>() {
             @Override
             public void onChanged(Resource<FolioUser> folioUserResource) {
-                if(folioUserResource.status.equals(ResourceStatus.ERROR))
+                if(folioUserResource.status.equals(ResourceStatus.ERROR)) {
+                    Log.d(TAG, "onChanged: "+"error");
+
                     return;
+                }
                 else if(folioUserResource.status.equals(ResourceStatus.SUCCESS))
                     Log.d(TAG, "onChanged: "+folioUserResource.data.getFirstName());
             }

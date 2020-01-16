@@ -9,11 +9,13 @@ import com.codedevtech.portfolioapp.di.annotations.ViewModelKey;
 import com.codedevtech.portfolioapp.di.models.FactoryViewModel;
 import com.codedevtech.portfolioapp.fragments.FeedFragment;
 import com.codedevtech.portfolioapp.fragments.OnboardingFragment;
+import com.codedevtech.portfolioapp.fragments.ProfileFragment;
 import com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.FeedFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.OnboardingFragmentViewModel;
+import com.codedevtech.portfolioapp.viewmodels.ProfileFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
 
 import dagger.Binds;
@@ -54,11 +56,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FeedFragmentViewModel.class)
     abstract ViewModel bindFeedFragmentViewModel(FeedFragmentViewModel feedFragmentViewModel);
-/*
+
     @Binds
     @IntoMap
-    @ViewModelKey(DashboardFragmentViewModel.class)
-    abstract ViewModel bindDashboardFragmentViewModel(DashboardFragmentViewModel dashboardFragmentViewModel);*/
+    @ViewModelKey(ProfileFragmentViewModel.class)
+    abstract ViewModel bindProfileFragmentViewModel(ProfileFragmentViewModel profileFragmentViewModel);
 
 
     @Binds

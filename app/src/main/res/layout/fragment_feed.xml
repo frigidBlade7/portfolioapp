@@ -8,6 +8,10 @@
         <variable
             name="viewmodel"
             type="com.codedevtech.portfolioapp.viewmodels.FeedFragmentViewModel" />
+
+        <variable
+            name="dashboardViewModel"
+            type="com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

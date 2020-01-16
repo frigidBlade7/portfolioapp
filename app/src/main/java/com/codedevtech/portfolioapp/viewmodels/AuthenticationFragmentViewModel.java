@@ -21,6 +21,7 @@ import com.codedevtech.portfolioapp.interfaces.RegistrationService;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.navigation.Event;
+import com.codedevtech.portfolioapp.utilities.Utility;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -52,6 +53,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static com.codedevtech.portfolioapp.utilities.RequestCodeUtilities.RC_SIGN_IN;
+import static com.codedevtech.portfolioapp.utilities.Utility.USER_AUTH_ID;
 
 public class AuthenticationFragmentViewModel extends BaseViewModel {
 
@@ -300,7 +302,7 @@ public class AuthenticationFragmentViewModel extends BaseViewModel {
     }
 
     private void saveIdToSharedPrefs(String userId) {
-        sharedPreferences.edit().putString("userAuthId", userId).apply();
+        sharedPreferences.edit().putString(Utility.USER_AUTH_ID, userId).apply();
     }
 
     public MutableLiveData<Event<Intent>> getSignInIntent() {
