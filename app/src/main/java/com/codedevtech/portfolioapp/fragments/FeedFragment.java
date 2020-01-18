@@ -106,9 +106,48 @@ public class FeedFragment extends Fragment implements Injectable {
         fragmentFeedBinding.cardList.setAdapter(fireStoreFeedDocumentPagingAdapter);
 
         fireStoreFeedDocumentPagingAdapter.addLoadStateListener(new PagedList.LoadStateListener() {
+
             @Override
             public void onLoadStateChanged(@NonNull PagedList.LoadType type, @NonNull PagedList.LoadState state, @Nullable Throwable error) {
                 //todo show the loaders
+                Log.d(TAG, "onLoadStateChanged: "+state.name());
+
+                switch (state){
+
+                    case IDLE:
+                        fragmentFeedBinding.cardListShim.startShimmer();
+                        fragmentFeedBinding.cardListShim.setVisibility(View.VISIBLE);
+                        /*fragmentFeedBinding.cardList.setVisibility(View.GONE);*/
+                        //fragmentFeedBinding.cardListShim.startShimmer();
+                        // The initial load has begun
+                        // ...
+                    case LOADING:
+                        // The adapter has started to load an additional page
+                        // ...
+                    case DONE:
+                        // The previous load (either initial or additional) completed
+                        // ...
+
+                        fragmentFeedBinding.cardListShim.stopShimmer();
+                        fragmentFeedBinding.cardListShim.setVisibility(View.GONE);
+
+                        /*
+
+                        if(fragmentFeedBinding.cardListShim.isShimmerVisible()){
+                            fragmentFeedBinding.cardListShim.stopShimmer();
+                            fragmentFeedBinding.cardListShim.hideShimmer();
+                        }
+*/
+
+                        /*if(fragmentFeedBinding.cardListShim.getVisibility()==View.VISIBLE) {
+                            fragmentFeedBinding.cardListShim.stopShimmer();
+                            fragmentFeedBinding.cardListShim.setVisibility(View.GONE);
+                            fragmentFeedBinding.cardList.setVisibility(View.VISIBLE);
+                        }*/
+                    case ERROR:
+                        // The previous load (either initial or additional) failed. Call
+                        // the retry() method in order to retry the load operation.
+                }
 
             }
         });

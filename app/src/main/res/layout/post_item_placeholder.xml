@@ -20,7 +20,7 @@
     <ImageView
         android:id="@+id/postImage"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="@dimen/maxImageHeight"
         android:background="@color/my_app_field_backdrop"
         android:maxHeight="@dimen/maxImageHeight"
         android:minHeight="@dimen/app_bar_height"

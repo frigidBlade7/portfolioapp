@@ -120,6 +120,9 @@ dependencies {
     //shimmer effect
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
+    //prettify time
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+
 
 
 

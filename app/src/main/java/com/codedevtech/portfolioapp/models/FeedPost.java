@@ -16,6 +16,7 @@ public class FeedPost {
     private String caption;
     private String postImageId;
     private String displayName;
+    private String displayPhoto;
     @TypeConverters(DateConverter.class) @ServerTimestamp
     private Date createdAt;
 
@@ -65,5 +66,11 @@ public class FeedPost {
         return createdAt;
     }
 
+    public String getDisplayPhoto() {
+        return displayPhoto;
+    }
 
+    public void setDisplayPhoto(String displayPhoto) {
+        this.displayPhoto = displayPhoto;
+    }
 }

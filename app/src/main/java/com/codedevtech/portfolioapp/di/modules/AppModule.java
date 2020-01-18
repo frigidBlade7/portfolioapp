@@ -102,6 +102,7 @@ public final class AppModule {
                 .setEnablePlaceholders(false)
                 .setPrefetchDistance(10)
                 .setPageSize(20)
+                //.setEnablePlaceholders(true)
                 .build();
     }
 
