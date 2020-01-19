@@ -24,4 +24,5 @@ public class OnboardingModel {
     public void setImageId(int imageId) {
         this.imageId = imageId;
     }
+
 }
