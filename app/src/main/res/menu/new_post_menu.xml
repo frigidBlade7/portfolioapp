@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/save"
+        android:title="@string/save"
+        app:showAsAction="always"
+        android:icon="@drawable/save"/>
+
+    <item
+        android:id="@+id/attach"
+        android:title="@string/attach"
+        app:showAsAction="always"
+        android:icon="@drawable/attach"/>
+
+    <item
+        android:id="@+id/send"
+        android:title="@string/save"
+        app:showAsAction="always"
+        android:icon="@drawable/send"/>
+</menu>

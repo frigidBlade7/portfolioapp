@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,16 +22,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.SplashScreenFragment;
 import com.codedevtech.portfolioapp.adapters.pagination.FireStoreFeedDocumentPagingAdapter;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.databinding.FragmentFeedBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.models.FeedPost;
+import com.codedevtech.portfolioapp.navigation.EventListener;
+import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.FeedFragmentViewModel;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -80,16 +85,40 @@ public class FeedFragment extends Fragment implements Injectable {
         feedFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(FeedFragmentViewModel.class);
         dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
-        newPost = fragmentFeedBinding.floatingActionButton;
+        newPost = fragmentFeedBinding.newPostFAB;
         //add viewmodel for both dashboard and feed fragments
         fragmentFeedBinding.setViewmodel(feedFragmentViewModel);
         fragmentFeedBinding.setDashboardViewModel(dashboardFragmentViewModel);
 
+
+        fragmentFeedBinding.setLifecycleOwner(this.getViewLifecycleOwner());
+
+
+        feedFragmentViewModel.getNavigationCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<NavigationCommand>() {
+            @Override
+            public void onEvent(NavigationCommand navigationCommand) {
+                if(navigationCommand instanceof NavigationCommand.NavigationAction){
+                    Log.d(TAG, "onChanged: command is action");
+                    NavDirections navDirections = ((NavigationCommand.NavigationAction) navigationCommand).getDirections();
+                    NavHostFragment.findNavController(FeedFragment.this).navigate(navDirections);
+
+
+                }else if(navigationCommand instanceof NavigationCommand.NavigationId){
+                    Log.d(TAG, "onChanged: command is id");
+                    int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
+
+                    if(navigationId== 0)
+                        NavHostFragment.findNavController(FeedFragment.this).popBackStack();
+                    else
+                        NavHostFragment.findNavController(FeedFragment.this).navigate(navigationId);
+
+                }
+            }
+        }));
         //update userid for query
         feedFragmentViewModel.setQueryLiveData(dashboardFragmentViewModel.getUserAuthId());
 
 
-        fragmentFeedBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
 
         //create options object
@@ -131,19 +160,7 @@ public class FeedFragment extends Fragment implements Injectable {
                         fragmentFeedBinding.cardListShim.stopShimmer();
                         fragmentFeedBinding.cardListShim.setVisibility(View.GONE);
 
-                        /*
 
-                        if(fragmentFeedBinding.cardListShim.isShimmerVisible()){
-                            fragmentFeedBinding.cardListShim.stopShimmer();
-                            fragmentFeedBinding.cardListShim.hideShimmer();
-                        }
-*/
-
-                        /*if(fragmentFeedBinding.cardListShim.getVisibility()==View.VISIBLE) {
-                            fragmentFeedBinding.cardListShim.stopShimmer();
-                            fragmentFeedBinding.cardListShim.setVisibility(View.GONE);
-                            fragmentFeedBinding.cardList.setVisibility(View.VISIBLE);
-                        }*/
                     case ERROR:
                         // The previous load (either initial or additional) failed. Call
                         // the retry() method in order to retry the load operation.

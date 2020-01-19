@@ -24,10 +24,18 @@
             android:id="@+id/action_feedFragment_pop_including_dasboard_nav"
             app:popUpTo="@id/dasboard_nav"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_feedFragment_to_newPostFragment"
+            app:destination="@id/newPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.codedevtech.portfolioapp.fragments.ExploreFragment"
         android:label="fragment_explore"
         tools:layout="@layout/fragment_explore" />
+    <fragment
+        android:id="@+id/newPostFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.NewPostFragment"
+        android:label="fragment_new_post"
+        tools:layout="@layout/fragment_new_post" />
 </navigation>

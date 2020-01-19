@@ -7,6 +7,7 @@ import com.codedevtech.portfolioapp.fragments.CompleteProfileFragment;
 import com.codedevtech.portfolioapp.fragments.DashboardFragment;
 import com.codedevtech.portfolioapp.fragments.ExploreFragment;
 import com.codedevtech.portfolioapp.fragments.FeedFragment;
+import com.codedevtech.portfolioapp.fragments.NewPostFragment;
 import com.codedevtech.portfolioapp.fragments.OnboardingFragment;
 import com.codedevtech.portfolioapp.fragments.ProfileFragment;
 import com.codedevtech.portfolioapp.fragments.RegistrationFragment;
@@ -49,5 +50,8 @@ public abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract ExploreFragment exploreFragment();
+
+    @ContributesAndroidInjector
+    abstract NewPostFragment newPostFragment();
 
 }

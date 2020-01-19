@@ -72,6 +72,8 @@
     <string name="share_profile">Share profile</string>
     <string name="quick_settings">Quick settings</string>
     <string name="search">Search</string>
+    <string name="save">Save</string>
+    <string name="attach">Attach</string>
 
     <string-array name="list_defaults">
         <item>First</item>

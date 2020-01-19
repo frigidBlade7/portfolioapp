@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.adapters.pagination.FireStoreFeedDocumentPagingAdapter;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
@@ -41,6 +43,10 @@ public class FeedFragmentViewModel extends BaseViewModel {
 
     public void setQueryLiveData(String userAuthId) {
         this.userFeedQuery = dataRepositoryService.getPaginatedFeedPosts(userAuthId);
+    }
+
+    public void goToNewPost(){
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_feedFragment_to_newPostFragment));
     }
 
 
