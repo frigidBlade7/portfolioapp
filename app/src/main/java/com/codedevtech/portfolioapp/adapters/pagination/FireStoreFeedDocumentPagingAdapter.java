@@ -83,7 +83,7 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
         //uses glide loader. must be replaced if bucket provider uses a different implementation
         GlideApp.with(context).load(FirebaseStorage.getInstance().getReference("posts").child(model.getPostImageId()))
                 .placeholder(R.color.my_app_field_backdrop)
-                .transform(new CenterCrop(),new RoundedCorners(16)) //maybe use centrecrop
+                .transform(new CenterCrop(),new RoundedCorners(16)) //maybe use fitcentre?
                 .addListener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object o, Target<Drawable> target, boolean b) {
