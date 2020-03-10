@@ -116,7 +116,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/like"
         app:layout_constraintEnd_toEndOf="@+id/postImageShimmer"
         app:layout_constraintTop_toTopOf="@+id/like"
-        app:srcCompat="@drawable/share_profile" />
+        app:srcCompat="@drawable/share_post" />
 
     <TextView
         android:id="@+id/timestamp"

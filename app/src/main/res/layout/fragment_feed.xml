@@ -85,11 +85,13 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/newPostFAB"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{(v)->viewmodel.goToNewPost()}"
             android:clickable="true"
             android:focusable="true"
+            android:visibility="gone"
+            android:tint="@android:color/white"
             android:layout_margin="@dimen/buttonBigPadding"
             android:layout_gravity="bottom|end"
             app:srcCompat="@drawable/post" />

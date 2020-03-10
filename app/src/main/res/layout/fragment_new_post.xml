@@ -18,6 +18,19 @@
         android:layout_height="match_parent"
         tools:context=".fragments.NewPostFragment">
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/buttonBigPadding"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@android:color/white"
+            android:visibility="visible"
+            android:gravity="center"
+            android:text="@string/post"/>
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_height="?attr/actionBarSize"
@@ -27,7 +40,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                app:title="@string/explore"
+                app:title="@string/new_post"
                 app:menu="@menu/new_post_menu"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="none"/>
@@ -41,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
+            android:backgroundTint="?attr/colorPrimary"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout

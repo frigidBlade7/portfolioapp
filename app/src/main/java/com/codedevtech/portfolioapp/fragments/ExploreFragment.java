@@ -12,10 +12,12 @@ import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentExploreBinding;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import javax.inject.Inject;
 
@@ -28,6 +30,8 @@ public class ExploreFragment extends Fragment {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+
+    private FloatingActionButton newPost;
 
 
     public ExploreFragment() {
@@ -43,6 +47,7 @@ public class ExploreFragment extends Fragment {
         FragmentExploreBinding fragmentExploreBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_explore, container, false);
 
         DashboardFragmentViewModel dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
+
 
         fragmentExploreBinding.setDashboardViewModel(dashboardFragmentViewModel);
 

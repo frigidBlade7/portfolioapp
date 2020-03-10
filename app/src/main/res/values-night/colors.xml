@@ -2,4 +2,8 @@
 <resources>
 
     <color name="my_app_toolbar_color">#ff212121</color>
+    <color name="my_app_field_backdrop">#0C080A</color>
+    <color name="my_app_color_text_on_outline_button">#fedbd0</color>
+    <color name="my_app_color_black_secondary">#546e7a</color>
+
 </resources>

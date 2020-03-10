@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/cancel"
+        android:title="@string/cancel"
+        app:showAsAction="always"
+        android:icon="@drawable/cancel"/>
 
     <item
         android:id="@+id/save"
@@ -14,9 +19,6 @@
         app:showAsAction="always"
         android:icon="@drawable/attach"/>
 
-    <item
-        android:id="@+id/send"
-        android:title="@string/save"
-        app:showAsAction="always"
-        android:icon="@drawable/send"/>
+
+
 </menu>

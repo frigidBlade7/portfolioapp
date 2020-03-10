@@ -18,6 +18,9 @@
     <color name="my_app_color_on_background">#fedbd0</color>
     <color name="my_app_color_on_error">#ffffff</color>
 
+    <color name="my_app_color_text_on_outline_button">#000000</color>
+    <color name="my_app_color_black_secondary">#000000</color>
+
 
     <color name="my_app_grey">#c2c2c2</color>
     <color name="my_app_field_backdrop">#F3F5F7</color>

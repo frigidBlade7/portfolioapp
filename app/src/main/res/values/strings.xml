@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Portfolio</string>
+    <string name="app_name">Folio</string>
 
     <!-- facebook keys-->
     <string name="facebook_app_id">984494681943294</string>
@@ -74,6 +74,9 @@
     <string name="search">Search</string>
     <string name="save">Save</string>
     <string name="attach">Attach</string>
+    <string name="new_post">New Post</string>
+    <string name="cancel">Cancel</string>
+    <string name="post">Post</string>
 
     <string-array name="list_defaults">
         <item>First</item>

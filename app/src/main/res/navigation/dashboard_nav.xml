@@ -36,6 +36,6 @@
     <fragment
         android:id="@+id/newPostFragment"
         android:name="com.codedevtech.portfolioapp.fragments.NewPostFragment"
-        android:label="fragment_new_post"
+        android:label="@string/new_post"
         tools:layout="@layout/fragment_new_post" />
 </navigation>

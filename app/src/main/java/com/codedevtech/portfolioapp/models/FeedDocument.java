@@ -1,5 +1,8 @@
 package com.codedevtech.portfolioapp.models;
 
+import android.view.LayoutInflater;
+
+import com.codedevtech.portfolioapp.R;
 import com.google.firebase.firestore.DocumentId;
 
 public class FeedDocument {

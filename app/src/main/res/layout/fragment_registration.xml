@@ -79,8 +79,6 @@
                 style="@style/Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/buttonBottomMargin"
-                android:padding="@dimen/buttonBigPadding"
                 android:text="@string/continue_text"
                 android:onClick="@{()->viewmodel.attemptRegistration()}"
                 android:textAllCaps="false"

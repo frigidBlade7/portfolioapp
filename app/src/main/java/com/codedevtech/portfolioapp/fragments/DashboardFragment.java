@@ -98,6 +98,9 @@ public class DashboardFragment extends Fragment implements Injectable{
         NavigationUI.setupWithNavController(fragmentDashboardBinding.bottomNavigationView,
                 NavHostFragment.findNavController(getChildFragmentManager().findFragmentById(R.id.fragment)));
 
+
+
+
         dashboardFragmentViewModel = ViewModelProviders.of(getChildFragmentManager().findFragmentById(R.id.fragment), viewmodelFactory)
                 .get(DashboardFragmentViewModel.class);
 
