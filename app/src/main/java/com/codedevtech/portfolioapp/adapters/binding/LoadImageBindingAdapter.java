@@ -19,7 +19,7 @@ public class LoadImageBindingAdapter {
     @BindingAdapter("app:loadImage")
     public static void loadImage(ImageView imageView, String userId){
         Log.d(TAG, "loadImage: "+userId);
-        GlideApp.with(imageView.getContext()).load(FirebaseStorage.getInstance().getReference("users").child(userId+".jpg"))
+        GlideApp.with(imageView.getContext()).load(FirebaseStorage.getInstance().getReference("users").child(userId+".JPG"))
                 .placeholder(R.color.my_app_field_backdrop)
                 .transform(new CenterCrop(),new RoundedCorners(16))
         .into(imageView);

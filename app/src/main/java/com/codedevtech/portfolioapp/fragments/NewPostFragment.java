@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -60,6 +61,7 @@ public class NewPostFragment extends Fragment implements Injectable {
         dashboardFragmentViewModel.getFolioUserLiveData().observe(this.getViewLifecycleOwner(), new Observer<Resource<FolioUser>>() {
             @Override
             public void onChanged(Resource<FolioUser> folioUserResource) {
+                Toast.makeText(getContext(), folioUserResource.data.getId(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onChanged: "+folioUserResource.data.getId());
             }
         });
