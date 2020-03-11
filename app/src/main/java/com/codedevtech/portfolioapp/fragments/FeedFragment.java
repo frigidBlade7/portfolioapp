@@ -116,6 +116,28 @@ public class FeedFragment extends Fragment implements Injectable {
                 }
             }
         }));
+
+        dashboardFragmentViewModel.getNavigationCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<NavigationCommand>() {
+            @Override
+            public void onEvent(NavigationCommand navigationCommand) {
+                if(navigationCommand instanceof NavigationCommand.NavigationAction){
+                    Log.d(TAG, "onChanged: command is action");
+                    NavDirections navDirections = ((NavigationCommand.NavigationAction) navigationCommand).getDirections();
+                    NavHostFragment.findNavController(getParentFragment()).navigate(navDirections);
+
+
+                }else if(navigationCommand instanceof NavigationCommand.NavigationId){
+                    Log.d(TAG, "onChanged: command is id");
+                    int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
+
+                    if(navigationId== 0)
+                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).popBackStack();
+                    else
+                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(navigationId);
+
+                }
+            }
+        }));
         //update userid for query
         feedFragmentViewModel.setQueryLiveData(dashboardFragmentViewModel.getUserAuthId());
 

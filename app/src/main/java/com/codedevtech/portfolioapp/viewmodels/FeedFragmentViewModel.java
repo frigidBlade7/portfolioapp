@@ -45,9 +45,4 @@ public class FeedFragmentViewModel extends BaseViewModel {
         this.userFeedQuery = dataRepositoryService.getPaginatedFeedPosts(userAuthId);
     }
 
-    public void goToNewPost(){
-        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_feedFragment_to_newPostFragment));
-    }
-
-
 }

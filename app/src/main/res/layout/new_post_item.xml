@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="viewModel"
+            type="com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/buttonBigPadding"
+        android:padding="@dimen/buttonPadding">
+
+        <ImageView
+            android:id="@+id/profilePhoto"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            app:loadImage="@{viewModel.folioUserLiveData.data.id}"
+            app:layout_constraintEnd_toStartOf="@+id/captionLayout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/captionLayout"
+            tools:srcCompat="@tools:sample/avatars[0]" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/postImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:maxHeight="@dimen/maxImageHeight"
+            android:minHeight="@dimen/app_bar_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/captionLayout"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/captionLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_margin="@dimen/buttonPadding"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/postImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeColor="?attr/colorSurface"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="false"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/profilePhoto"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="128"
+                android:textSize="16sp"
+                android:hint="@string/new_post"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+</layout>

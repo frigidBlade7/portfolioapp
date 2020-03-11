@@ -7,6 +7,9 @@
     <data>
 
         <variable
+            name="dashboardViewModel"
+            type="com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel" />
+        <variable
             name="viewmodel"
             type="com.codedevtech.portfolioapp.viewmodels.NewPostFragmentViewModel" />
 
@@ -26,7 +29,6 @@
             android:layout_margin="@dimen/buttonBigPadding"
             android:clickable="true"
             android:focusable="true"
-            android:textColor="@android:color/white"
             android:visibility="visible"
             android:gravity="center"
             android:text="@string/post"/>
@@ -42,6 +44,7 @@
                 android:layout_width="match_parent"
                 app:title="@string/new_post"
                 app:menu="@menu/new_post_menu"
+                app:navigationIcon="@drawable/cancel"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="none"/>
 
@@ -54,12 +57,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
-            android:backgroundTint="?attr/colorPrimary"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:paddingTop="@dimen/buttonPadding"
                 android:layout_height="match_parent">
+
+                <include
+                    layout="@layout/new_post_item"
+                    app:viewModel="@{dashboardViewModel}"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

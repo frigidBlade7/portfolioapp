@@ -128,4 +128,12 @@
             app:popUpTo="@+id/splashScreenFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/newPostFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.NewPostFragment"
+        android:label="@string/new_post"
+        tools:layout="@layout/fragment_new_post" />
+    <action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment"/>
 </navigation>

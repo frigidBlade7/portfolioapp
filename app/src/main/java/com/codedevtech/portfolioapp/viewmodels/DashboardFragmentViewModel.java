@@ -10,6 +10,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
+import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.repositories.interfaces.DataRepositoryService;
@@ -78,4 +80,10 @@ public class DashboardFragmentViewModel extends BaseViewModel {
     public String getUserAuthId() {
         return userAuthId;
     }
+
+    public void goToNewPost(){
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.newPostFragment));
+    }
+
+
 }
