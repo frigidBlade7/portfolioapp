@@ -6,6 +6,7 @@
 
     <data>
 
+        <import type="android.view.View"/>
         <variable
             name="dashboardViewModel"
             type="com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel" />
@@ -29,6 +30,7 @@
             android:layout_margin="@dimen/buttonBigPadding"
             android:clickable="true"
             android:focusable="true"
+            android:enabled="@{viewmodel.caption.length>0 || viewmodel.bitmap!= null}"
             android:visibility="visible"
             android:gravity="center"
             android:text="@string/post"/>

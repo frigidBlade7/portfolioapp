@@ -6,7 +6,6 @@
     
     <data>
 
-        <import type="android.graphics.Color"/>
         <variable
             name="dashboardViewModel"
             type="com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel" />
@@ -65,7 +64,7 @@
             app:hintAnimationEnabled="false"
             app:hintEnabled="false"
             app:counterEnabled="true"
-            app:counterTextColor="@{viewModel.caption.length()>127 ? Color.RED : Color.BLUE}"
+            app:counterTextColor="@{viewModel.caption.length > 127 ? @color/my_app_error_color : @color/my_app_secondary_color}"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/profilePhoto"
             app:layout_constraintTop_toTopOf="parent">
@@ -75,9 +74,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="128"
-                android:text="@{viewModel.caption}"
+                android:text="@={viewModel.caption}"
                 android:textSize="16sp"
-                android:hint="@string/new_post"/>
+                android:hint="@string/what_s_up"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
