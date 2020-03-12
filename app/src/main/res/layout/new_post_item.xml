@@ -5,9 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
+
+        <import type="android.graphics.Color"/>
+        <variable
+            name="dashboardViewModel"
+            type="com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel" />
+
         <variable
             name="viewModel"
-            type="com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel" />
+            type="com.codedevtech.portfolioapp.viewmodels.NewPostFragmentViewModel" />
 
     </data>
 
@@ -22,7 +28,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            app:loadImage="@{viewModel.folioUserLiveData.data.id}"
+            app:loadImage="@{dashboardViewModel.folioUserLiveData.data.id}"
             app:layout_constraintEnd_toStartOf="@+id/captionLayout"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,11 +43,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
-            android:clickable="true"
-            android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
             android:maxHeight="@dimen/maxImageHeight"
-            android:minHeight="@dimen/app_bar_height"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +64,8 @@
             app:boxStrokeColor="?attr/colorSurface"
             app:hintAnimationEnabled="false"
             app:hintEnabled="false"
+            app:counterEnabled="true"
+            app:counterTextColor="@{viewModel.caption.length()>127 ? Color.RED : Color.BLUE}"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/profilePhoto"
             app:layout_constraintTop_toTopOf="parent">
@@ -70,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="128"
+                android:text="@{viewModel.caption}"
                 android:textSize="16sp"
                 android:hint="@string/new_post"/>
         </com.google.android.material.textfield.TextInputLayout>

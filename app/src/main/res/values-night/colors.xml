@@ -6,4 +6,5 @@
     <color name="my_app_color_text_on_outline_button">#fedbd0</color>
     <color name="my_app_color_black_secondary">#546e7a</color>
 
+    <color name="my_app_primary_variant_color">#130000</color>
 </resources>

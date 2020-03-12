@@ -59,32 +59,19 @@ public class DashboardFragment extends Fragment implements Injectable{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //get userauthid from navargs
-        String userAuthId = DashboardFragmentArgs.fromBundle(getArguments()).getUserId();
 
-
-        //instantiate viewmodel from onviewcreated to allow userauthid to be retrieved first
-
-
-
-        //save userauthid to dashboard fragment
-        dashboardFragmentViewModel.setUserAuthId(userAuthId);
-        //save userauthid to shared prefs
-        dashboardFragmentViewModel.saveUserAuthIdToSharedPrefs(userAuthId);
-
-        dashboardFragmentViewModel.setFolioUserLiveData(userAuthId);
 
 
 
         //observe all changes here
-
+/*
         dashboardFragmentViewModel.getFolioUserLiveData().observe(this.getViewLifecycleOwner(), new Observer<Resource<FolioUser>>() {
             @Override
             public void onChanged(Resource<FolioUser> folioUserResource) {
                 Log.d(TAG, "onChanged: "+folioUserResource.data.getId());
 
             }
-        });
+        });*/
 
     }
 
@@ -101,10 +88,25 @@ public class DashboardFragment extends Fragment implements Injectable{
 
 
 
-        dashboardFragmentViewModel = ViewModelProviders.of(getChildFragmentManager().findFragmentById(R.id.fragment), viewmodelFactory)
+        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory)
                 .get(DashboardFragmentViewModel.class);
 
         fragmentDashboardBinding.setLifecycleOwner(this.getViewLifecycleOwner());
+
+        //get userauthid from navargs
+        String userAuthId = DashboardFragmentArgs.fromBundle(getArguments()).getUserId();
+
+
+        //instantiate viewmodel from onviewcreated to allow userauthid to be retrieved first
+
+
+
+        //save userauthid to dashboard fragment
+        dashboardFragmentViewModel.setUserAuthId(userAuthId);
+        //save userauthid to shared prefs
+        dashboardFragmentViewModel.saveUserAuthIdToSharedPrefs(userAuthId);
+
+        dashboardFragmentViewModel.setFolioUserLiveData(userAuthId);
 
         return fragmentDashboardBinding.getRoot();
     }

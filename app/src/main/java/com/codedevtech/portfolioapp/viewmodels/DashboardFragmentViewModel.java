@@ -82,7 +82,7 @@ public class DashboardFragmentViewModel extends BaseViewModel {
     }
 
     public void goToNewPost(){
-        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.newPostFragment));
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_dashboardFragment_to_newPostFragment));
     }
 
 

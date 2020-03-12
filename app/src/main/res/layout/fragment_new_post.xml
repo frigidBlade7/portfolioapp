@@ -57,16 +57,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
+            android:layout_marginBottom="100dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:paddingTop="@dimen/buttonPadding"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/buttonPadding">
 
                 <include
                     layout="@layout/new_post_item"
-                    app:viewModel="@{dashboardViewModel}"/>
+                    app:dashboardViewModel="@{dashboardViewModel}"
+                    app:viewModel="@{viewmodel}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

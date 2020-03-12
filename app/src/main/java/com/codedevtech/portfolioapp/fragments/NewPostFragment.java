@@ -54,17 +54,10 @@ public class NewPostFragment extends Fragment implements Injectable {
         NewPostFragmentViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(NewPostFragmentViewModel.class);
         DashboardFragmentViewModel dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
 
-        fragmentBinding.setLifecycleOwner(this.getViewLifecycleOwner());
         fragmentBinding.setViewmodel(viewModel);
         fragmentBinding.setDashboardViewModel(dashboardFragmentViewModel);
+        fragmentBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
-        dashboardFragmentViewModel.getFolioUserLiveData().observe(this.getViewLifecycleOwner(), new Observer<Resource<FolioUser>>() {
-            @Override
-            public void onChanged(Resource<FolioUser> folioUserResource) {
-                Toast.makeText(getContext(), folioUserResource.data.getId(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onChanged: "+folioUserResource.data.getId());
-            }
-        });
 
 
         return fragmentBinding.getRoot();

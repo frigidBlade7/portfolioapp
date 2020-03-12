@@ -84,7 +84,7 @@ public class FeedFragment extends Fragment implements Injectable {
         // Inflate the layout for this fragment
         final FragmentFeedBinding fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
         feedFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(FeedFragmentViewModel.class);
-        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
+        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
         newPost = fragmentFeedBinding.newPostFAB;
         //add viewmodel for both dashboard and feed fragments
@@ -139,7 +139,7 @@ public class FeedFragment extends Fragment implements Injectable {
             }
         }));
         //update userid for query
-        feedFragmentViewModel.setQueryLiveData(dashboardFragmentViewModel.getUserAuthId());
+        feedFragmentViewModel.setQueryLiveData();
 
 
 
