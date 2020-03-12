@@ -78,6 +78,7 @@
     <string name="cancel">Cancel</string>
     <string name="post">Post</string>
     <string name="what_s_up">What\'s up?</string>
+    <string name="you">You</string>
 
     <string-array name="list_defaults">
         <item>First</item>

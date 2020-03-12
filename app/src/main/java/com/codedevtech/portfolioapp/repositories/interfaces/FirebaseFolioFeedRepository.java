@@ -41,7 +41,7 @@ public class FirebaseFolioFeedRepository implements DataRepositoryService<FeedPo
 
     @Override
     public void add(final FeedPost item, final SuccessCallback successCallback) {
-        collectionReference.add(item).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        collectionReference.document(item.getUserId()).collection("posts").add(item).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if(task.isSuccessful()){
@@ -90,7 +90,7 @@ public class FirebaseFolioFeedRepository implements DataRepositoryService<FeedPo
     public Query getPaginatedFeedPosts(String userId){
 
         //Log.d(TAG, "getPaginatedFeedPosts: "+collectionReference.document(userId).collection("posts").getPath());
-        return collectionReference.document(userId).collection("posts");
+        return collectionReference.document(userId).collection("posts").orderBy("createdAt",Query.Direction.DESCENDING);
 
     }
 /*

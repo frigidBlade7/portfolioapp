@@ -52,6 +52,7 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
 
 
     private static final String TAG = "FireStoreFeedDocumentPa";
+    private String userId;
     private Context context;
     private PrettyTime prettyTime;
     /**
@@ -59,16 +60,21 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
      *
      * @param options
      */
-    public FireStoreFeedDocumentPagingAdapter(@NonNull FirestorePagingOptions<FeedPost> options, Context context) {
+    public FireStoreFeedDocumentPagingAdapter(@NonNull FirestorePagingOptions<FeedPost> options, Context context, String userId) {
         super(options);
         this.context = context;
         this.prettyTime = new PrettyTime();
+        this.userId = userId;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull final FeedPostViewHolder holder, int position, @NonNull FeedPost model) {
 
-        holder.name.setText(model.getDisplayName());
+        if(model.getUserId().equals(userId))
+            holder.name.setText(R.string.you);
+        else
+            holder.name.setText(model.getDisplayName());
+
         holder.caption.setText(model.getCaption());
         GlideApp.with(context).load(FirebaseStorage.getInstance().getReference("users").child(model.getDisplayPhoto()))
                 .circleCrop().thumbnail(0.1f).into(holder.profilePhoto);
@@ -81,24 +87,27 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
             holder.timestamp.setText(time);
 
         //uses glide loader. must be replaced if bucket provider uses a different implementation
-        GlideApp.with(context).load(FirebaseStorage.getInstance().getReference("posts").child(model.getPostImageId()))
-                .placeholder(R.color.my_app_field_backdrop)
-                .transform(new CenterCrop(),new RoundedCorners(16)) //maybe use fitcentre?
-                .addListener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object o, Target<Drawable> target, boolean b) {
-                        return false;
-                    }
+        if(model.getPostImageId()!=null) {
+            GlideApp.with(context).load(FirebaseStorage.getInstance().getReference("posts").child(model.getPostImageId()))
+                    .placeholder(R.color.my_app_field_backdrop)
+                    .transform(new CenterCrop(), new RoundedCorners(16)) //maybe use fitcentre?
+                    .addListener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object o, Target<Drawable> target, boolean b) {
+                            return false;
+                        }
 
-                    @Override
-                    public boolean onResourceReady(Drawable drawable, Object o, Target<Drawable> target, DataSource dataSource, boolean b) {
-                        holder.shimmer.stopShimmer();
-                        holder.shimmer.hideShimmer();
-                        return false;
-                    }
-                })
-                .into(holder.postImage);
-
+                        @Override
+                        public boolean onResourceReady(Drawable drawable, Object o, Target<Drawable> target, DataSource dataSource, boolean b) {
+                            holder.shimmer.stopShimmer();
+                            holder.shimmer.hideShimmer();
+                            return false;
+                        }
+                    })
+                    .into(holder.postImage);
+        }else{
+            holder.postImage.setVisibility(View.GONE);
+        }
         //Glide.with(context).load()
 
     }

@@ -13,13 +13,18 @@ import android.widget.Toast;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.databinding.FragmentNewPostBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.models.FolioUser;
+import com.codedevtech.portfolioapp.navigation.EventListener;
+import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.service_implementations.GlideApp;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
@@ -57,6 +62,36 @@ public class NewPostFragment extends Fragment implements Injectable {
         fragmentBinding.setViewmodel(viewModel);
         fragmentBinding.setDashboardViewModel(dashboardFragmentViewModel);
         fragmentBinding.setLifecycleOwner(this.getViewLifecycleOwner());
+
+
+        fragmentBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        dashboardFragmentViewModel.getNavigationCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<NavigationCommand>() {
+            @Override
+            public void onEvent(NavigationCommand navigationCommand) {
+                if(navigationCommand instanceof NavigationCommand.NavigationAction){
+                    Log.d(TAG, "onChanged: command is action");
+                    NavDirections navDirections = ((NavigationCommand.NavigationAction) navigationCommand).getDirections();
+                    NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(navDirections);
+
+
+                }else if(navigationCommand instanceof NavigationCommand.NavigationId){
+                    Log.d(TAG, "onChanged: command is id");
+                    int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
+
+                    if(navigationId== 0)
+                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).popBackStack();
+                    else
+                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(navigationId);
+
+                }
+            }
+        }));
 
 
 

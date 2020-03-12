@@ -73,4 +73,8 @@ public class FeedPost {
     public void setDisplayPhoto(String displayPhoto) {
         this.displayPhoto = displayPhoto;
     }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

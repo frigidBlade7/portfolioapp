@@ -123,7 +123,7 @@ public class FeedFragment extends Fragment implements Injectable {
                 if(navigationCommand instanceof NavigationCommand.NavigationAction){
                     Log.d(TAG, "onChanged: command is action");
                     NavDirections navDirections = ((NavigationCommand.NavigationAction) navigationCommand).getDirections();
-                    NavHostFragment.findNavController(getParentFragment()).navigate(navDirections);
+                    NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(navDirections);
 
 
                 }else if(navigationCommand instanceof NavigationCommand.NavigationId){
@@ -153,7 +153,7 @@ public class FeedFragment extends Fragment implements Injectable {
 
 
         //create document adapter with options
-        fireStoreFeedDocumentPagingAdapter = new FireStoreFeedDocumentPagingAdapter(options, this.getContext());
+        fireStoreFeedDocumentPagingAdapter = new FireStoreFeedDocumentPagingAdapter(options, this.getContext(), dashboardFragmentViewModel.getUserAuthId());
 
         fragmentFeedBinding.cardList.setAdapter(fireStoreFeedDocumentPagingAdapter);
 

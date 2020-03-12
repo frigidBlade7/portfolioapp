@@ -30,6 +30,7 @@
             android:layout_margin="@dimen/buttonBigPadding"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{()->viewmodel.sendPost(dashboardViewModel.folioUserLiveData.data)}"
             android:enabled="@{viewmodel.caption.length>0 || viewmodel.bitmap!= null}"
             android:visibility="visible"
             android:gravity="center"
