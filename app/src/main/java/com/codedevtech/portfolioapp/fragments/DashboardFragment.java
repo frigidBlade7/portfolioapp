@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentDashboardBinding;
@@ -50,6 +52,7 @@ public class DashboardFragment extends Fragment implements Injectable{
     public DashboardFragment() {
         // Required empty public constructor
     }
+
 
     @Inject
     ViewModelProvider.Factory viewmodelFactory;

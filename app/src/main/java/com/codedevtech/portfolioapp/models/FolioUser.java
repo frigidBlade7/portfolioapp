@@ -1,5 +1,8 @@
 package com.codedevtech.portfolioapp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
@@ -17,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class FolioUser {
+public class FolioUser implements Parcelable {
     @PrimaryKey
     @NonNull
     private String id;
@@ -37,6 +40,29 @@ public class FolioUser {
 
     public FolioUser() {
     }
+
+    protected FolioUser(Parcel in) {
+        id = in.readString();
+        email = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        bio = in.readString();
+        followCount = in.readInt();
+        likeCount = in.readInt();
+        roleFlags = in.createStringArrayList();
+    }
+
+    public static final Creator<FolioUser> CREATOR = new Creator<FolioUser>() {
+        @Override
+        public FolioUser createFromParcel(Parcel in) {
+            return new FolioUser(in);
+        }
+
+        @Override
+        public FolioUser[] newArray(int size) {
+            return new FolioUser[size];
+        }
+    };
 
     public String getEmail() {
         return email;
@@ -139,4 +165,20 @@ public class FolioUser {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(email);
+        parcel.writeString(firstName);
+        parcel.writeString(lastName);
+        parcel.writeString(bio);
+        parcel.writeInt(followCount);
+        parcel.writeInt(likeCount);
+        parcel.writeStringList(roleFlags);
+    }
 }

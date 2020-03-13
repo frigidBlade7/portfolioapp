@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
+import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
@@ -56,13 +57,14 @@ public class NewPostFragmentViewModel extends BaseViewModel {
             public void success(String id) {
                 Log.d(TAG, "success: added feedpost");
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(id));
+
             }
 
             @Override
             public void failure(String message) {
                 Log.d(TAG, "failed: adding feedpost");
-                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
-
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(message));
             }
         });
     }

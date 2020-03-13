@@ -20,15 +20,13 @@ import android.view.ViewGroup;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentCompleteProfileBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
+import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.navigation.EventListener;
 import com.codedevtech.portfolioapp.navigation.EventObserver;
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -44,6 +42,7 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     private CompleteProfileViewModel completeProfileViewModel;
+    private FolioUser folioUser;
 
 
     public CompleteProfileFragment() {
@@ -56,9 +55,13 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
         super.onViewCreated(view, savedInstanceState);
 
         userAuthenticationId = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserAuthProviderId();
+        folioUser = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUser();
         Log.d(TAG, "onViewCreated: "+userAuthenticationId);
 
         completeProfileViewModel.setUserAuthProviderId(userAuthenticationId);
+
+        if(folioUser!=null)
+            completeProfileViewModel.fillUserFields(folioUser);
     }
 
     @Override

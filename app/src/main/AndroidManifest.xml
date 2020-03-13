@@ -34,7 +34,7 @@
         <!--facebook meta-->
 
         <activity android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

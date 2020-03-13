@@ -60,6 +60,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/my_app_color_text_on_outline_button</item>
+        <item name="iconTint">@color/my_app_color_text_on_outline_button</item>
         <item name="android:padding">@dimen/buttonBigPadding</item>
         <item name="android:layout_marginTop">@dimen/buttonPadding</item>
         <item name="android:layout_marginBottom">@dimen/buttonPadding</item>

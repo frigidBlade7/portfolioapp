@@ -1,7 +1,15 @@
 package com.codedevtech.portfolioapp.utilities;
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
+import androidx.fragment.app.FragmentActivity;
+
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.models.OnboardingModel;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,5 +29,21 @@ public class Utility {
     public static final String USER_AUTH_ID = "userAuthId";
 
 
+    public static void showSoftKeyboard(View view, Activity activity) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if(imm != null)
+                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
 
+    public static void hideSoftKeyboard(View view, Activity activity) {
+
+        InputMethodManager imm = (InputMethodManager)
+                activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm != null)
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+    }
 }

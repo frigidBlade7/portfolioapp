@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.codedevtech.portfolioapp.R;
@@ -132,6 +133,14 @@ public class CompleteProfileViewModel extends BaseViewModel {
 
     public void setUserAuthProviderId(String userAuthProviderId) {
         this.userAuthProviderId = userAuthProviderId;
+    }
+
+    public void fillUserFields(FolioUser folioUser) {
+        roleFlags.addAll(folioUser.getRoleFlags());
+        firstNameLiveData.setValue(folioUser.getFirstName());
+        lastNameLiveData.setValue(folioUser.getLastName());
+        bioLiveData.setValue(folioUser.getBio());
+
     }
 
     //get email (by using id maybe??)

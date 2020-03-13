@@ -33,7 +33,6 @@
             android:onClick="@{()->viewmodel.sendPost(dashboardViewModel.folioUserLiveData.data)}"
             android:enabled="@{viewmodel.caption.length>0 || viewmodel.bitmap!= null}"
             android:visibility="visible"
-            android:gravity="center"
             android:text="@string/post"/>
 
         <com.google.android.material.appbar.AppBarLayout
@@ -70,6 +69,7 @@
 
                 <include
                     layout="@layout/new_post_item"
+                    android:id="@+id/new_post_item_layout"
                     app:dashboardViewModel="@{dashboardViewModel}"
                     app:viewModel="@{viewmodel}" />
 

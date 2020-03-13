@@ -18,7 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
-        debug{
+        debug {
             ext.enableCrashlytics = false
         }
     }
@@ -126,8 +126,6 @@ dependencies {
 
     //prettify time
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
-
-
 
 
 }

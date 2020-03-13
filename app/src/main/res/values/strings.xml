@@ -85,4 +85,12 @@
         <item>Second</item>
     </string-array>
 
+
+    <string-array name="edit_profile_options">
+        <item>Edit profile name</item>
+        <item>Edit profile photo</item>
+        <item>Update roles</item>
+        <item>Update email</item>
+    </string-array>
+
 </resources>
