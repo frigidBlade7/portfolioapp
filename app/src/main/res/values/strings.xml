@@ -79,6 +79,7 @@
     <string name="post">Post</string>
     <string name="what_s_up">What\'s up?</string>
     <string name="you">You</string>
+    <string name="complete_your_profile">complete\nyour\nprofile</string>
 
     <string-array name="list_defaults">
         <item>First</item>

@@ -206,7 +206,7 @@
                     android:layout_width="192dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/endMargins"
-                    android:text="@string/complete_your_profile"
+                    android:text="@string/edit_profile"
                     android:textColor="@android:color/black"
                     android:textSize="36sp"
                     app:layout_constraintBottom_toTopOf="@+id/nameSectionTitle"

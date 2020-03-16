@@ -2,6 +2,10 @@ package com.codedevtech.portfolioapp.fragments;
 
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,20 +16,15 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
+import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.databinding.FragmentCompleteProfileBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.models.FolioUser;
-import com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel;
-import com.codedevtech.portfolioapp.commands.NavigationCommand;
-import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.navigation.EventListener;
 import com.codedevtech.portfolioapp.navigation.EventObserver;
+import com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
@@ -34,7 +33,7 @@ import javax.inject.Inject;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CompleteProfileFragment extends Fragment implements Injectable {
+public class EditProfileFragment extends Fragment implements Injectable {
 
     private static final String TAG = "CompleteProfileFragment";
     private String userAuthenticationId;
@@ -42,9 +41,10 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     private CompleteProfileViewModel completeProfileViewModel;
+    private FolioUser folioUser;
 
 
-    public CompleteProfileFragment() {
+    public EditProfileFragment() {
         // Required empty public constructor
     }
 
@@ -53,10 +53,12 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        userAuthenticationId = CompleteProfileFragmentArgs.fromBundle(getArguments()).getUserAuthProviderId();
+        userAuthenticationId = EditProfileFragmentArgs.fromBundle(getArguments()).getUserAuthProviderId();
+        folioUser = EditProfileFragmentArgs.fromBundle(getArguments()).getUser();
         Log.d(TAG, "onViewCreated: "+userAuthenticationId);
 
         completeProfileViewModel.setUserAuthProviderId(userAuthenticationId);
+        completeProfileViewModel.fillUserFields(folioUser);
 
     }
 
@@ -83,7 +85,7 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
                 if(navigationCommand instanceof NavigationCommand.NavigationAction){
                     Log.d(TAG, "onChanged: command is action");
                     NavDirections navDirections = ((NavigationCommand.NavigationAction) navigationCommand).getDirections();
-                    NavHostFragment.findNavController(CompleteProfileFragment.this).navigate(navDirections);
+                    NavHostFragment.findNavController(EditProfileFragment.this).navigate(navDirections);
 
 
                 }else if(navigationCommand instanceof NavigationCommand.NavigationId){
@@ -91,9 +93,9 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
                     int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
 
                     if(navigationId== 0)
-                        NavHostFragment.findNavController(CompleteProfileFragment.this).popBackStack();
+                        NavHostFragment.findNavController(EditProfileFragment.this).popBackStack();
                     else
-                        NavHostFragment.findNavController(CompleteProfileFragment.this).navigate(navigationId);
+                        NavHostFragment.findNavController(EditProfileFragment.this).navigate(navigationId);
 
                 }
             }

@@ -11,8 +11,8 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
-            android:id="@+id/action_profileFragment_to_completeProfileFragment2"
-            app:destination="@id/completeProfileFragment" />
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/messagesFragment"
@@ -44,21 +44,17 @@
         android:label="@string/new_post"
         tools:layout="@layout/fragment_new_post" />
     <action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment"/>
-
     <fragment
-        android:id="@+id/completeProfileFragment"
-        android:name="com.codedevtech.portfolioapp.fragments.CompleteProfileFragment"
-        android:label="CompleteProfileFragment">
-
-        <argument
-            android:name="userAuthProviderId"
-            app:argType="string" />
+        android:id="@+id/editProfileFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.EditProfileFragment"
+        android:label="EditProfileFragment" >
         <argument
             android:name="user"
             app:argType="com.codedevtech.portfolioapp.models.FolioUser"
-            app:nullable="true"
-            android:defaultValue="@null" />
-
+            app:nullable="false" />
+        <argument
+            android:name="userAuthProviderId"
+            app:argType="string" />
     </fragment>
 
 

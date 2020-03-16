@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -98,7 +99,11 @@ public class ProfileFragment extends Fragment implements Injectable {
 
 
                     case R.id.edit_profile:
+                        ProfileFragmentDirections.ActionProfileFragmentToEditProfileFragment action =
+                                ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(dashboardFragmentViewModel.getFolioUserLiveData().getValue().data,
+                                        dashboardFragmentViewModel.getUserAuthId());
 
+                        NavHostFragment.findNavController(ProfileFragment.this).navigate();
                         break;
 
 

@@ -22,6 +22,7 @@ import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.navigation.EventListener;
 import com.codedevtech.portfolioapp.navigation.EventObserver;
+import com.codedevtech.portfolioapp.utilities.Utility;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -100,6 +101,8 @@ public class AuthenticationFragment extends Fragment implements Injectable{
                 }else if(navigationCommand instanceof NavigationCommand.NavigationId){
                     Log.d(TAG, "onChanged: command is id");
                     int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
+
+                    Utility.hideSoftKeyboard(fragmentAuthenticationBinding.password, getActivity());
 
                     if(navigationId== 0)
                         NavHostFragment.findNavController(AuthenticationFragment.this).popBackStack();
