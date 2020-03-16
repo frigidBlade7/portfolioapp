@@ -127,5 +127,10 @@ dependencies {
     //prettify time
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
 
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+
+    //easy permissions
+    implementation 'pub.devrel:easypermissions:3.0.0'
 
 }

@@ -24,8 +24,21 @@
             android:focusable="true"
             android:onClick="@{()->viewmodel.attemptCompleteProfile()}"
             android:layout_margin="@dimen/buttonDefaultMargin"
+            android:foregroundGravity="center"
             android:layout_gravity="bottom|end"
             app:srcCompat="@drawable/next" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{()->viewmodel.goBack()}"
+            android:layout_margin="@dimen/buttonDefaultMargin"
+            android:layout_gravity="bottom|start"
+            android:foregroundGravity="center"
+            app:srcCompat="@drawable/previous" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -207,7 +220,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/endMargins"
                     android:text="@string/edit_profile"
-                    android:textColor="@android:color/black"
                     android:textSize="36sp"
                     app:layout_constraintBottom_toTopOf="@+id/nameSectionTitle"
                     app:layout_constraintStart_toStartOf="@+id/guideline10"
@@ -219,6 +231,9 @@
                     android:id="@+id/profilePhoto"
                     android:layout_width="@dimen/profileWidth"
                     android:layout_height="@dimen/profileHeight"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{()->viewmodel.showPhotoOptions()}"
                     android:background="@drawable/profile_image_background"
                     app:layout_constraintEnd_toStartOf="@+id/guideline12"
                     app:layout_constraintTop_toTopOf="@+id/guideline11"
@@ -302,6 +317,17 @@
                         android:text="@string/enthusiast"
                         app:chipCornerRadius="@dimen/globalRadius" />
                 </com.google.android.material.chip.ChipGroup>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tap_to_edit"
+                    android:onClick="@{()->viewmodel.showPhotoOptions()}"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                    app:layout_constraintStart_toStartOf="@+id/profilePhoto"
+                    app:layout_constraintTop_toBottomOf="@+id/profilePhoto" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

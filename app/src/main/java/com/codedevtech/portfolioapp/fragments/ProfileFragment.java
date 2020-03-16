@@ -99,11 +99,16 @@ public class ProfileFragment extends Fragment implements Injectable {
 
 
                     case R.id.edit_profile:
-                        ProfileFragmentDirections.ActionProfileFragmentToEditProfileFragment action =
+                        DashboardFragmentDirections.ActionDashboardFragmentToEditProfileFragment action =
+                                DashboardFragmentDirections.actionDashboardFragmentToEditProfileFragment(dashboardFragmentViewModel.getFolioUserLiveData().getValue().data,
+                                        dashboardFragmentViewModel.getUserAuthId());
+
+                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(action);
+/*                        DashboardFragmentDirections action =
                                 ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(dashboardFragmentViewModel.getFolioUserLiveData().getValue().data,
                                         dashboardFragmentViewModel.getUserAuthId());
 
-                        NavHostFragment.findNavController(ProfileFragment.this).navigate();
+                        NavHostFragment.findNavController(ProfileFragment.this).navigate(action);*/
                         break;
 
 

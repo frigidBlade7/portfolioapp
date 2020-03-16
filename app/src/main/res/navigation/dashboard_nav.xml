@@ -5,6 +5,11 @@
     android:id="@+id/dasboard_nav"
     app:startDestination="@id/feedFragment">
 
+    <dialog
+        android:id="@+id/loadingDialog"
+        android:name="com.codedevtech.portfolioapp.fragments.LoadingDialog"
+        android:label="loader"
+        tools:layout="@layout/loader" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.codedevtech.portfolioapp.fragments.ProfileFragment"
@@ -55,7 +60,14 @@
         <argument
             android:name="userAuthProviderId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_updateProfilePhotoFragment"
+            app:destination="@id/updateProfilePhotoFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/updateProfilePhotoFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.UpdateProfilePhotoFragment"
+        android:label="UpdateProfilePhotoFragment" />
 
 
 </navigation>

@@ -68,7 +68,7 @@
     <string name="more_settings">More settings</string>
     <string name="security">Security</string>
     <string name="notifications">Notifications</string>
-    <string name="edit_profile">Edit profile</string>
+    <string name="edit_profile">Edit\nprofile</string>
     <string name="share_profile">Share profile</string>
     <string name="quick_settings">Quick settings</string>
     <string name="search">Search</string>
@@ -80,6 +80,19 @@
     <string name="what_s_up">What\'s up?</string>
     <string name="you">You</string>
     <string name="complete_your_profile">complete\nyour\nprofile</string>
+    <string name="tap_to_edit">Tap to edit</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="delete_photo">Remove\nphoto</string>
+    <string name="are_you_sure_delete_profile">Are you sure you want to remove your current profile image?</string>
+    <string name="select_photo_source">Select photo source</string>
+    <string name="permissions_rationale">Folio will require access to your storage and camera in order to upload a profile photo</string>
+
+    <string-array name="photo_options">
+        <item>@string/gallery</item>
+        <item>@string/camera</item>
+        <item>@string/delete_photo</item>
+    </string-array>
 
     <string-array name="list_defaults">
         <item>First</item>

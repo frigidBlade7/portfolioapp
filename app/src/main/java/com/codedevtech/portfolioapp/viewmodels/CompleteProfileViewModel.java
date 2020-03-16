@@ -72,6 +72,9 @@ public class CompleteProfileViewModel extends BaseViewModel {
         this.bioLiveData.setValue(bioLiveData);
     }
 
+    public void goBack(){
+        setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+    }
     public void attemptCompleteProfile(){
 
         FolioUser folioUser = new FolioUser();
@@ -104,7 +107,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
 
     }
 
-    private void storeUserData(FolioUser folioUser) {
+    private void storeUserData(final FolioUser folioUser) {
 
         registrationService.registerUser(folioUser, new SuccessCallback() {
             @Override
@@ -114,12 +117,16 @@ public class CompleteProfileViewModel extends BaseViewModel {
                 sharedPreferences.edit().putString(Utility.USER_AUTH_ID, id).apply();
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
-                CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =
-                        CompleteProfileFragmentDirections.actionCompleteProfileFragmentToDashboardFragment(id);
+                if(folioUser == null ){//i.e. complete
+                    CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =
+                            CompleteProfileFragmentDirections.actionCompleteProfileFragmentToDashboardFragment(id);
 
 
+                    setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
+                }else{ //i.e. update or edit remember to replace this implementation with some inheritance model
+                    setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
-                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
+                }
             }
 
             @Override
@@ -161,6 +168,10 @@ public class CompleteProfileViewModel extends BaseViewModel {
             roleFlags.add(chipString);
         }
 
+
+    }
+
+    public void showPhotoOptions(){
 
     }
 }

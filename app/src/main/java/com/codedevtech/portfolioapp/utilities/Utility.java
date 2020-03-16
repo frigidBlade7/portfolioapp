@@ -2,6 +2,7 @@ package com.codedevtech.portfolioapp.utilities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Environment;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -11,7 +12,11 @@ import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.models.OnboardingModel;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class Utility {
@@ -45,5 +50,22 @@ public class Utility {
         if(imm != null)
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
+    }
+
+    public static File createImageFile(Context context) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        //currentPhotoPath = image.getAbsolutePath();
+
+        return image;
     }
 }

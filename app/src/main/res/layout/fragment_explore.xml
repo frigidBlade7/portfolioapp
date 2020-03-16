@@ -25,7 +25,7 @@
                 android:id="@+id/collapsingToolbarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
+                app:contentScrim="?attr/colorPrimarySurface"
                 app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
                 app:toolbarId="@+id/toolbar">
 

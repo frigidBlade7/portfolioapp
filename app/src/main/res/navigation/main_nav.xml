@@ -115,6 +115,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_newPostFragment"
             app:destination="@id/newPostFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -139,4 +142,18 @@
         android:label="@string/new_post"
         tools:layout="@layout/fragment_new_post" />
     <action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment"/>
+    <action android:id="@+id/action_global_loadingDialog" app:destination="@id/loadingDialog" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.EditProfileFragment"
+        android:label="EditProfileFragment">
+
+        <argument
+            android:name="user"
+            app:argType="com.codedevtech.portfolioapp.models.FolioUser"
+            app:nullable="false" />
+        <argument
+            android:name="userAuthProviderId"
+            app:argType="string" />
+    </fragment>
 </navigation>
