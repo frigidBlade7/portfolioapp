@@ -8,7 +8,7 @@
     android:background="?attr/selectableItemBackgroundBorderless"
     android:clickable="true"
     android:orientation="vertical"
-    android:padding="@dimen/buttonPadding"
+    android:padding="@dimen/buttonBigPadding"
     android:focusable="true">
 
     <ImageView

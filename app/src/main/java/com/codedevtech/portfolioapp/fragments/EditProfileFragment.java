@@ -4,11 +4,13 @@ package com.codedevtech.portfolioapp.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.bumptech.glide.Glide;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
@@ -29,11 +32,15 @@ import com.codedevtech.portfolioapp.navigation.EventListener;
 import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel;
 import com.google.android.material.snackbar.Snackbar;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageActivity;
 
 import javax.inject.Inject;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -42,7 +49,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class EditProfileFragment extends Fragment implements Injectable {
 
     private static final String TAG = "EditProfileFragment";
-    private static final int RC_STORAGE_CAMERA = 45;
+    private static final int RC_STORAGE = 45;
     private String userAuthenticationId;
 
     @Inject
@@ -142,7 +149,14 @@ public class EditProfileFragment extends Fragment implements Injectable {
             @Override
             public void onClick(View view) {
                 //startActivityForResult(completeProfileViewModel.getPickImageChooserIntent(), IMAGE_PICKER_CODE);
+                methodRequiresPermission();
+            }
+        });
 
+        fragmentEditProfileBinding.tap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                methodRequiresPermission();
             }
         });
 
@@ -151,15 +165,21 @@ public class EditProfileFragment extends Fragment implements Injectable {
         return fragmentEditProfileBinding.getRoot();
     }
 
-    @AfterPermissionGranted(RC_STORAGE_CAMERA)
+    @AfterPermissionGranted(RC_STORAGE)
     private void methodRequiresPermission() {
 
-        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+        //CropImage.getPickImageResultUri(getContext(), CropImage.getPickImageChooserIntent(getContext(),"hi",true,true));
+
+        CropImage.startPickImageActivity(getActivity(), this);
+
+       /* String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(EditProfileFragment.this.getContext(), perms)) {
             // Already have permission, do the thing
             // ...
             Log.d(TAG, "methodRequiresPermission: given ");
-            NavHostFragment.findNavController(EditProfileFragment.this).navigate(R.id.action_editProfileFragment_to_updateProfilePhotoFragment);
+            //NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_editProfileFragment_to_updateProfilePhotoFragment);
+
+            CropImage.startPickImageActivity(getContext(), EditProfileFragment.this);
 
 
 
@@ -167,10 +187,12 @@ public class EditProfileFragment extends Fragment implements Injectable {
 
         } else {
             // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.permissions_rationale),
-                    RC_STORAGE_CAMERA, perms);
-        }
+            Log.d(TAG, "methodRequiresPermission: requesting ");
 
+            EasyPermissions.requestPermissions(EditProfileFragment.this, getString(R.string.permissions_rationale),
+                    RC_STORAGE, perms);
+        }
+*/
     }
 
     private void populateRoles() {
@@ -209,8 +231,39 @@ public class EditProfileFragment extends Fragment implements Injectable {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK && requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
 
+            if(data.getData()!=null)
+                CropImage.activity(data.getData())
+                        .start(getContext(), this);
+
+            else
+
+                CropImage.activity(CropImage.getCaptureImageOutputUri(getContext()))
+                        .start(getContext(), this);
+
+
+
+
+
+        }
+
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+
+                //update with cropped uri
+                Glide.with(getContext()).load(resultUri).into(fragmentEditProfileBinding.profilePhoto);
+                completeProfileViewModel.updateProfilePhoto(resultUri);
+
+
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+                completeProfileViewModel.setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(error.getLocalizedMessage()));
+            }
         }
     }
 }

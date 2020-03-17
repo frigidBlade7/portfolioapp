@@ -83,10 +83,13 @@
     <string name="tap_to_edit">Tap to edit</string>
     <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>
-    <string name="delete_photo">Remove\nphoto</string>
+    <string name="delete_photo">Remove</string>
     <string name="are_you_sure_delete_profile">Are you sure you want to remove your current profile image?</string>
     <string name="select_photo_source">Select photo source</string>
+    <string name="pick_image_intent_chooser_title">@string/select_photo_source</string>
     <string name="permissions_rationale">Folio will require access to your storage and camera in order to upload a profile photo</string>
+    <string name="failed_user_update_photo">Failed to update photo</string>
+    <string name="photo_updated_successfully">Photo updated successfully</string>
 
     <string-array name="photo_options">
         <item>@string/gallery</item>

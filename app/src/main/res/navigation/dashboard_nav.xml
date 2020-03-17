@@ -14,11 +14,7 @@
         android:id="@+id/profileFragment"
         android:name="com.codedevtech.portfolioapp.fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.codedevtech.portfolioapp.fragments.MessagesFragment"
@@ -49,25 +45,6 @@
         android:label="@string/new_post"
         tools:layout="@layout/fragment_new_post" />
     <action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment"/>
-    <fragment
-        android:id="@+id/editProfileFragment"
-        android:name="com.codedevtech.portfolioapp.fragments.EditProfileFragment"
-        android:label="EditProfileFragment" >
-        <argument
-            android:name="user"
-            app:argType="com.codedevtech.portfolioapp.models.FolioUser"
-            app:nullable="false" />
-        <argument
-            android:name="userAuthProviderId"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_editProfileFragment_to_updateProfilePhotoFragment"
-            app:destination="@id/updateProfilePhotoFragment" />
-    </fragment>
-    <dialog
-        android:id="@+id/updateProfilePhotoFragment"
-        android:name="com.codedevtech.portfolioapp.fragments.UpdateProfilePhotoFragment"
-        android:label="UpdateProfilePhotoFragment" />
 
 
 </navigation>

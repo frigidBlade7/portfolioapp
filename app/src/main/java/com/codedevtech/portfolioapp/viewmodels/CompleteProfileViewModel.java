@@ -2,6 +2,7 @@ package com.codedevtech.portfolioapp.viewmodels;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 
@@ -11,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
+import com.codedevtech.portfolioapp.callbacks.UploadProgressCallback;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.fragments.CompleteProfileFragmentDirections;
@@ -35,6 +37,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
     private MutableLiveData<String> lastNameLiveData = new MutableLiveData<>();
     private MutableLiveData<String> bioLiveData = new MutableLiveData<>();
     private String userAuthProviderId;
+    private MutableLiveData<Uri> uriMutableLiveData = new MutableLiveData<>();
     private ArrayList<String> roleFlags;
     private RegistrationService registrationService;
     private SharedPreferences sharedPreferences;
@@ -46,6 +49,10 @@ public class CompleteProfileViewModel extends BaseViewModel {
         this.registrationService = registrationService;
         this.roleFlags = new ArrayList<>();
         this.sharedPreferences = sharedPreferences;
+    }
+
+    public MutableLiveData<Uri> getUriMutableLiveData() {
+        return uriMutableLiveData;
     }
 
     public MutableLiveData<String> getFirstNameLiveData() {
@@ -75,7 +82,8 @@ public class CompleteProfileViewModel extends BaseViewModel {
     public void goBack(){
         setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
     }
-    public void attemptCompleteProfile(){
+
+    public void attemptCompleteProfile(Boolean isEdit){
 
         FolioUser folioUser = new FolioUser();
         folioUser.setId(userAuthProviderId);
@@ -102,8 +110,34 @@ public class CompleteProfileViewModel extends BaseViewModel {
 
         else{
             setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.loadingDialog));
-            storeUserData(folioUser);
+
+            if(isEdit)
+                updateUserData(folioUser);
+            else
+                storeUserData(folioUser);
         }
+
+    }
+
+    private void updateUserData(final FolioUser folioUser) {
+
+        registrationService.updateUser(folioUser, new SuccessCallback() {
+            @Override
+            public void success(String id) {
+
+                //save user id to shared pref
+                sharedPreferences.edit().putString(Utility.USER_AUTH_ID, id).apply();
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+
+            }
+
+            @Override
+            public void failure(String message) {
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(message));
+            }
+        });
 
     }
 
@@ -117,16 +151,12 @@ public class CompleteProfileViewModel extends BaseViewModel {
                 sharedPreferences.edit().putString(Utility.USER_AUTH_ID, id).apply();
                 setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
-                if(folioUser == null ){//i.e. complete
-                    CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =
-                            CompleteProfileFragmentDirections.actionCompleteProfileFragmentToDashboardFragment(id);
+                CompleteProfileFragmentDirections.ActionCompleteProfileFragmentToDashboardFragment action =
+                        CompleteProfileFragmentDirections.actionCompleteProfileFragmentToDashboardFragment(id);
 
 
-                    setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
-                }else{ //i.e. update or edit remember to replace this implementation with some inheritance model
-                    setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
 
-                }
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
             }
 
             @Override
@@ -171,7 +201,24 @@ public class CompleteProfileViewModel extends BaseViewModel {
 
     }
 
-    public void showPhotoOptions(){
 
+    public void updateProfilePhoto(Uri resultUri) {
+        registrationService.updateProfilePhoto(userAuthProviderId,resultUri, new UploadProgressCallback() {
+            @Override
+            public void onProgress(Double progress) {
+
+            }
+
+            @Override
+            public void success(String id) {
+
+            }
+
+            @Override
+            public void failure(String message) {
+
+            }
+        });
     }
 }
+

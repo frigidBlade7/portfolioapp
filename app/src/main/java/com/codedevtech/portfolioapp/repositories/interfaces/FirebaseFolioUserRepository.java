@@ -16,6 +16,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FirebaseFolioUserRepository implements DataRepositoryService<FolioUser> {
 
     private static final String TAG = "FirebaseFolioUserReposi";
@@ -50,15 +53,28 @@ public class FirebaseFolioUserRepository implements DataRepositoryService<FolioU
 
     //todo edit this to provide field specific update
     @Override
-    public void update(FolioUser item, SuccessCallback successCallback) {
+    public void update(final FolioUser item, final SuccessCallback successCallback) {
         //todo to be implemented
-        collectionReference.document(item.getId()).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+        Map<String,Object> updates = new HashMap<>();
+        updates.put("bio",item.getBio());
+        updates.put("email",item.getEmail());
+        updates.put("firstName",item.getFirstName());
+
+        updates.put("lastName",item.getLastName());
+        updates.put("roleFlags",item.getRoleFlags());
+
+        collectionReference.document(item.getId()).update(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    successCallback.success(item.getId());
+
                     Log.d(TAG, "onComplete: Success update item");
 
                 }else{
+                    successCallback.failure(task.getException().getLocalizedMessage());
+
                     Log.d(TAG, "onComplete: Failed update item");
 
                 }

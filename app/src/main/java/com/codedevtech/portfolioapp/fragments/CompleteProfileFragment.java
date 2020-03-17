@@ -126,9 +126,7 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
             }
         }));
 
-
-
-
+        
         return fragmentCompleteProfileBinding.getRoot();
     }
 
