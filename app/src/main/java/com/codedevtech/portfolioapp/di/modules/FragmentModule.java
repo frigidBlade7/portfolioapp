@@ -1,5 +1,6 @@
 package com.codedevtech.portfolioapp.di.modules;
 
+import com.codedevtech.portfolioapp.ShowProfileFragment;
 import com.codedevtech.portfolioapp.SplashScreenFragment;
 import com.codedevtech.portfolioapp.fragments.AuthenticationExtrasBottomSheet;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragment;
@@ -63,5 +64,9 @@ public abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract NewPostFragment newPostFragment();
+
+
+    @ContributesAndroidInjector
+    abstract ShowProfileFragment showProfileFragment();
 
 }

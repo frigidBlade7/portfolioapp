@@ -118,6 +118,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_showProfileFragment"
+            app:destination="@id/showProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -156,4 +159,13 @@
             android:name="userAuthProviderId"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/showProfileFragment"
+        android:name="com.codedevtech.portfolioapp.ShowProfileFragment"
+        android:label="fragment_show_profile"
+        tools:layout="@layout/fragment_show_profile" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </dialog>
 </navigation>

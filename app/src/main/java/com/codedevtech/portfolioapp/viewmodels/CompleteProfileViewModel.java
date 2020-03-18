@@ -41,6 +41,9 @@ public class CompleteProfileViewModel extends BaseViewModel {
     private ArrayList<String> roleFlags;
     private RegistrationService registrationService;
     private SharedPreferences sharedPreferences;
+    private MutableLiveData<Double> progressCount = new MutableLiveData<>();
+
+    private MutableLiveData<String> photoUrl = new MutableLiveData<>();
 
 
     @Inject
@@ -49,6 +52,11 @@ public class CompleteProfileViewModel extends BaseViewModel {
         this.registrationService = registrationService;
         this.roleFlags = new ArrayList<>();
         this.sharedPreferences = sharedPreferences;
+    }
+
+
+    public MutableLiveData<String> getPhotoUrl() {
+        return photoUrl;
     }
 
     public MutableLiveData<Uri> getUriMutableLiveData() {
@@ -92,6 +100,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
         folioUser.setLastName(lastNameLiveData.getValue());
         folioUser.setBio(bioLiveData.getValue());
         folioUser.setRoleFlags(roleFlags);
+        folioUser.setPhotoUrl(photoUrl.getValue());
 
         if(!folioUser.isFirstNameValid()){
             setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarId(R.string.first_name_required));
@@ -177,6 +186,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
         firstNameLiveData.setValue(folioUser.getFirstName());
         lastNameLiveData.setValue(folioUser.getLastName());
         bioLiveData.setValue(folioUser.getBio());
+        photoUrl.setValue(folioUser.getPhotoUrl());
 
     }
 
@@ -201,21 +211,27 @@ public class CompleteProfileViewModel extends BaseViewModel {
 
     }
 
+    public MutableLiveData<Double> getProgressCount() {
+        return progressCount;
+    }
 
     public void updateProfilePhoto(Uri resultUri) {
         registrationService.updateProfilePhoto(userAuthProviderId,resultUri, new UploadProgressCallback() {
             @Override
             public void onProgress(Double progress) {
-
+                progressCount.setValue(progress);
             }
 
             @Override
             public void success(String id) {
-
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(id));
+                progressCount.setValue(0.0);
             }
 
             @Override
             public void failure(String message) {
+                setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString(message));
+                progressCount.setValue(0.0);
 
             }
         });

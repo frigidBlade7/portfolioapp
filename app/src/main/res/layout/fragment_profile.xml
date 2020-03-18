@@ -313,7 +313,7 @@
             android:layout_height="@dimen/profileHeight"
             android:background="@drawable/profile_image_background"
             app:layout_anchor="@+id/appbar"
-            app:loadImage="@{dashboardviewmodel.folioUserLiveData.data.id}"
+            app:loadImage="@{dashboardviewmodel.folioUserLiveData.data.photoUrl}"
             app:layout_anchorGravity="bottom|start"
             android:layout_marginStart="@dimen/buttonDefaultMargin"
             app:srcCompat="@drawable/man" />

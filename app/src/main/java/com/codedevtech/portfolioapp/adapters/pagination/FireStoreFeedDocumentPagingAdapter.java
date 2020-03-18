@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.interfaces.listeners.FeedListener;
 import com.codedevtech.portfolioapp.models.FeedDocument;
 import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.service_implementations.GlideApp;
@@ -55,6 +57,7 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
     private String userId;
     private Context context;
     private PrettyTime prettyTime;
+    private FeedListener feedListener;
     /**
      * Construct a new FirestorePagingAdapter from the given {@link FirestorePagingOptions}.
      *
@@ -65,6 +68,7 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
         this.context = context;
         this.prettyTime = new PrettyTime();
         this.userId = userId;
+        this.feedListener = (FeedListener)context;
     }
 
     @Override
@@ -76,7 +80,8 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
             holder.name.setText(model.getDisplayName());
 
         holder.caption.setText(model.getCaption());
-        GlideApp.with(context).load(FirebaseStorage.getInstance().getReference("users").child(model.getDisplayPhoto()))
+        GlideApp.with(context).load(model.getDisplayPhoto())
+                .error(R.drawable.man).placeholder(R.drawable.man)
                 .circleCrop().thumbnail(0.1f).into(holder.profilePhoto);
 
         String time = prettyTime.format(model.getCreatedAt());
@@ -121,8 +126,16 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
         feedPostViewHolder.postImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FeedPost feedPost = getCurrentList().get(feedPostViewHolder.getAdapterPosition()).toObject(FeedPost.class);
-                Log.d(TAG, "onClick: "+ feedPost.getDisplayName());
+                if(feedListener!=null){
+                    FeedPost feedPost = getCurrentList().get(feedPostViewHolder.getAdapterPosition()).toObject(FeedPost.class);
+
+                    if(feedPost.getUserId().equals(userId))
+                        Toast.makeText(context, "gotoprofile", Toast.LENGTH_SHORT).show();
+                    else{
+
+                    }
+
+                }
             }
         });
 

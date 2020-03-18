@@ -48,4 +48,6 @@ public class FeedFragmentViewModel extends BaseViewModel {
         this.userFeedQuery = dataRepositoryService.getPaginatedFeedPosts(sharedPreferences.getString(Utility.USER_AUTH_ID,""));
     }
 
+
+
 }

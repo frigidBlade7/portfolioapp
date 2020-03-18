@@ -29,6 +29,7 @@ public class FolioUser implements Parcelable {
     private String firstName;
     private String lastName;
     private String bio;
+    private String photoUrl;
     @TypeConverters(DateConverter.class) @ServerTimestamp
     private Date createdAt;
     private int followCount;
@@ -47,6 +48,7 @@ public class FolioUser implements Parcelable {
         firstName = in.readString();
         lastName = in.readString();
         bio = in.readString();
+        photoUrl = in.readString();
         followCount = in.readInt();
         likeCount = in.readInt();
         roleFlags = in.createStringArrayList();
@@ -164,6 +166,13 @@ public class FolioUser implements Parcelable {
         return (roleFlags!=null /*&& roleFlags.size()<4*/ && roleFlags.size()>0);
     }
 
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 
     @Override
     public int describeContents() {
@@ -176,6 +185,7 @@ public class FolioUser implements Parcelable {
         parcel.writeString(email);
         parcel.writeString(firstName);
         parcel.writeString(lastName);
+        parcel.writeString(photoUrl);
         parcel.writeString(bio);
         parcel.writeInt(followCount);
         parcel.writeInt(likeCount);

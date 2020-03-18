@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewmodel"
             type="com.codedevtech.portfolioapp.viewmodels.FeedFragmentViewModel" />
@@ -55,6 +56,42 @@
             tools:listitem="@layout/post_item">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/empty_state_layout"
+            android:visibility="gone"
+            android:layout_marginBottom="@dimen/buttonBigPadding"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/empty_state"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/empty_state_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/empty_state" />
+
+            <TextView
+                android:id="@+id/empty_state_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/buttonBigPadding"
+                android:gravity="center"
+                android:text="@string/nothing_to_see_here_yet_npost_something_or_follow_someone_to_see_their_posts"
+                app:layout_constraintBottom_toTopOf="@+id/empty_state"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/empty_state" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/cardListShim"

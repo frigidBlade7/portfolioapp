@@ -10,7 +10,7 @@
             type="com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.CompleteProfileFragment">
@@ -232,6 +232,7 @@
                     android:layout_width="@dimen/profileWidth"
                     android:layout_height="@dimen/profileHeight"
                     android:clickable="true"
+                    app:loadImage="@{viewmodel.photoUrl}"
                     android:focusable="true"
                     android:background="@drawable/profile_image_background"
                     app:layout_constraintEnd_toStartOf="@+id/guideline12"
@@ -330,6 +331,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

@@ -133,7 +133,7 @@ public class FirebaseRegistrationService implements RegistrationService {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
-                                                uploadProgressCallback.success(task.getResult().toString());
+                                                uploadProgressCallback.success("Upload successful");
                                             }else{
                                                 Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
                                                 uploadProgressCallback.failure(task.getException().getMessage());

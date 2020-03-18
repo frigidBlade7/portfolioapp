@@ -60,6 +60,7 @@ public class FeedFragment extends Fragment implements Injectable {
     private DashboardFragmentViewModel dashboardFragmentViewModel;
     private FireStoreFeedDocumentPagingAdapter fireStoreFeedDocumentPagingAdapter;
     private FloatingActionButton newPost;
+    private FragmentFeedBinding fragmentFeedBinding;
 
     public FeedFragment() {
         // Required empty public constructor
@@ -82,7 +83,7 @@ public class FeedFragment extends Fragment implements Injectable {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final FragmentFeedBinding fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
+        fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
         feedFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(FeedFragmentViewModel.class);
         dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
@@ -157,12 +158,14 @@ public class FeedFragment extends Fragment implements Injectable {
 
         fragmentFeedBinding.cardList.setAdapter(fireStoreFeedDocumentPagingAdapter);
 
+
         fireStoreFeedDocumentPagingAdapter.addLoadStateListener(new PagedList.LoadStateListener() {
 
             @Override
             public void onLoadStateChanged(@NonNull PagedList.LoadType type, @NonNull PagedList.LoadState state, @Nullable Throwable error) {
                 //todo show the loaders
                 Log.d(TAG, "onLoadStateChanged: "+state.name());
+                fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
 
                 switch (state){
 
@@ -173,12 +176,26 @@ public class FeedFragment extends Fragment implements Injectable {
                         //fragmentFeedBinding.cardListShim.startShimmer();
                         // The initial load has begun
                         // ...
+                        fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
+
+
+
                     case LOADING:
                         // The adapter has started to load an additional page
                         // ...
+                        /*fragmentFeedBinding.cardListShim.startShimmer();
+                        fragmentFeedBinding.cardListShim.setVisibility(View.VISIBLE);*/
+                        fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
+
+
                     case DONE:
                         // The previous load (either initial or additional) completed
                         // ...
+
+                        if(fireStoreFeedDocumentPagingAdapter.getItemCount()>0)
+                            fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
+
+                        Log.d(TAG, "onLoadStateChanged: "+        fireStoreFeedDocumentPagingAdapter.getItemCount());
 
                         fragmentFeedBinding.cardListShim.stopShimmer();
                         fragmentFeedBinding.cardListShim.setVisibility(View.GONE);

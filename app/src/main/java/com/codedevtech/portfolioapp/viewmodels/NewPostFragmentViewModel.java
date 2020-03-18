@@ -45,12 +45,9 @@ public class NewPostFragmentViewModel extends BaseViewModel {
         FeedPost feedPost = new FeedPost();
         feedPost.setCaption(getCaption().getValue());
         feedPost.setDisplayName(String.format(getApplication().getString(R.string.full_name),folioUser.getFirstName(), folioUser.getLastName()));
-        feedPost.setDisplayPhoto(folioUser.getId());
+        feedPost.setDisplayPhoto(folioUser.getPhotoUrl());
         feedPost.setUserId(folioUser.getId());
 
-        if(bitmap.getValue()!=null){
-            //feedPost.set
-        }
 
         dataRepositoryService.add(feedPost, new SuccessCallback() {
             @Override
