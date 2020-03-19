@@ -10,27 +10,29 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.codedevtech.portfolioapp.R;
-import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.repositories.Resource;
+import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
 import com.codedevtech.portfolioapp.utilities.Utility;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 
 import javax.inject.Inject;
 
 public class ShowProfileFragmentViewModel extends BaseViewModel {
 
     private SharedPreferences sharedPreferences;
-    private FirebaseFolioUserRepository dataRepositoryService;
-
+    private FirebaseFolioUserRepository dataRepositoryServiceUser;
+    private FirebaseFolioFeedRepository dataRepositoryServiceFeed;
+    private Query userFeedQuery;
     private LiveData<Resource<FolioUser>> folioUserLiveData = new MutableLiveData<>();
 
     @Inject
     public ShowProfileFragmentViewModel(@NonNull Application application) {
         super(application);
-        dataRepositoryService = new FirebaseFolioUserRepository("users");
+        dataRepositoryServiceUser = new FirebaseFolioUserRepository("users");
+        dataRepositoryServiceFeed = new FirebaseFolioFeedRepository("feed");
 
     }
 
@@ -56,7 +58,15 @@ public class ShowProfileFragmentViewModel extends BaseViewModel {
     }
 
     public void setFolioUserLiveData(String userAuthId) {
-        this.folioUserLiveData = Transformations.map(dataRepositoryService.getFolioUserById(userAuthId), new FirestoreFolioUserDeserializer());
+        this.folioUserLiveData = Transformations.map(dataRepositoryServiceUser.getFolioUserById(userAuthId), new FirestoreFolioUserDeserializer());
+    }
+
+    public Query getUserFeedQuery() {
+        return userFeedQuery;
+    }
+
+    public void setQueryLiveData(String userId) {
+        this.userFeedQuery = dataRepositoryServiceFeed.getPaginatedFeedPosts(userId);
     }
 
 

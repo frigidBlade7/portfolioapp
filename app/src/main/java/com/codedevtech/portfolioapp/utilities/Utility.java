@@ -51,4 +51,11 @@ public class Utility {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
     }
+
+    public static String getShareTitle(String firstName) {
+        if (firstName.endsWith("s"))
+            return String.format("%1$s' profile on folio.", firstName);
+        else
+            return String.format("%1$s's profile on folio.", firstName);
+    }
 }

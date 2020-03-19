@@ -1,6 +1,7 @@
 package com.codedevtech.portfolioapp.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -74,6 +75,31 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "onAttach: ");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Log.d(TAG, "onCreate: ");
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated: ");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Log.d(TAG, "onViewStateRestored: ");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -87,6 +113,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
         fragmentFeedBinding.setDashboardViewModel(dashboardFragmentViewModel);
 
 
+        Log.d(TAG, "onCreateView: ");
         fragmentFeedBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
 
@@ -226,7 +253,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
     @Override
     public void onFeedProfilePhotoTapped(FeedPost feedPost) {
         if(feedPost.getUserId().equals(dashboardFragmentViewModel.getUserAuthId()))
-            Toast.makeText(getContext(), "nate!", Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(getParentFragment()).navigate(R.id.profileFragment);
         else{
             DashboardFragmentDirections.ActionDashboardFragmentToShowProfileFragment action =
                     DashboardFragmentDirections.actionDashboardFragmentToShowProfileFragment(feedPost.getUserId());

@@ -51,7 +51,8 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
         this.context = fragment.getContext();
         this.prettyTime = new PrettyTime();
         this.userId = userId;
-        this.feedListener = (FeedListener)fragment;
+        if(fragment instanceof FeedListener)
+            this.feedListener = (FeedListener)fragment;
     }
 
     @Override
