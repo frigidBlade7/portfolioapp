@@ -20,6 +20,7 @@ import com.codedevtech.portfolioapp.viewmodels.NewPostFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.OnboardingFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.ProfileFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.RegistrationFragmentViewModel;
+import com.codedevtech.portfolioapp.viewmodels.ShowProfileFragmentViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -75,6 +76,12 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MessagesFragmentViewModel.class)
     abstract ViewModel bindMessagesFragmentViewModel(MessagesFragmentViewModel messagesFragmentViewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ShowProfileFragmentViewModel.class)
+    abstract ViewModel bindShowProfileFragmentViewModel(ShowProfileFragmentViewModel showProfileFragmentViewModel);
 
 
     @Binds

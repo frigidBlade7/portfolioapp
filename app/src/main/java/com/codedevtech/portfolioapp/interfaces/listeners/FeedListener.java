@@ -1,6 +1,8 @@
 package com.codedevtech.portfolioapp.interfaces.listeners;
 
+import com.codedevtech.portfolioapp.models.FeedPost;
+
 public interface FeedListener {
 
-    void onFeedImageClicked();
+    void onFeedProfilePhotoTapped(FeedPost feedPost);
 }

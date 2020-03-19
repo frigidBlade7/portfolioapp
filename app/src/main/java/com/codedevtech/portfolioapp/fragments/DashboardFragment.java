@@ -91,7 +91,7 @@ public class DashboardFragment extends Fragment implements Injectable{
 
 
 
-        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory)
+        dashboardFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory)
                 .get(DashboardFragmentViewModel.class);
 
         fragmentDashboardBinding.setLifecycleOwner(this.getViewLifecycleOwner());

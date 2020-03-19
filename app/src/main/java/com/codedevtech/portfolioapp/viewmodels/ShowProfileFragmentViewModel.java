@@ -23,7 +23,6 @@ import javax.inject.Inject;
 public class ShowProfileFragmentViewModel extends BaseViewModel {
 
     private SharedPreferences sharedPreferences;
-    private String userAuthId;
     private FirebaseFolioUserRepository dataRepositoryService;
 
     private LiveData<Resource<FolioUser>> folioUserLiveData = new MutableLiveData<>();
@@ -58,15 +57,6 @@ public class ShowProfileFragmentViewModel extends BaseViewModel {
 
     public void setFolioUserLiveData(String userAuthId) {
         this.folioUserLiveData = Transformations.map(dataRepositoryService.getFolioUserById(userAuthId), new FirestoreFolioUserDeserializer());
-    }
-
-
-    public void setUserAuthId(String userAuthId) {
-        this.userAuthId = userAuthId;
-    }
-
-    public String getUserAuthId() {
-        return userAuthId;
     }
 
 

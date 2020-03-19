@@ -2,51 +2,34 @@ package com.codedevtech.portfolioapp.adapters.pagination;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.shapes.RoundRectShape;
-import android.net.Uri;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.CenterInside;
-import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.interfaces.listeners.FeedListener;
-import com.codedevtech.portfolioapp.models.FeedDocument;
 import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.service_implementations.GlideApp;
-import com.facebook.shimmer.Shimmer;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.ServerTimestamp;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firestore.v1.DocumentTransform;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -63,12 +46,12 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
      *
      * @param options
      */
-    public FireStoreFeedDocumentPagingAdapter(@NonNull FirestorePagingOptions<FeedPost> options, Context context, String userId) {
+    public FireStoreFeedDocumentPagingAdapter(@NonNull FirestorePagingOptions<FeedPost> options, Fragment fragment, String userId) {
         super(options);
-        this.context = context;
+        this.context = fragment.getContext();
         this.prettyTime = new PrettyTime();
         this.userId = userId;
-        this.feedListener = (FeedListener)context;
+        this.feedListener = (FeedListener)fragment;
     }
 
     @Override
@@ -123,17 +106,19 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
 
         final FeedPostViewHolder feedPostViewHolder = new FeedPostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false));
 
-        feedPostViewHolder.postImage.setOnClickListener(new View.OnClickListener() {
+        feedPostViewHolder.profilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(feedListener!=null){
                     FeedPost feedPost = getCurrentList().get(feedPostViewHolder.getAdapterPosition()).toObject(FeedPost.class);
+                    feedListener.onFeedProfilePhotoTapped(feedPost);
 
-                    if(feedPost.getUserId().equals(userId))
-                        Toast.makeText(context, "gotoprofile", Toast.LENGTH_SHORT).show();
+/*                    if(feedPost.getUserId().equals(userId))
+                        //Navigatio
+                        //Toast.makeText(context, "gotoprofile", Toast.LENGTH_SHORT).show();
                     else{
-
-                    }
+                        feedListener.onFeedImageClicked(feedPost);
+                    }*/
 
                 }
             }

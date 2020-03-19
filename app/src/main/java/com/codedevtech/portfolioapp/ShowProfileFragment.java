@@ -29,6 +29,9 @@ public class ShowProfileFragment extends BottomSheetDialogFragment implements In
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+    private ShowProfileFragmentViewModel showProfileFragmentViewModel;
+
+    private String userAuthId;
 
     public ShowProfileFragment() {
         // Required empty public constructor
@@ -37,6 +40,9 @@ public class ShowProfileFragment extends BottomSheetDialogFragment implements In
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        userAuthId = ShowProfileFragmentArgs.fromBundle(getArguments()).getUserId();
+        showProfileFragmentViewModel.setFolioUserLiveData(userAuthId);
     }
 
     @Override
@@ -44,10 +50,12 @@ public class ShowProfileFragment extends BottomSheetDialogFragment implements In
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         FragmentShowProfileBinding showProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_show_profile, container ,false);
-        ShowProfileFragmentViewModel showProfileFragmentViewModel = new ViewModelProvider(getParentFragment(), viewModelFactory).get(ShowProfileFragmentViewModel.class);
+        showProfileFragmentViewModel = new ViewModelProvider(this, viewModelFactory).get(ShowProfileFragmentViewModel.class);
 
         showProfileBinding.setViewModel(showProfileFragmentViewModel);
         showProfileBinding.setLifecycleOwner(this.getViewLifecycleOwner());
+
+
 
         return showProfileBinding.getRoot();
     }

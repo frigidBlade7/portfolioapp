@@ -12,8 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/buttonBigPadding">
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -23,67 +23,68 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.3" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/profilePhoto"
-            android:layout_width="@dimen/profileWidth"
-            android:layout_height="@dimen/profileHeight"
-            android:background="@drawable/profile_image_background"
-            android:elevation="@dimen/photo_elevation"
-            app:layout_anchorGravity="bottom|start"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/name"
-            app:loadImage="@{dashboardviewmodel.folioUserLiveData.data.photoUrl}"
-            app:srcCompat="@drawable/man" />
-
         <TextView
             android:id="@+id/name"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/buttonPadding"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="@dimen/buttonPadding"
-            android:paddingStart="@dimen/buttonPadding"
-            android:paddingEnd="@dimen/buttonPadding"
-            android:text="@{String.format(@string/full_name,dashboardviewmodel.folioUserLiveData.data.firstName,dashboardviewmodel.folioUserLiveData.data.lastName)}"
+            android:text="@{String.format(@string/full_name,viewModel.folioUserLiveData.data.firstName,viewModel.folioUserLiveData.data.lastName)}"
             android:textAlignment="viewStart"
             app:layout_constraintBottom_toTopOf="@+id/flags"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline10"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.7"
-            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_chainStyle="spread"
             tools:text="Nate Att" />
 
-        <TextView
-            android:id="@+id/flags"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/buttonPadding"
-            android:paddingEnd="@dimen/buttonPadding"
-            android:textAlignment="viewStart"
-            app:layout_constraintBottom_toTopOf="@+id/bio"
-            app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            app:roleFlags="@{dashboardviewmodel.folioUserLiveData.data.roleFlags}"
-            tools:text="@string/role_role_role" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/profilePhoto"
+            android:layout_width="@dimen/profileWidth"
+            android:layout_height="@dimen/profileHeight"
+            android:layout_marginStart="@dimen/buttonPadding"
+            android:background="@drawable/profile_image_background"
+            app:layout_anchorGravity="bottom|start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/name"
+            app:loadImage="@{viewModel.folioUserLiveData.data.photoUrl}"
+            app:srcCompat="@drawable/man" />
 
         <TextView
             android:id="@+id/bio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/buttonPadding"
             android:layout_marginTop="8dp"
-            android:text="@{dashboardviewmodel.folioUserLiveData.data.bio}"
+            android:text="@{viewModel.folioUserLiveData.data.bio}"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/guideline10"
             app:layout_constraintTop_toBottomOf="@+id/flags" />
+
+        <TextView
+            android:id="@+id/flags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/buttonPadding"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toTopOf="@+id/bio"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/guideline10"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:roleFlags="@{viewModel.folioUserLiveData.data.roleFlags}"
+            tools:text="@string/role_role_role" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/buttonBigPadding"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/follow"
             app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintStart_toStartOf="@+id/guideline10"
             app:layout_constraintTop_toBottomOf="@+id/bio">
@@ -105,7 +106,7 @@
                 android:layout_marginStart="4dp"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
-                android:text="@{String.format(@string/_1_s_followers,dashboardviewmodel.folioUserLiveData.data.followCount)}"
+                android:text="@{String.format(@string/_1_s_followers,viewModel.folioUserLiveData.data.followCount)}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/followIcon"
                 app:layout_constraintStart_toEndOf="@+id/followIcon"
@@ -128,13 +129,52 @@
                 android:layout_marginStart="4dp"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
-                android:text="@{String.format(@string/_1_s_likes,dashboardviewmodel.folioUserLiveData.data.followCount)}"
+                android:text="@{String.format(@string/_1_s_likes,viewModel.folioUserLiveData.data.followCount)}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/likeIcon"
                 app:layout_constraintStart_toEndOf="@+id/likeIcon"
                 tools:text="@string/_1_s_likes" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/follow"
+            style="@style/ButtonOutlineNoPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/follow"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toTopOf="@+id/list"
+            app:layout_constraintEnd_toStartOf="@+id/message"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <Button
+            android:id="@+id/message"
+            style="@style/ButtonOutlineNoPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/follow"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/follow"
+            app:layout_constraintTop_toTopOf="@+id/follow" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_marginTop="@dimen/buttonBigPadding"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/post_item"
+            app:layout_constraintTop_toBottomOf="@+id/follow" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

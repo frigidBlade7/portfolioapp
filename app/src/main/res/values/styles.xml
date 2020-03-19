@@ -69,6 +69,18 @@
         <item name="cornerRadius">@dimen/globalRadius</item>
     </style>
 
+    <style name="ButtonOutlineNoPadding" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/buttonPadding</item>
+        <item name="android:layout_marginBottom">@dimen/buttonPadding</item>
+        <item name="android:layout_marginStart">@dimen/buttonPadding</item>
+        <item name="android:layout_marginEnd">@dimen/buttonPadding</item>
+        <item name="cornerRadius">@dimen/globalRadius</item>
+    </style>
+
 
     <style name="SplashScreenTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splashscreen</item>
