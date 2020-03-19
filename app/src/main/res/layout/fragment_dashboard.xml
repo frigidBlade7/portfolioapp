@@ -27,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/fragment"
             app:layout_constraintEnd_toEndOf="parent" />-->
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             app:defaultNavHost="true"

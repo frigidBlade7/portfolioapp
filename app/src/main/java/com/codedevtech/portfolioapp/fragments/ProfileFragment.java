@@ -78,10 +78,9 @@ public class ProfileFragment extends Fragment implements Injectable {
         fragmentProfileBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
 
-        profileFragmentViewModel.getShareLink().observe(this.getViewLifecycleOwner(), new Observer<String>() {
+        profileFragmentViewModel.getShareLink().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<String>() {
             @Override
-            public void onChanged(String s) {
-
+            public void onEvent(String s) {
                 ShareCompat.IntentBuilder shareBuilder = ShareCompat.IntentBuilder.from(getActivity());
                 shareBuilder.setChooserTitle(R.string.share_profile)
                         .setSubject(getString(R.string.share_profile))
@@ -94,7 +93,7 @@ public class ProfileFragment extends Fragment implements Injectable {
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null)
                     startActivity(intent);
             }
-        });
+        }));
 
 
 

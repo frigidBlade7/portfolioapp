@@ -15,6 +15,7 @@ import androidx.lifecycle.Transformations;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.models.FolioUser;
+import com.codedevtech.portfolioapp.navigation.Event;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
 import com.codedevtech.portfolioapp.utilities.Utility;
@@ -31,7 +32,7 @@ public class ProfileFragmentViewModel extends BaseViewModel {
 
     private static final String TAG = "ProfileFragmentViewMode";
 
-    private MutableLiveData<String> shareLink = new MutableLiveData<>();
+    private MutableLiveData<Event<String>> shareLink = new MutableLiveData<>();
 
     @Inject
     public ProfileFragmentViewModel(@NonNull Application application) {
@@ -42,8 +43,8 @@ public class ProfileFragmentViewModel extends BaseViewModel {
     public void generateLink(FolioUser folioUser){
 
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://www.google.com/"))
-                .setDomainUriPrefix("https://portfolioapp.page.link/"+folioUser.getId())
+                .setLink(Uri.parse("https://www.portfolioapp.com/users/"+folioUser.getId()))
+                .setDomainUriPrefix("https://portfolioapp.page.link")
                 //.setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
                 .setSocialMetaTagParameters(
                         new DynamicLink.SocialMetaTagParameters.Builder()
@@ -61,7 +62,7 @@ public class ProfileFragmentViewModel extends BaseViewModel {
                             Uri shortLink = task.getResult().getShortLink();
                             Log.d(TAG, "onComplete: "+task.getResult().getPreviewLink());
 
-                            shareLink.setValue(shortLink.toString());
+                            shareLink.setValue(new Event<String>(shortLink.toString()));
 
                         }else{
                             setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
@@ -71,7 +72,7 @@ public class ProfileFragmentViewModel extends BaseViewModel {
                 });
     }
 
-    public MutableLiveData<String> getShareLink() {
+    public MutableLiveData<Event<String>> getShareLink() {
         return shareLink;
     }
 }

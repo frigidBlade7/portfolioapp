@@ -163,9 +163,13 @@
         android:id="@+id/showProfileFragment"
         android:name="com.codedevtech.portfolioapp.ShowProfileFragment"
         android:label="fragment_show_profile"
-        tools:layout="@layout/fragment_show_profile" >
+        tools:layout="@layout/fragment_show_profile">
         <argument
             android:name="userId"
             app:argType="string" />
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:uri="https://www.portfolioapp.com/users/{userId}" />
     </dialog>
 </navigation>
