@@ -172,4 +172,5 @@
             android:autoVerify="true"
             app:uri="https://www.portfolioapp.com/users/{userId}" />
     </dialog>
+
 </navigation>

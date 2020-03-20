@@ -45,6 +45,10 @@ public class ProfileFragmentViewModel extends BaseViewModel {
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLink(Uri.parse("https://www.portfolioapp.com/users/"+folioUser.getId()))
                 .setDomainUriPrefix("https://portfolioapp.page.link")
+                .setNavigationInfoParameters(
+                        new DynamicLink.NavigationInfoParameters.Builder()
+                                .setForcedRedirectEnabled(true)
+                                .build())
                 //.setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
                 .setSocialMetaTagParameters(
                         new DynamicLink.SocialMetaTagParameters.Builder()
