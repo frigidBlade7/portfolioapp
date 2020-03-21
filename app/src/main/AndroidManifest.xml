@@ -80,7 +80,9 @@
                 <data android:host="portfolioapp.page.link" android:scheme="https"/>
             </intent-filter>
 
+<!--
             <nav-graph android:value="@navigation/main_nav"/>
+-->
 
         </activity>
         <meta-data

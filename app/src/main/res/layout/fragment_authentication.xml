@@ -139,7 +139,7 @@
                 app:endIconCheckable="true"
                 app:endIconMode="password_toggle"
                 app:endIconDrawable="@drawable/visibility_selector"
-                app:passwordToggleEnabled="@{viewmodel.passwordMutableLiveData.length() > 0 ? true : false}"
+                passwordToggleEnabled="@{viewmodel.passwordMutableLiveData.length() > 0 ? true : false}"
                 app:passwordToggleDrawable="@drawable/visibility_selector"
                 app:layout_constraintBottom_toTopOf="@+id/loginButton"
                 app:layout_constraintEnd_toEndOf="@+id/email_layout"

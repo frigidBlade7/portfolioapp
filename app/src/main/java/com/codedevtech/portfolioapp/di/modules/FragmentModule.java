@@ -1,6 +1,6 @@
 package com.codedevtech.portfolioapp.di.modules;
 
-import com.codedevtech.portfolioapp.ShowProfileFragment;
+import com.codedevtech.portfolioapp.fragments.ShowProfileFragment;
 import com.codedevtech.portfolioapp.SplashScreenFragment;
 import com.codedevtech.portfolioapp.fragments.AuthenticationExtrasBottomSheet;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragment;

@@ -86,7 +86,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/name"
                         app:layout_constraintStart_toStartOf="@+id/guideline10"
                         app:layout_constraintTop_toBottomOf="@+id/name"
-                        app:roleFlags="@{dashboardviewmodel.folioUserLiveData.data.roleFlags}"
+                        roleFlags="@{dashboardviewmodel.folioUserLiveData.data.roleFlags}"
                         tools:text="@string/role_role_role" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -313,7 +313,7 @@
             android:layout_height="@dimen/profileHeight"
             android:background="@drawable/profile_image_background"
             app:layout_anchor="@+id/appbar"
-            app:loadImage="@{dashboardviewmodel.folioUserLiveData.data.photoUrl}"
+            loadImage="@{dashboardviewmodel.folioUserLiveData.data.photoUrl}"
             app:layout_anchorGravity="bottom|start"
             android:layout_marginStart="@dimen/buttonDefaultMargin"
             app:srcCompat="@drawable/man" />

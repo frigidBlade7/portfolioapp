@@ -2,6 +2,7 @@ package com.codedevtech.portfolioapp.fragments;
 
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,10 @@ import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.facebook.share.Share;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -53,6 +58,13 @@ public class DashboardFragment extends Fragment implements Injectable{
         // Required empty public constructor
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
 
     @Inject
     ViewModelProvider.Factory viewmodelFactory;
@@ -91,7 +103,7 @@ public class DashboardFragment extends Fragment implements Injectable{
 
 
 
-        dashboardFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory)
+        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory)
                 .get(DashboardFragmentViewModel.class);
 
         fragmentDashboardBinding.setLifecycleOwner(this.getViewLifecycleOwner());

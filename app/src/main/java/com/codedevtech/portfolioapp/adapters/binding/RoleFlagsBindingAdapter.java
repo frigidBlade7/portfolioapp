@@ -17,7 +17,7 @@ public class RoleFlagsBindingAdapter {
 
     private static final String TAG = "RoleFlagsBindingAdapter";
 
-    @BindingAdapter("app:roleFlags")
+    @BindingAdapter("roleFlags")
     public static void setRoleFlags(TextView view, List<String> roleFlags) {
 
         Log.d(TAG, "setRoleFlags: "+roleFlags);

@@ -74,6 +74,8 @@ public class ProfileFragmentViewModel extends BaseViewModel {
                         }
                     }
                 });
+
+
     }
 
     public MutableLiveData<Event<String>> getShareLink() {

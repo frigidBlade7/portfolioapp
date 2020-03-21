@@ -12,7 +12,7 @@ public class EditTextPasswordToggleEnabledBindingAdapter {
 
     private static final String TAG = "EditTextPasswordToggleE";
 
-    @BindingAdapter("app:passwordToggleEnabled")
+    @BindingAdapter("passwordToggleEnabled")
     public static void setPasswordToggleEnabled(TextInputLayout view, Boolean visibilityToggle) {
 
         Log.d(TAG, "setPasswordToggleEnabled: "+ visibilityToggle);

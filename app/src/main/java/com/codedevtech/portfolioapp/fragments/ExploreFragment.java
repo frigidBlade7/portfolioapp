@@ -46,7 +46,7 @@ public class ExploreFragment extends Fragment {
 
         FragmentExploreBinding fragmentExploreBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_explore, container, false);
 
-        DashboardFragmentViewModel dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
+        DashboardFragmentViewModel dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
 
 
         fragmentExploreBinding.setDashboardViewModel(dashboardFragmentViewModel);

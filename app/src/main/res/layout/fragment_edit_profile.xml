@@ -232,7 +232,7 @@
                     android:layout_width="@dimen/profileWidth"
                     android:layout_height="@dimen/profileHeight"
                     android:clickable="true"
-                    app:loadImage="@{viewmodel.photoUrl}"
+                    loadImage="@{viewmodel.photoUrl}"
                     android:focusable="true"
                     android:background="@drawable/profile_image_background"
                     app:layout_constraintEnd_toStartOf="@+id/guideline12"

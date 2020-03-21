@@ -1,4 +1,4 @@
-package com.codedevtech.portfolioapp;
+package com.codedevtech.portfolioapp.fragments;
 
 import android.os.Bundle;
 
@@ -13,13 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.adapters.pagination.FireStoreFeedDocumentPagingAdapter;
 import com.codedevtech.portfolioapp.databinding.FragmentShowProfileBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
-import com.codedevtech.portfolioapp.fragments.DashboardFragment;
-import com.codedevtech.portfolioapp.fragments.FeedFragment;
 import com.codedevtech.portfolioapp.models.FeedPost;
-import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.ShowProfileFragmentViewModel;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

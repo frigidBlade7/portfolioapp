@@ -16,7 +16,7 @@ public class LoadImageBindingAdapter {
 
     private static final String TAG = "LoadImageBindingAdapter";
 
-    @BindingAdapter("app:loadImage")
+    @BindingAdapter("loadImage")
     public static void loadImage(ImageView imageView, String userId){
         Log.d(TAG, "loadImage: "+userId);
         GlideApp.with(imageView.getContext()).load(userId)

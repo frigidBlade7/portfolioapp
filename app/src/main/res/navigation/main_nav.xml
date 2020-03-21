@@ -161,7 +161,7 @@
     </fragment>
     <dialog
         android:id="@+id/showProfileFragment"
-        android:name="com.codedevtech.portfolioapp.ShowProfileFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.ShowProfileFragment"
         android:label="fragment_show_profile"
         tools:layout="@layout/fragment_show_profile">
         <argument
@@ -171,6 +171,5 @@
             android:id="@+id/deepLink"
             android:autoVerify="true"
             app:uri="https://www.portfolioapp.com/users/{userId}" />
-    </dialog>
-
+    </dialog><action android:id="@+id/action_global_showProfileFragment" app:destination="@id/showProfileFragment"/>
 </navigation>

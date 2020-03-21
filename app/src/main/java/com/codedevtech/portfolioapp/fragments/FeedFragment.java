@@ -2,6 +2,7 @@ package com.codedevtech.portfolioapp.fragments;
 
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.codedevtech.portfolioapp.MainActivity;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.adapters.pagination.FireStoreFeedDocumentPagingAdapter;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
@@ -32,7 +34,11 @@ import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.FeedFragmentViewModel;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 import javax.inject.Inject;
 
@@ -43,6 +49,7 @@ import javax.inject.Inject;
 public class FeedFragment extends Fragment implements Injectable, FeedListener {
 
     private static final String TAG = "FeedFragment";
+
 
     @Inject
     ViewModelProvider.Factory viewmodelFactory;
@@ -72,6 +79,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
     public void onResume() {
         super.onResume();
         newPost.show();
+
     }
 
     @Override
@@ -85,6 +93,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
         super.onCreate(savedInstanceState);
 
         Log.d(TAG, "onCreate: ");
+
     }
 
     @Override
@@ -105,7 +114,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
         // Inflate the layout for this fragment
         fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
         feedFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(FeedFragmentViewModel.class);
-        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
+        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
         newPost = fragmentFeedBinding.newPostFAB;
         //add viewmodel for both dashboard and feed fragments
@@ -261,5 +270,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
             dashboardFragmentViewModel.setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
         }
     }
+
+
 
 }
