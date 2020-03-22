@@ -127,6 +127,8 @@ public class FirebaseRegistrationService implements RegistrationService {
                 }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
+
+                        //todo replaced with cloud functions
                         if(task.isSuccessful()){
                             firebaseUserDataRepositoryService.getCollectionReference().document(userId).update("photoUrl", task.getResult().toString())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
