@@ -5,6 +5,7 @@
     tools:context=".fragments.ShowProfileFragment">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.codedevtech.portfolioapp.viewmodels.ShowProfileFragmentViewModel" />
@@ -143,6 +144,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/follow"
+            android:onClick="@{()->viewModel.followUser(viewModel.folioUserLiveData.data)}"
+            android:visibility="@{viewModel.isMe(viewModel.folioUserLiveData.data.id)? View.GONE :View.VISIBLE}"
             android:textAllCaps="false"
             app:layout_constraintBottom_toTopOf="@+id/list"
             app:layout_constraintEnd_toStartOf="@+id/message"
@@ -154,6 +157,7 @@
         <Button
             android:id="@+id/message"
             style="@style/ButtonOutlineNoPadding"
+            android:visibility="@{viewModel.isMe(viewModel.folioUserLiveData.data.id)? View.GONE :View.VISIBLE}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/message"

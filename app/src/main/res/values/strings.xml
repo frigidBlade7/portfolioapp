@@ -94,6 +94,7 @@
     <string name="follow">Follow</string>
     <string name="message">Message</string>
     <string name="hey_check_out">Hey, check out this folio \n</string>
+    <string name="user_followed_successfully">User added to following list successfully</string>
 
     <string-array name="photo_options">
         <item>@string/gallery</item>

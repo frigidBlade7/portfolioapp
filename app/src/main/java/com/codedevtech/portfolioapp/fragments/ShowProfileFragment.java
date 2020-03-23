@@ -15,12 +15,17 @@ import android.view.ViewGroup;
 
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.adapters.pagination.FireStoreFeedDocumentPagingAdapter;
+import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.databinding.FragmentShowProfileBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
+import com.codedevtech.portfolioapp.interfaces.UserInteractionsService;
 import com.codedevtech.portfolioapp.models.FeedPost;
+import com.codedevtech.portfolioapp.navigation.EventListener;
+import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.viewmodels.ShowProfileFragmentViewModel;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import javax.inject.Inject;
 
@@ -58,6 +63,33 @@ public class ShowProfileFragment extends BottomSheetDialogFragment implements In
 
         showProfileFragmentViewModel.setQueryLiveData(userAuthId);
 
+        showProfileFragmentViewModel.getSnackbarCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<SnackbarCommand>() {
+            @Override
+            public void onEvent(SnackbarCommand snackbarCommand) {
+                String s;
+
+                if(snackbarCommand instanceof SnackbarCommand.SnackbarId){
+                    s = getString(((SnackbarCommand.SnackbarId) snackbarCommand).getSnackbarId());
+
+                }else if(snackbarCommand instanceof SnackbarCommand.SnackbarString){
+                    s = ((SnackbarCommand.SnackbarString) snackbarCommand).getSnackbarString();
+                }
+                else {
+                    return;
+                }
+
+                final Snackbar snackbar = Snackbar.make(showProfileBinding.getRoot(), s , Snackbar.LENGTH_LONG);
+
+                snackbar.setAction(R.string.okay, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+
+                snackbar.show();
+            }
+        }));
 
 
 

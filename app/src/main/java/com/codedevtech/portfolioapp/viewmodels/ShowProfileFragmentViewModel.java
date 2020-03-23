@@ -10,17 +10,27 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
+import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
+import com.codedevtech.portfolioapp.commands.SnackbarCommand;
+import com.codedevtech.portfolioapp.interfaces.UserInteractionsService;
 import com.codedevtech.portfolioapp.models.FolioUser;
+import com.codedevtech.portfolioapp.models.FollowingDocument;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
+import com.codedevtech.portfolioapp.service_implementations.FirebaseUserInteractionsServiceImplementation;
 import com.codedevtech.portfolioapp.utilities.Utility;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
 import javax.inject.Inject;
 
+import static com.codedevtech.portfolioapp.utilities.Utility.USER_AUTH_ID;
+
 public class ShowProfileFragmentViewModel extends BaseViewModel {
+
+    private static final String TAG = "ShowProfileFragmentView";
 
     private SharedPreferences sharedPreferences;
     private FirebaseFolioUserRepository dataRepositoryServiceUser;
@@ -28,11 +38,17 @@ public class ShowProfileFragmentViewModel extends BaseViewModel {
     private Query userFeedQuery;
     private LiveData<Resource<FolioUser>> folioUserLiveData = new MutableLiveData<>();
 
+    private UserInteractionsService userInteractionsService;
+
+
     @Inject
-    public ShowProfileFragmentViewModel(@NonNull Application application) {
+    public ShowProfileFragmentViewModel(@NonNull Application application, SharedPreferences sharedPreferences,
+                                        UserInteractionsService userInteractionsService) {
         super(application);
         dataRepositoryServiceUser = new FirebaseFolioUserRepository("users");
         dataRepositoryServiceFeed = new FirebaseFolioFeedRepository("feed");
+        this.userInteractionsService = (FirebaseUserInteractionsServiceImplementation) userInteractionsService;
+        this.sharedPreferences = sharedPreferences;
 
     }
 
@@ -69,5 +85,30 @@ public class ShowProfileFragmentViewModel extends BaseViewModel {
         this.userFeedQuery = dataRepositoryServiceFeed.getPaginatedFeedPosts(userId);
     }
 
+    public void followUser(FolioUser folioUser){
+
+        FollowingDocument followingDocument = new FollowingDocument();
+        followingDocument.setId(folioUser.getId());
+        followingDocument.setDisplayName(folioUser.getFirstName()+" "+folioUser.getLastName());
+        followingDocument.setDisplayPhoto(folioUser.getPhotoUrl());
+
+        userInteractionsService.followUser(sharedPreferences.getString(USER_AUTH_ID, ""),
+                followingDocument, new SuccessCallback() {
+                    @Override
+                    public void success(String id) {
+                        setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString("You are now following "+ id));
+                    }
+
+                    @Override
+                    public void failure(String message) {
+
+                    }
+                });
+    }
+
+    public boolean isMe(String id){
+        Log.d(TAG, "isMe: "+id);
+        return sharedPreferences.getString(USER_AUTH_ID, "").equals(id);
+    }
 
 }

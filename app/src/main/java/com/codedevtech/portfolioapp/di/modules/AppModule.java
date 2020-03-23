@@ -14,7 +14,9 @@ import com.codedevtech.authenticationserviceprovider.interface_implementations.F
 import com.codedevtech.authenticationserviceprovider.interfaces.AuthenticationService;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;
+import com.codedevtech.portfolioapp.interfaces.UserInteractionsService;
 import com.codedevtech.portfolioapp.service_implementations.FirebaseRegistrationService;
+import com.codedevtech.portfolioapp.service_implementations.FirebaseUserInteractionsServiceImplementation;
 import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,6 +51,13 @@ public final class AppModule {
     @NonNull
     public final AuthenticationService providesAuthenticationService(){
         return new FirebaseAuthenticationService();
+    }
+
+    @Singleton
+    @Provides
+    @NonNull
+    public final UserInteractionsService providesUserInteractionsService(){
+        return new FirebaseUserInteractionsServiceImplementation();
     }
 
     @Singleton
