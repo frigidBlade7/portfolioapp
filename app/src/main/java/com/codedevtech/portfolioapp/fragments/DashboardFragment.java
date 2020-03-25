@@ -22,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.security.keystore.KeyGenParameterSpec;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -39,6 +40,7 @@ import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.facebook.share.Share;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -104,7 +106,8 @@ public class DashboardFragment extends Fragment implements Injectable{
 //        NavigationUI.setupWithNavController(fragmentDashboardBinding.bottomNavigationView,
 //                NavHostFragment.findNavController(getChildFragmentManager().findFragmentById(R.id.fragment)));
 
-        ViewPager2 fragmentViewPager = fragmentDashboardBinding.fragment;
+
+        final ViewPager2 fragmentViewPager = fragmentDashboardBinding.fragment;
         DashboardAdapter dashboardAdapter = new DashboardAdapter(this);
         fragmentViewPager.setAdapter(dashboardAdapter);
         fragmentViewPager.setPageTransformer(new ViewPager2.PageTransformer() {
@@ -119,12 +122,40 @@ public class DashboardFragment extends Fragment implements Injectable{
             }
         });
 
-        new TabLayoutMediator(fragmentDashboardBinding.bottomNavigationView, fragmentViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+        fragmentDashboardBinding.bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.feedFragment:
+                        fragmentViewPager.setCurrentItem(0);
+                        break;
+
+
+                    case R.id.exploreFragment:
+                        fragmentViewPager.setCurrentItem(1);
+                        break;
+
+
+                    case R.id.messagesFragment:
+                        fragmentViewPager.setCurrentItem(2);
+                        break;
+
+
+                    case R.id.profileFragment:
+                        fragmentViewPager.setCurrentItem(3);
+                        break;
+                }
+
+                return true;
+            }
+        });
+
+/*        new TabLayoutMediator(fragmentDashboardBinding.bottomNavigationView, fragmentViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
 
             }
-        }).attach();
+        }).attach();*/
 
 
         dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory)
