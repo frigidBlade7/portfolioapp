@@ -69,7 +69,7 @@ public class ProfileFragment extends Fragment implements Injectable {
 
         FragmentProfileBinding fragmentProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
 
-        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
+        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
         profileFragmentViewModel = ViewModelProviders.of(this, viewModelFactory).get(ProfileFragmentViewModel.class);
 
         fragmentProfileBinding.setViewmodel(profileFragmentViewModel);
@@ -113,9 +113,9 @@ public class ProfileFragment extends Fragment implements Injectable {
                     int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
 
                     if(navigationId== 0)
-                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).popBackStack();
+                        NavHostFragment.findNavController(getParentFragment()).popBackStack();
                     else
-                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(navigationId);
+                        NavHostFragment.findNavController(getParentFragment()).navigate(navigationId);
 
                 }
             }
@@ -152,7 +152,7 @@ public class ProfileFragment extends Fragment implements Injectable {
                                 DashboardFragmentDirections.actionDashboardFragmentToEditProfileFragment(dashboardFragmentViewModel.getFolioUserLiveData().getValue().data,
                                         dashboardFragmentViewModel.getUserAuthId());
 
-                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(action);
+                        NavHostFragment.findNavController(getParentFragment()).navigate(action);
 /*                        DashboardFragmentDirections action =
                                 ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(dashboardFragmentViewModel.getFolioUserLiveData().getValue().data,
                                         dashboardFragmentViewModel.getUserAuthId());

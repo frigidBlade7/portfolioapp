@@ -115,7 +115,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
         // Inflate the layout for this fragment
         fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
         feedFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(FeedFragmentViewModel.class);
-        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
+        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
         newPost = fragmentFeedBinding.newPostFAB;
         //add viewmodel for both dashboard and feed fragments
@@ -155,7 +155,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                 if(navigationCommand instanceof NavigationCommand.NavigationAction){
                     Log.d(TAG, "onChanged: command is action");
                     NavDirections navDirections = ((NavigationCommand.NavigationAction) navigationCommand).getDirections();
-                    NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(navDirections);
+                    NavHostFragment.findNavController(getParentFragment()).navigate(navDirections);
 
 
                 }else if(navigationCommand instanceof NavigationCommand.NavigationId){
@@ -163,9 +163,9 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                     int navigationId = ((NavigationCommand.NavigationId) navigationCommand).getNavigationId();
 
                     if(navigationId== 0)
-                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).popBackStack();
+                        NavHostFragment.findNavController(getParentFragment()).popBackStack();
                     else
-                        NavHostFragment.findNavController(getParentFragment().getParentFragment()).navigate(navigationId);
+                        NavHostFragment.findNavController(getParentFragment()).navigate(navigationId);
 
                 }
             }
@@ -188,7 +188,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
         fireStoreFeedDocumentPagingAdapter = new FireStoreFeedDocumentPagingAdapter(options, this, dashboardFragmentViewModel.getUserAuthId());
 
         fragmentFeedBinding.cardList.setAdapter(fireStoreFeedDocumentPagingAdapter);
-        
+
         fireStoreFeedDocumentPagingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {

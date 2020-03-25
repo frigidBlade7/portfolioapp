@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.security.keystore.KeyGenParameterSpec;
 import android.util.Log;
@@ -27,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.codedevtech.portfolioapp.R;
+import com.codedevtech.portfolioapp.adapters.state.DashboardAdapter;
 import com.codedevtech.portfolioapp.databinding.FragmentDashboardBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
 import com.codedevtech.portfolioapp.models.FolioUser;
@@ -37,6 +39,8 @@ import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.facebook.share.Share;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
@@ -100,7 +104,27 @@ public class DashboardFragment extends Fragment implements Injectable{
 //        NavigationUI.setupWithNavController(fragmentDashboardBinding.bottomNavigationView,
 //                NavHostFragment.findNavController(getChildFragmentManager().findFragmentById(R.id.fragment)));
 
+        ViewPager2 fragmentViewPager = fragmentDashboardBinding.fragment;
+        DashboardAdapter dashboardAdapter = new DashboardAdapter(this);
+        fragmentViewPager.setAdapter(dashboardAdapter);
+        fragmentViewPager.setPageTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                page.setAlpha(0f);
+                page.setVisibility(View.VISIBLE);
 
+                // Start Animation for a short period of time
+                page.animate().alpha(1f)
+                        .setDuration(page.getResources().getInteger(android.R.integer.config_shortAnimTime));
+            }
+        });
+
+        new TabLayoutMediator(fragmentDashboardBinding.bottomNavigationView, fragmentViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+
+            }
+        }).attach();
 
 
         dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory)

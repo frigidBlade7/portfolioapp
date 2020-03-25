@@ -56,7 +56,7 @@ public class MessagesFragment extends Fragment implements Injectable {
         // Inflate the layout for this fragment
         FragmentMessagesBinding fragmentMessagesBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_messages, container, false);
         messagesFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(MessagesFragmentViewModel.class);
-        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
+        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
         fragmentMessagesBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
