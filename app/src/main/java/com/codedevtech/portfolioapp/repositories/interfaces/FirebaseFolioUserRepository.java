@@ -110,6 +110,28 @@ public class FirebaseFolioUserRepository implements DataRepositoryService<FolioU
         return collectionReference;
     }
 
+    public void updateFollowingCount(final String userId, final SuccessCallback successCallback) {
+        //todo to be implemented
+
+
+/*        collectionReference.document(userId).update(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    successCallback.success(item.getId());
+
+                    Log.d(TAG, "onComplete: Success update item");
+
+                }else{
+                    successCallback.failure(task.getException().getLocalizedMessage());
+
+                    Log.d(TAG, "onComplete: Failed update item");
+
+                }
+            }
+        });*/
+    }
+
     /*   public CollectionReference getCollectionReference() {
         return collectionReference;
     }*/

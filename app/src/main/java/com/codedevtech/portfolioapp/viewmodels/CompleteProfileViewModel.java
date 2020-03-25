@@ -43,7 +43,7 @@ public class CompleteProfileViewModel extends BaseViewModel {
     private SharedPreferences sharedPreferences;
     private MutableLiveData<Double> progressCount = new MutableLiveData<>();
 
-    private MutableLiveData<String> photoUrl = new MutableLiveData<>();
+    private MutableLiveData<String> photoUrl = new MutableLiveData<>("");
 
 
     @Inject

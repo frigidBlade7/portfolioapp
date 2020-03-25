@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
+import com.codedevtech.portfolioapp.callbacks.BooleanSuccessCallback;
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.interfaces.UserInteractionsService;
@@ -37,6 +38,7 @@ public class ShowProfileFragmentViewModel extends BaseViewModel {
     private FirebaseFolioFeedRepository dataRepositoryServiceFeed;
     private Query userFeedQuery;
     private LiveData<Resource<FolioUser>> folioUserLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> following = new MutableLiveData<>(false);
 
     private UserInteractionsService userInteractionsService;
 
@@ -85,25 +87,62 @@ public class ShowProfileFragmentViewModel extends BaseViewModel {
         this.userFeedQuery = dataRepositoryServiceFeed.getPaginatedFeedPosts(userId);
     }
 
-    public void followUser(FolioUser folioUser){
+
+    public void isFollowing(String targetUserId){
+        userInteractionsService.isFollowing(sharedPreferences.getString(USER_AUTH_ID, ""),
+                targetUserId, new BooleanSuccessCallback() {
+                    @Override
+                    public void booleanValue(Boolean value) {
+                        Log.d(TAG, "booleanValue: "+value);
+                        following.setValue(value);
+                    }
+                });
+
+    }
+
+
+    public void followUnfollowUserToggle(FolioUser folioUser){
 
         FollowingDocument followingDocument = new FollowingDocument();
         followingDocument.setId(folioUser.getId());
         followingDocument.setDisplayName(folioUser.getFirstName()+" "+folioUser.getLastName());
         followingDocument.setDisplayPhoto(folioUser.getPhotoUrl());
 
-        userInteractionsService.followUser(sharedPreferences.getString(USER_AUTH_ID, ""),
-                followingDocument, new SuccessCallback() {
-                    @Override
-                    public void success(String id) {
-                        setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString("You are now following "+ id));
-                    }
+        if(!following.getValue()) {
+            userInteractionsService.followUser(sharedPreferences.getString(USER_AUTH_ID, ""),
+                    followingDocument, new SuccessCallback() {
+                        @Override
+                        public void success(String id) {
+                            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString("You are now following " + id));
+                            following.setValue(true);
 
-                    @Override
-                    public void failure(String message) {
+                            //todo update count - shards
+                        }
 
-                    }
-                });
+                        @Override
+                        public void failure(String message) {
+                            following.setValue(false);
+
+                        }
+                    });
+        }else{
+            userInteractionsService.unfollowUser(sharedPreferences.getString(USER_AUTH_ID, ""),
+                    followingDocument.getId(), new SuccessCallback() {
+                        @Override
+                        public void success(String id) {
+                            setSnackbarCommandMutableLiveData(new SnackbarCommand.SnackbarString("You are now following " + id));
+                            following.setValue(false);
+                            //todo update count - shards
+
+                        }
+
+                        @Override
+                        public void failure(String message) {
+                            following.setValue(true);
+
+                        }
+                    });
+        }
     }
 
     public boolean isMe(String id){
@@ -111,4 +150,7 @@ public class ShowProfileFragmentViewModel extends BaseViewModel {
         return sharedPreferences.getString(USER_AUTH_ID, "").equals(id);
     }
 
+    public MutableLiveData<Boolean> getFollowing() {
+        return following;
+    }
 }

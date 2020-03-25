@@ -62,6 +62,7 @@ public class ShowProfileFragment extends BottomSheetDialogFragment implements In
 
 
         showProfileFragmentViewModel.setQueryLiveData(userAuthId);
+        showProfileFragmentViewModel.isFollowing(userAuthId);
 
         showProfileFragmentViewModel.getSnackbarCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<SnackbarCommand>() {
             @Override

@@ -96,9 +96,9 @@ public class DashboardFragment extends Fragment implements Injectable{
         // Inflate the layout for this fragment
         FragmentDashboardBinding fragmentDashboardBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false);
 
-        //tie the bottom nav with the nested fragment (make sure you get the id of the fragment right)
-        NavigationUI.setupWithNavController(fragmentDashboardBinding.bottomNavigationView,
-                NavHostFragment.findNavController(getChildFragmentManager().findFragmentById(R.id.fragment)));
+//        tie the bottom nav with the nested fragment (make sure you get the id of the fragment right)
+//        NavigationUI.setupWithNavController(fragmentDashboardBinding.bottomNavigationView,
+//                NavHostFragment.findNavController(getChildFragmentManager().findFragmentById(R.id.fragment)));
 
 
 

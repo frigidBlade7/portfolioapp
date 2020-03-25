@@ -6,12 +6,84 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 //access the db
 const db = admin.firestore();
+const num_shards = 5;
+
+//u
 
 
-//update user document when new photo is uploaded
-exports.updateUserDownloadUrl = functions.firestore
+exports.createCounter = functions.firestore
     .document('/users/{userId}')
-    .onWrite((change, context) =>{
+    .onCreate((change, context)=>{
+        
+        const userId = context.params.userId;
+        
+        createCounter(db.collection('following_count').doc(userId), num_shards);
+
+        createCounter(db.collection('follower_count').doc(userId), num_shards);
+
+        //for posts createCounter(db.collection('like_count').doc(userId), num_shards);
+
+        return;
+
+    })
+exports.updateUserFollowing = functions.firestore
+    .document('/following/{userId}/followingIds/{targetId}')
+    .onCreate((change, context)=>{
+        const newValue = change.data();
+
+        const userId = context.params.userId;
+        const targetId = context.params.targetId;
+
+        //console.log(targetId);
+        //console.log(userId);
+
+
+        return db.collection('users').doc(targetId).get().then(snapshot =>{
+            const user = snapshot.data();
+
+            //return console.log(user);
+
+            // db.collection('followers').doc(targetId).collection('followersIds').doc(userId)
+            // .set({
+            //     followingId:targetId,
+            //     followingDisplayName: user.firstName+" "+user.lastName,
+            //     followingDisplayPhoto: user.displayPhoto
+            // },{merge: true});
+
+            const ref = db.collection('followers').doc(targetId).collection('followersIds').doc(userId);
+            incrementCounter(ref, num_shards);
+
+            return ref
+                .set({
+                    id: targetId,
+                    displayName: user.firstName+ " "+ user.lastName,
+                    //displayPhoto: user.photoUrl
+                })
+
+        }).catch(error=>{
+            console.log(error);
+        });
+
+    
+
+    });
+
+exports.deleteUserFollowing = functions.firestore
+    .document('/following/{userId}/followingIds/{targetId}')
+    .onDelete((change, context)=>{
+
+        const userId = context.params.userId;
+        const targetId = context.params.targetId;
+
+        return db.collection('followers').doc(targetId).collection('followersIds').doc(userId)
+            .delete();
+
+    });
+
+//update user document when new photo is uploaded or details are changed
+exports.updateUserDetails = functions.firestore
+    .document('/users/{userId}')
+    .onUpdate((change, context) =>{
         const newValue = change.after.data();
         const oldValue = change.before.data();
         const userId = context.params.userId;
@@ -34,6 +106,14 @@ exports.updateUserDownloadUrl = functions.firestore
                 }).catch(error=>{
                     console.log(error);
                 });
+
+            // db.collection('followers').get().then(snapshot=>{
+            //     const promises = [];
+
+            //     snapshot.forEach(doc=>{
+            //         promises.push(doc)
+            //     })
+            // })
         }
 
         if (newValue.photoUrl !== oldValue.photoUrl){
@@ -51,6 +131,11 @@ exports.updateUserDownloadUrl = functions.firestore
                 }).catch(error=>{
                     console.log(error);
                 });
+
+            db.collection('following').doc(userId).collection('followingIds')
+            .doc(newValue.id).update({
+                displayPhoto:newValue.photoUrl
+            });
         }
 
         return;
@@ -65,3 +150,28 @@ exports.updateUserDownloadUrl = functions.firestore
 // exports.helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
+
+function createCounter(ref, num_shards) {
+    var batch = db.batch();
+
+    // Initialize the counter document
+    batch.set(ref, { num_shards: num_shards });
+
+    // Initialize each shard with count=0
+    for (let i = 0; i < num_shards; i++) {
+        let shardRef = ref.collection('shards').doc(i.toString());
+        batch.set(shardRef, { count: 0 });
+    }
+
+    // Commit the write batch
+    return batch.commit();
+}
+
+function incrementCounter(ref, num_shards) {
+    // Select a shard of the counter at random
+    const shard_id = Math.floor(Math.random() * num_shards).toString();
+    const shard_ref = ref.collection('shards').doc(shard_id);
+
+    // Update count
+    return shard_ref.update("count", firebase.firestore.FieldValue.increment(1));
+}

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.paging.PagedList;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -187,7 +188,19 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
         fireStoreFeedDocumentPagingAdapter = new FireStoreFeedDocumentPagingAdapter(options, this, dashboardFragmentViewModel.getUserAuthId());
 
         fragmentFeedBinding.cardList.setAdapter(fireStoreFeedDocumentPagingAdapter);
+        
+        fireStoreFeedDocumentPagingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
 
+
+                if(fireStoreFeedDocumentPagingAdapter.getItemCount()>0)
+                    fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
+                else
+                    fragmentFeedBinding.emptyStateLayout.setVisibility(View.VISIBLE);
+            }
+        });
 
         fireStoreFeedDocumentPagingAdapter.addLoadStateListener(new PagedList.LoadStateListener() {
 
@@ -200,14 +213,14 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                 switch (state){
 
                     case IDLE:
-                        fragmentFeedBinding.cardListShim.startShimmer();
+/*                        fragmentFeedBinding.cardListShim.startShimmer();
                         fragmentFeedBinding.cardListShim.setVisibility(View.VISIBLE);
-                        /*fragmentFeedBinding.cardList.setVisibility(View.GONE);*/
+                        *//*fragmentFeedBinding.cardList.setVisibility(View.GONE);*//*
                         //fragmentFeedBinding.cardListShim.startShimmer();
                         // The initial load has begun
                         // ...
-                        fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
-
+                        fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);*/
+                        break;
 
 
                     case LOADING:
@@ -217,6 +230,9 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                         fragmentFeedBinding.cardListShim.setVisibility(View.VISIBLE);*/
                         fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
 
+                        Log.d(TAG, "natel: "+ fireStoreFeedDocumentPagingAdapter.getItemCount());
+
+                        break;
 
                     case DONE:
                         // The previous load (either initial or additional) completed
@@ -230,10 +246,13 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                         fragmentFeedBinding.cardListShim.stopShimmer();
                         fragmentFeedBinding.cardListShim.setVisibility(View.GONE);
 
+                        break;
 
                     case ERROR:
                         // The previous load (either initial or additional) failed. Call
                         // the retry() method in order to retry the load operation.
+
+                        break;
                 }
 
             }

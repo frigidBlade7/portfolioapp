@@ -29,7 +29,7 @@
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/buttonPadding"
+            android:layout_marginStart="@dimen/buttonBigPadding"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="@dimen/buttonBigPadding"
             android:text="@{String.format(@string/full_name,viewModel.folioUserLiveData.data.firstName,viewModel.folioUserLiveData.data.lastName)}"
@@ -58,25 +58,23 @@
             android:id="@+id/bio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/buttonPadding"
             android:layout_marginTop="8dp"
             android:text="@{viewModel.folioUserLiveData.data.bio}"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
+            app:layout_constraintStart_toStartOf="@+id/flags"
             app:layout_constraintTop_toBottomOf="@+id/flags" />
 
         <TextView
             android:id="@+id/flags"
+            roleFlags="@{viewModel.folioUserLiveData.data.roleFlags}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/buttonPadding"
             android:textAlignment="viewStart"
             app:layout_constraintBottom_toTopOf="@+id/bio"
             app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
+            app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            roleFlags="@{viewModel.folioUserLiveData.data.roleFlags}"
             tools:text="@string/role_role_role" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,7 +85,7 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@+id/follow"
             app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
+            app:layout_constraintStart_toStartOf="@+id/bio"
             app:layout_constraintTop_toBottomOf="@+id/bio">
 
             <ImageView
@@ -107,7 +105,7 @@
                 android:layout_marginStart="4dp"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
-                android:text="@{String.format(@string/_1_s_followers,viewModel.folioUserLiveData.data.followCount)}"
+                android:text="@{String.format(@string/_1_s_followers,viewModel.folioUserLiveData.data.followerCount)}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/followIcon"
                 app:layout_constraintStart_toEndOf="@+id/followIcon"
@@ -130,7 +128,7 @@
                 android:layout_marginStart="4dp"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
-                android:text="@{String.format(@string/_1_s_likes,viewModel.folioUserLiveData.data.followCount)}"
+                android:text="@{String.format(@string/_1_s_likes,viewModel.folioUserLiveData.data.followerCount)}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/likeIcon"
                 app:layout_constraintStart_toEndOf="@+id/likeIcon"
@@ -138,13 +136,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/follow"
             style="@style/ButtonOutlineNoPadding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/follow"
-            android:onClick="@{()->viewModel.followUser(viewModel.folioUserLiveData.data)}"
+            android:text="@{viewModel.following? @string/following : @string/follow}"
+            android:onClick="@{()->viewModel.followUnfollowUserToggle(viewModel.folioUserLiveData.data)}"
             android:visibility="@{viewModel.isMe(viewModel.folioUserLiveData.data.id)? View.GONE :View.VISIBLE}"
             android:textAllCaps="false"
             app:layout_constraintBottom_toTopOf="@+id/list"
@@ -154,7 +152,7 @@
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/message"
             style="@style/ButtonOutlineNoPadding"
             android:visibility="@{viewModel.isMe(viewModel.folioUserLiveData.data.id)? View.GONE :View.VISIBLE}"

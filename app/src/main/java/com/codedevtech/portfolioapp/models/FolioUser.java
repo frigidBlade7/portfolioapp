@@ -4,9 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -32,8 +30,9 @@ public class FolioUser implements Parcelable {
     private String photoUrl;
     @TypeConverters(DateConverter.class) @ServerTimestamp
     private Date createdAt;
-    private int followCount;
-    private int likeCount;
+    private int followerCount;
+    private int followingCount;
+    private int likesCount;
 
     @TypeConverters(RoomListConverter.class)
     private List<String> roleFlags;
@@ -49,8 +48,9 @@ public class FolioUser implements Parcelable {
         lastName = in.readString();
         bio = in.readString();
         photoUrl = in.readString();
-        followCount = in.readInt();
-        likeCount = in.readInt();
+        followerCount = in.readInt();
+        followingCount = in.readInt();
+        likesCount = in.readInt();
         roleFlags = in.createStringArrayList();
     }
 
@@ -122,20 +122,20 @@ public class FolioUser implements Parcelable {
         this.createdAt = Timestamp.now().toDate();
     }
 
-    public int getFollowCount() {
-        return followCount;
+    public int getFollowerCount() {
+        return followerCount;
     }
 
-    public void setFollowCount(int followCount) {
-        this.followCount = followCount;
+    public void setFollowerCount(int followerCount) {
+        this.followerCount = followerCount;
     }
 
-    public int getLikeCount() {
-        return likeCount;
+    public int getLikesCount() {
+        return likesCount;
     }
 
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
     }
 
     //checks
@@ -174,6 +174,14 @@ public class FolioUser implements Parcelable {
         this.photoUrl = photoUrl;
     }
 
+    public int getFollowingCount() {
+        return followingCount;
+    }
+
+    public void setFollowingCount(int followingCount) {
+        this.followingCount = followingCount;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -187,8 +195,9 @@ public class FolioUser implements Parcelable {
         parcel.writeString(lastName);
         parcel.writeString(photoUrl);
         parcel.writeString(bio);
-        parcel.writeInt(followCount);
-        parcel.writeInt(likeCount);
+        parcel.writeInt(followerCount);
+        parcel.writeInt(followingCount);
+        parcel.writeInt(likesCount);
         parcel.writeStringList(roleFlags);
     }
 }

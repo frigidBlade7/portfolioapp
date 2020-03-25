@@ -97,7 +97,7 @@
             android:id="@+id/cardListShim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:shimmer_auto_start="true">
 
