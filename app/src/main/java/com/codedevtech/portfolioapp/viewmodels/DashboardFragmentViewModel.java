@@ -12,13 +12,17 @@ import androidx.lifecycle.Transformations;
 
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
+import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.repositories.interfaces.DataRepositoryService;
+import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
 import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
 import com.codedevtech.portfolioapp.utilities.Utility;
 import com.facebook.share.Share;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -30,10 +34,13 @@ import static com.codedevtech.portfolioapp.utilities.Utility.USER_AUTH_ID;
 
 public class DashboardFragmentViewModel extends BaseViewModel {
 
+    private FirestorePagingOptions<FeedPost> options;
     private SharedPreferences sharedPreferences;
     private String userAuthId;
     private FirebaseFolioUserRepository dataRepositoryService;
-
+    private Query userFeedQuery;
+    private MutableLiveData<Integer> feedPageCount = new MutableLiveData<>(0);
+    private FirebaseFolioFeedRepository feedDataRepositoryService;
     private LiveData<Resource<FolioUser>> folioUserLiveData = new MutableLiveData<>();
 
     @Inject
@@ -41,7 +48,16 @@ public class DashboardFragmentViewModel extends BaseViewModel {
         super(application);
         this.sharedPreferences = sharedPreferences;
         dataRepositoryService = new FirebaseFolioUserRepository("users");
+        feedDataRepositoryService = new FirebaseFolioFeedRepository("feed");
 
+    }
+
+    public void setOptions(FirestorePagingOptions<FeedPost> options) {
+        this.options = options;
+    }
+
+    public FirestorePagingOptions<FeedPost> getOptions() {
+        return options;
     }
 
 
@@ -86,4 +102,15 @@ public class DashboardFragmentViewModel extends BaseViewModel {
     }
 
 
+    public Query getUserFeedQuery() {
+        return userFeedQuery;
+    }
+
+    public void setQueryLiveData() {
+        this.userFeedQuery = feedDataRepositoryService.getPaginatedFeedPosts(sharedPreferences.getString(Utility.USER_AUTH_ID,""));
+    }
+
+    public MutableLiveData<Integer> getFeedPageCount() {
+        return feedPageCount;
+    }
 }

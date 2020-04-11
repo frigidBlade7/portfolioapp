@@ -1,7 +1,8 @@
 package com.codedevtech.portfolioapp.di.modules;
 
+import com.codedevtech.portfolioapp.fragments.ChatroomFragment;
 import com.codedevtech.portfolioapp.fragments.ShowProfileFragment;
-import com.codedevtech.portfolioapp.SplashScreenFragment;
+import com.codedevtech.portfolioapp.fragments.SplashScreenFragment;
 import com.codedevtech.portfolioapp.fragments.AuthenticationExtrasBottomSheet;
 import com.codedevtech.portfolioapp.fragments.AuthenticationFragment;
 import com.codedevtech.portfolioapp.fragments.CompleteProfileFragment;
@@ -68,5 +69,9 @@ public abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract ShowProfileFragment showProfileFragment();
+
+
+    @ContributesAndroidInjector
+    abstract ChatroomFragment chatroomFragment();
 
 }

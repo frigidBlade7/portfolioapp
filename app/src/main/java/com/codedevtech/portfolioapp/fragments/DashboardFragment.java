@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.paging.PagedList;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
@@ -29,12 +30,14 @@ import android.widget.Toast;
 import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.databinding.FragmentDashboardBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
+import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.navigation.EventListener;
 import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.repositories.Resource;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
 import com.facebook.share.Share;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -53,6 +56,10 @@ public class DashboardFragment extends Fragment implements Injectable{
 
     private static final String TAG = "DashboardFragment";
     private DashboardFragmentViewModel dashboardFragmentViewModel;
+
+
+    @Inject
+    PagedList.Config config;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -97,14 +104,25 @@ public class DashboardFragment extends Fragment implements Injectable{
         FragmentDashboardBinding fragmentDashboardBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false);
 
 //        tie the bottom nav with the nested fragment (make sure you get the id of the fragment right)
-//        NavigationUI.setupWithNavController(fragmentDashboardBinding.bottomNavigationView,
-//                NavHostFragment.findNavController(getChildFragmentManager().findFragmentById(R.id.fragment)));
+        NavigationUI.setupWithNavController(fragmentDashboardBinding.bottomNavigationView,
+                NavHostFragment.findNavController(getChildFragmentManager().findFragmentById(R.id.fragment)));
 
 
 
 
         dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory)
                 .get(DashboardFragmentViewModel.class);
+
+        dashboardFragmentViewModel.setQueryLiveData();
+
+
+
+
+        //create options object
+        dashboardFragmentViewModel.setOptions(new FirestorePagingOptions.Builder<FeedPost>()
+                .setLifecycleOwner(DashboardFragment.this)
+                .setQuery(dashboardFragmentViewModel.getUserFeedQuery(), config, FeedPost.class)
+                .build());
 
         fragmentDashboardBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 

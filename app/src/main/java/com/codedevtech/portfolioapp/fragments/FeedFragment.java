@@ -2,13 +2,16 @@ package com.codedevtech.portfolioapp.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ShareCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
@@ -54,11 +57,10 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
 
     @Inject
     ViewModelProvider.Factory viewmodelFactory;
-
+/*
     @Inject
-    PagedList.Config config;
+    PagedList.Config config;*/
 
-    private FirestorePagingOptions<FeedPost> options;
     private FeedFragmentViewModel feedFragmentViewModel;
     private DashboardFragmentViewModel dashboardFragmentViewModel;
     private FireStoreFeedDocumentPagingAdapter fireStoreFeedDocumentPagingAdapter;
@@ -110,7 +112,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
@@ -174,22 +176,58 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
         feedFragmentViewModel.setQueryLiveData();
 
 
+        feedFragmentViewModel.getShareLink().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<String>() {
+            @Override
+            public void onEvent(String s) {
+                ShareCompat.IntentBuilder shareBuilder = ShareCompat.IntentBuilder.from(getActivity());
+                shareBuilder.setChooserTitle(R.string.share_post)
+                        .setSubject(getString(R.string.share_post))
+                        .setText(getString(R.string.hey_check_out_post)+s)
+                        .setType("text/plain");
+
+                Log.d(TAG, "onChanged: "+s);
+
+                if(s!=null && !s.isEmpty()) {
+                    Intent intent = shareBuilder.createChooserIntent();
+                    if (intent.resolveActivity(getActivity().getPackageManager()) != null)
+                        startActivity(intent);
+                }
+            }
+        }));
 
 
         //create options object
+/*
         options = new FirestorePagingOptions.Builder<FeedPost>()
                 .setLifecycleOwner(FeedFragment.this)
                 .setQuery(feedFragmentViewModel.getUserFeedQuery(), config, FeedPost.class)
                 .build();
+*/
 
 
 
         //create document adapter with options
-        fireStoreFeedDocumentPagingAdapter = new FireStoreFeedDocumentPagingAdapter(options, this, dashboardFragmentViewModel.getUserAuthId());
+        fireStoreFeedDocumentPagingAdapter = new FireStoreFeedDocumentPagingAdapter(dashboardFragmentViewModel.getOptions(), this, dashboardFragmentViewModel.getUserAuthId());
 
         fragmentFeedBinding.cardList.setAdapter(fireStoreFeedDocumentPagingAdapter);
-        
-        fireStoreFeedDocumentPagingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+
+        dashboardFragmentViewModel.getFeedPageCount().observe(this.getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+
+                Log.d(TAG, "onChanged: "+integer);
+                if(integer==null)
+                    fragmentFeedBinding.emptyStateLayout.setVisibility(View.VISIBLE);
+
+
+                if(integer>0)
+                    fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
+                else
+                    fragmentFeedBinding.emptyStateLayout.setVisibility(View.VISIBLE);
+
+            }
+        });
+/*        fireStoreFeedDocumentPagingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
@@ -200,7 +238,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                 else
                     fragmentFeedBinding.emptyStateLayout.setVisibility(View.VISIBLE);
             }
-        });
+        });*/
 
         fireStoreFeedDocumentPagingAdapter.addLoadStateListener(new PagedList.LoadStateListener() {
 
@@ -208,18 +246,13 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
             public void onLoadStateChanged(@NonNull PagedList.LoadType type, @NonNull PagedList.LoadState state, @Nullable Throwable error) {
                 //todo show the loaders
                 Log.d(TAG, "onLoadStateChanged: "+state.name());
-                fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
+                //fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
 
                 switch (state){
 
                     case IDLE:
-/*                        fragmentFeedBinding.cardListShim.startShimmer();
-                        fragmentFeedBinding.cardListShim.setVisibility(View.VISIBLE);
-                        *//*fragmentFeedBinding.cardList.setVisibility(View.GONE);*//*
-                        //fragmentFeedBinding.cardListShim.startShimmer();
-                        // The initial load has begun
-                        // ...
-                        fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);*/
+
+
                         break;
 
 
@@ -228,9 +261,9 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                         // ...
                         /*fragmentFeedBinding.cardListShim.startShimmer();
                         fragmentFeedBinding.cardListShim.setVisibility(View.VISIBLE);*/
-                        fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
+                        //fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
 
-                        Log.d(TAG, "natel: "+ fireStoreFeedDocumentPagingAdapter.getItemCount());
+                        Log.d(TAG, "loading: "+ fireStoreFeedDocumentPagingAdapter.getItemCount());
 
                         break;
 
@@ -238,10 +271,10 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                         // The previous load (either initial or additional) completed
                         // ...
 
-                        if(fireStoreFeedDocumentPagingAdapter.getItemCount()>0)
-                            fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
+                        dashboardFragmentViewModel.getFeedPageCount().setValue(fireStoreFeedDocumentPagingAdapter.getItemCount());
 
-                        Log.d(TAG, "onLoadStateChanged: "+        fireStoreFeedDocumentPagingAdapter.getItemCount());
+
+                        Log.d(TAG, "done: "+        fireStoreFeedDocumentPagingAdapter.getItemCount());
 
                         fragmentFeedBinding.cardListShim.stopShimmer();
                         fragmentFeedBinding.cardListShim.setVisibility(View.GONE);
@@ -290,6 +323,15 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
         }
     }
 
+    @Override
+    public void onFeedPostShareTapped(FeedPost feedPost) {
+        //todo to post dialog
+        //DashboardFragmentDirections.actionDashboardFragmentToShowPostFragment()
+        //dashboardFragmentViewModel.setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(R.id.action_global_loadingDialog));
+        feedFragmentViewModel.generateLink(feedPost);
+        //dashboardFragmentViewModel.setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+
+    }
 
 
 }

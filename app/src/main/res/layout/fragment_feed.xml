@@ -20,6 +20,8 @@
         android:layout_height="match_parent"
         tools:context=".fragments.FeedFragment">
 
+
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_height="@dimen/app_bar_feed"
@@ -132,6 +134,14 @@
             android:layout_margin="@dimen/buttonBigPadding"
             android:layout_gravity="bottom|end"
             app:srcCompat="@drawable/post" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{viewmodel.isLoading? View.VISIBLE:View.GONE}"
+            android:layout_height="wrap_content" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

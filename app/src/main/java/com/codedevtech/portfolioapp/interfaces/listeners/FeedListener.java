@@ -5,4 +5,6 @@ import com.codedevtech.portfolioapp.models.FeedPost;
 public interface FeedListener {
 
     void onFeedProfilePhotoTapped(FeedPost feedPost);
+
+    void onFeedPostShareTapped(FeedPost feedPost);
 }

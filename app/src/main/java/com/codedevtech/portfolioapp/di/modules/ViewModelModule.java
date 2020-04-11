@@ -11,6 +11,7 @@ import com.codedevtech.portfolioapp.fragments.FeedFragment;
 import com.codedevtech.portfolioapp.fragments.MessagesFragment;
 import com.codedevtech.portfolioapp.fragments.OnboardingFragment;
 import com.codedevtech.portfolioapp.fragments.ProfileFragment;
+import com.codedevtech.portfolioapp.viewmodels.ChatroomViewModel;
 import com.codedevtech.portfolioapp.viewmodels.CompleteProfileViewModel;
 import com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel;
 import com.codedevtech.portfolioapp.viewmodels.DashboardFragmentViewModel;
@@ -82,6 +83,12 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ShowProfileFragmentViewModel.class)
     abstract ViewModel bindShowProfileFragmentViewModel(ShowProfileFragmentViewModel showProfileFragmentViewModel);
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChatroomViewModel.class)
+    abstract ViewModel bindChatroomViewModel(ChatroomViewModel chatroomViewModel);
 
 
     @Binds

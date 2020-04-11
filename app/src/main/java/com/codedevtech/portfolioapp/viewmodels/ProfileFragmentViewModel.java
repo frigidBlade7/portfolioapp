@@ -1,30 +1,22 @@
 package com.codedevtech.portfolioapp.viewmodels;
 
 import android.app.Application;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.arch.core.util.Function;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.navigation.Event;
-import com.codedevtech.portfolioapp.repositories.Resource;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
 import com.codedevtech.portfolioapp.utilities.Utility;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import javax.inject.Inject;
 
@@ -53,7 +45,7 @@ public class ProfileFragmentViewModel extends BaseViewModel {
                 .setSocialMetaTagParameters(
                         new DynamicLink.SocialMetaTagParameters.Builder()
                                 .setImageUrl(Uri.parse(folioUser.getPhotoUrl()))
-                                .setTitle(Utility.getShareTitle(folioUser.getFirstName()))
+                                .setTitle(Utility.getShareProfileTitle(folioUser.getFirstName()))
                                 .setDescription(folioUser.getBio())
                                 .build())
                 .buildShortDynamicLink()

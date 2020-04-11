@@ -1,11 +1,10 @@
-package com.codedevtech.portfolioapp;
+package com.codedevtech.portfolioapp.fragments;
 
 
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
@@ -16,10 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.databinding.FragmentSplashScreenBinding;
 import com.codedevtech.portfolioapp.di.interfaces.Injectable;
-import com.codedevtech.portfolioapp.fragments.OnboardingFragment;
 import com.codedevtech.portfolioapp.navigation.EventListener;
 import com.codedevtech.portfolioapp.navigation.EventObserver;
 import com.codedevtech.portfolioapp.viewmodels.OnboardingFragmentViewModel;

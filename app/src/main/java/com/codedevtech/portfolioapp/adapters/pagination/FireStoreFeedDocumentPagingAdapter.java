@@ -125,6 +125,16 @@ public class FireStoreFeedDocumentPagingAdapter extends FirestorePagingAdapter<F
             }
         });
 
+        feedPostViewHolder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(feedListener!=null) {
+                    FeedPost feedPost = getCurrentList().get(feedPostViewHolder.getAdapterPosition()).toObject(FeedPost.class);
+                    feedListener.onFeedPostShareTapped(feedPost);
+                }
+            }
+        });
+
         return feedPostViewHolder;
 
     }

@@ -121,10 +121,18 @@
         <action
             android:id="@+id/action_dashboardFragment_to_showProfileFragment"
             app:destination="@id/showProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_showPostFragment"
+            app:destination="@id/showPostFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_chatroomFragment"
+            app:destination="@id/chatroomFragment">
+
+        </action>
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.codedevtech.portfolioapp.SplashScreenFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
@@ -171,5 +179,33 @@
             android:id="@+id/deepLink"
             android:autoVerify="true"
             app:uri="https://www.portfolioapp.com/users/{userId}" />
-    </dialog><action android:id="@+id/action_global_showProfileFragment" app:destination="@id/showProfileFragment"/>
+    </dialog>
+
+    <action android:id="@+id/action_global_showProfileFragment" app:destination="@id/showProfileFragment"/>
+
+    <dialog
+        android:id="@+id/showPostFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.ShowPostFragment"
+        android:label="fragment_show_post"
+        tools:layout="@layout/fragment_show_post">
+
+        <deepLink
+            android:id="@+id/deepLink2"
+            android:autoVerify="true"
+            app:uri="https://www.portfolioapp.com/post/{userId}/{postId}" />
+        <argument android:name="userId"
+            app:argType="string" />
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/chatroomFragment"
+        android:name="com.codedevtech.portfolioapp.fragments.ChatroomFragment"
+        android:label="ChatroomFragment" >
+        <argument
+            android:name="chatroomId"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

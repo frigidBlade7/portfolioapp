@@ -6,12 +6,37 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 //access the db
 const db = admin.firestore();
+const rtdb = admin.database();
 const num_shards = 5;
 
 //u
 
+exports.newMessage = functions.database
+    .ref('messages/{chatroomId}/{messageId}')
+    .onWrite((change, context)=>{
 
-exports.createCounter = functions.firestore
+        const chatroomId = context.params.chatroomId;
+        const messageId = context.params.messageId;
+
+        //rtdb.ref('chats').child(chatroomId)
+
+        return rtdb.ref('messages').child(chatroomId).child(messageId).on("value", function(snapshot) {
+            //console.log(snapshot.val());
+            const data = snapshot.val();
+
+            return rtdb.ref('chats').child(chatroomId).set({
+                displayName:  data.sender,
+                timestamp: data.timestamp,
+                message:data.message
+            });
+
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          });
+    });
+
+
+exports.createNewUser = functions.firestore
     .document('/users/{userId}')
     .onCreate((change, context)=>{
         
@@ -20,6 +45,9 @@ exports.createCounter = functions.firestore
         createCounter(db.collection('following_count').doc(userId), num_shards);
 
         createCounter(db.collection('follower_count').doc(userId), num_shards);
+
+        setWelcomeMessage(rtdb.ref('messages').child(userId), "Hello and welcome to Folio");
+
 
         //for posts createCounter(db.collection('like_count').doc(userId), num_shards);
 
@@ -50,15 +78,25 @@ exports.updateUserFollowing = functions.firestore
             //     followingDisplayPhoto: user.displayPhoto
             // },{merge: true});
 
-            const ref = db.collection('followers').doc(targetId).collection('followersIds').doc(userId);
-            incrementCounter(ref, num_shards);
 
-            return ref
-                .set({
-                    id: targetId,
-                    displayName: user.firstName+ " "+ user.lastName,
-                    //displayPhoto: user.photoUrl
-                })
+            const ref = db.collection('followers').doc(targetId).collection('followersIds').doc(userId);
+            ref.set({
+                id: targetId,
+                displayName: user.firstName+ " "+ user.lastName,
+                //displayPhoto: user.photoUrl
+            }, {merge: true}).catch(error=>{
+                console.log(error);
+            });
+            
+
+            //return incrementCounter(ref, num_shards);
+            const increment = admin.firestore.FieldValue.increment(1);
+        
+            return db.collection('users').doc(targetId).update({
+                followerCount: increment
+            }).catch(error=>{
+                console.log(error);
+            });
 
         }).catch(error=>{
             console.log(error);
@@ -75,10 +113,36 @@ exports.deleteUserFollowing = functions.firestore
         const userId = context.params.userId;
         const targetId = context.params.targetId;
 
-        return db.collection('followers').doc(targetId).collection('followersIds').doc(userId)
+        db.collection('followers').doc(targetId).collection('followersIds').doc(userId)
             .delete();
 
+            
+        const decrement = admin.firestore.FieldValue.increment(-1);
+        
+        return db.collection('users').doc(targetId).update({
+            followerCount: decrement
+        }).catch(error=>{
+            console.log(error);
+        });     
+
+
     });
+
+    
+// exports.updateUserChatrooms = functions.firestore
+//     .document('/chatrooms/{chatroomId}')
+//     .onCreate((change, context)=>{
+
+//         const chatroomId = context.params.chatroomId;
+//         const keys = Object.keys(change);
+//         keys.forEach(userId=>{
+//             db.collection("messages").
+
+//         }).catch(error=>{
+//             console.log(error);
+//         });
+
+//     });
 
 //update user document when new photo is uploaded or details are changed
 exports.updateUserDetails = functions.firestore
@@ -174,4 +238,17 @@ function incrementCounter(ref, num_shards) {
 
     // Update count
     return shard_ref.update("count", firebase.firestore.FieldValue.increment(1));
+}
+
+
+function setWelcomeMessage(rtdbRef, message){
+
+    rtdbRef.push().set({
+        //chatroomId: is value of push()
+        message:message,
+        sender:'Folio Support',
+        timestamp : admin.database.ServerValue.TIMESTAMP
+    });
+
+    return;
 }

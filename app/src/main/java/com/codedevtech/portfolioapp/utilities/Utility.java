@@ -52,10 +52,17 @@ public class Utility {
 
     }
 
-    public static String getShareTitle(String firstName) {
+    public static String getShareProfileTitle(String firstName) {
         if (firstName.endsWith("s"))
             return String.format("%1$s' profile on folio.", firstName);
         else
             return String.format("%1$s's profile on folio.", firstName);
+    }
+
+    public static String getSharePostTitle(String displayName) {
+        if (displayName.endsWith("s"))
+            return String.format("%1$s' post on folio.", displayName);
+        else
+            return String.format("%1$s's post on folio.", displayName);
     }
 }

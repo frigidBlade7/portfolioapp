@@ -9,6 +9,8 @@
         <variable
             name="viewModel"
             type="com.codedevtech.portfolioapp.viewmodels.ShowProfileFragmentViewModel" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -159,6 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/message"
+            android:onClick="@{()->viewModel.sendMessage(viewModel.folioUserLiveData.data)}"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="@+id/follow"
             app:layout_constraintEnd_toEndOf="@+id/name"

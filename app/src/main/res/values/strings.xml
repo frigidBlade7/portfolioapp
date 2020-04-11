@@ -70,6 +70,7 @@
     <string name="notifications">Notifications</string>
     <string name="edit_profile">Edit\nprofile</string>
     <string name="share_profile">Share profile</string>
+    <string name="share_post">Share post</string>
     <string name="quick_settings">Quick settings</string>
     <string name="search">Search</string>
     <string name="save">Save</string>
@@ -95,8 +96,11 @@
     <string name="following">Following</string>
     <string name="message">Message</string>
     <string name="hey_check_out">Hey, check out this folio \n</string>
+    <string name="hey_check_out_post">Check out this awesome post on folio! \n</string>
     <string name="user_followed_successfully">User added to following list successfully</string>
     <string name="not_following_this_user">Not following this user</string>
+    <string name="type_message_here">Type message here</string>
+    <string name="send">Send</string>
 
     <string-array name="photo_options">
         <item>@string/gallery</item>

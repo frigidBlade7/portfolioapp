@@ -12,7 +12,12 @@ import androidx.lifecycle.Transformations;
 
 import com.codedevtech.portfolioapp.callbacks.BooleanSuccessCallback;
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
+import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
+import com.codedevtech.portfolioapp.fragments.ChatroomFragment;
+import com.codedevtech.portfolioapp.fragments.ChatroomFragmentArgs;
+import com.codedevtech.portfolioapp.fragments.ChatroomFragmentDirections;
+import com.codedevtech.portfolioapp.fragments.DashboardFragmentDirections;
 import com.codedevtech.portfolioapp.interfaces.UserInteractionsService;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.models.FollowingDocument;
@@ -143,6 +148,28 @@ public class ShowProfileFragmentViewModel extends BaseViewModel {
                         }
                     });
         }
+    }
+
+    public void sendMessage(FolioUser folioUser){
+        userInteractionsService.messageUser(sharedPreferences.getString(USER_AUTH_ID, ""), folioUser.getId(), new SuccessCallback() {
+            @Override
+            public void success(String id) {
+                Log.d(TAG, "success: "+id);
+
+                DashboardFragmentDirections.ActionDashboardFragmentToChatroomFragment action =
+                        DashboardFragmentDirections.actionDashboardFragmentToChatroomFragment(id);
+
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationId(0));
+                setNavigationCommandMutableLiveData(new NavigationCommand.NavigationAction(action));
+            }
+
+            @Override
+            public void failure(String message) {
+                Log.d(TAG, "failure: "+message);
+
+            }
+        });
+
     }
 
     public boolean isMe(String id){
