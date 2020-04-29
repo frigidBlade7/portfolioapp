@@ -227,7 +227,9 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
 
             }
         });
-/*        fireStoreFeedDocumentPagingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+
+
+        fireStoreFeedDocumentPagingAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
@@ -238,7 +240,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                 else
                     fragmentFeedBinding.emptyStateLayout.setVisibility(View.VISIBLE);
             }
-        });*/
+        });
 
 /*        fireStoreFeedDocumentPagingAdapter.(new PagedList.LoadStateListener() {
 
