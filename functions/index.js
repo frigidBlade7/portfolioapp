@@ -36,6 +36,7 @@ exports.newMessage = functions.database
     });
 
 
+
 exports.createNewUser = functions.firestore
     .document('/users/{userId}')
     .onCreate((change, context)=>{
@@ -53,7 +54,9 @@ exports.createNewUser = functions.firestore
 
         return;
 
-    })
+    });
+
+
 exports.updateUserFollowing = functions.firestore
     .document('/following/{userId}/followingIds/{targetId}')
     .onCreate((change, context)=>{
@@ -128,21 +131,23 @@ exports.deleteUserFollowing = functions.firestore
 
     });
 
-    
-// exports.updateUserChatrooms = functions.firestore
-//     .document('/chatrooms/{chatroomId}')
-//     .onCreate((change, context)=>{
+    exports.newChatroom = functions.firestore
+    .document('chatrooms/{chatroomId}')
+    .onCreate((change, context)=>{
+        const chatroomId = context.params.chatroomId;
 
-//         const chatroomId = context.params.chatroomId;
-//         const keys = Object.keys(change);
-//         keys.forEach(userId=>{
-//             db.collection("messages").
 
-//         }).catch(error=>{
-//             console.log(error);
-//         });
 
-//     });
+
+        
+        // const promises = [];
+
+        // change.forEach(doc=>{
+        //     const data = doc.data();
+        //     promises.push(data.id)
+        // });
+
+    });
 
 //update user document when new photo is uploaded or details are changed
 exports.updateUserDetails = functions.firestore

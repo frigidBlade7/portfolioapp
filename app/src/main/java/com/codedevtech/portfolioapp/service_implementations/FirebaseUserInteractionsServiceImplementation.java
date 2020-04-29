@@ -4,22 +4,18 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.callbacks.BooleanSuccessCallback;
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.interfaces.UserInteractionsService;
 import com.codedevtech.portfolioapp.models.Chatroom;
-import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.models.FollowingDocument;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
+import com.codedevtech.portfolioapp.repositories.FirebaseFolioUserRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -130,11 +126,12 @@ public class FirebaseUserInteractionsServiceImplementation implements UserIntera
     }
 
     private void createNewChatRoom(final String myUserId,final String targetUserId, final SuccessCallback successCallback) {
-        Map<String, Boolean> chatRoomData = new HashMap<>();
+        Map<String, Object> chatRoomData = new HashMap<>();
         chatRoomData.put(myUserId,true);
         chatRoomData.put(targetUserId,true);
 
         final String newChatroomId = chatroomCollectionReference.document().getId();
+        //chatRoomData.put("chatroomId", newChatroomId);
         chatroomCollectionReference.document(newChatroomId).set(chatRoomData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

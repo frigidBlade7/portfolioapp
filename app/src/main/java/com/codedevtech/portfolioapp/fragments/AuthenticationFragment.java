@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
@@ -52,14 +53,20 @@ public class AuthenticationFragment extends Fragment implements Injectable{
 
         final FragmentAuthenticationBinding fragmentAuthenticationBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_authentication, container, false);
+        FragmentAuthenticationBinding fragmentAuthenticationBinding1 = FragmentAuthenticationBinding.inflate(getLayoutInflater());
 
-        final AuthenticationFragmentViewModel authenticationFragmentViewModel = ViewModelProviders
-                .of(this, viewModelFactory).get(AuthenticationFragmentViewModel.class);
+        final AuthenticationFragmentViewModel authenticationFragmentViewModel = new ViewModelProvider(this).get(AuthenticationFragmentViewModel.class);
 
         fragmentAuthenticationBinding.setViewmodel(authenticationFragmentViewModel);
 
         fragmentAuthenticationBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
+/*        authenticationFragmentViewModel.getEmailMutableLiveData().observe(this.getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Log.d(TAG, "onChanged: "+s);
+            }
+        });*/
 
         authenticationFragmentViewModel.getSnackbarCommandMutableLiveData().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<SnackbarCommand>() {
             @Override

@@ -9,17 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.codedevtech.portfolioapp.R;
-import com.codedevtech.portfolioapp.adapters.pagination.FireStoreFeedDocumentPagingAdapter;
-import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.models.FeedPost;
-import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.navigation.Event;
 import com.codedevtech.portfolioapp.repositories.Resource;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
+import com.codedevtech.portfolioapp.repositories.FirebaseFolioFeedRepository;
 import com.codedevtech.portfolioapp.utilities.Utility;
-import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
@@ -67,7 +62,7 @@ public class FeedFragmentViewModel extends BaseViewModel {
         return shareLink;
     }
 
-    public MutableLiveData<Boolean> getIsLoading() {
+    public LiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 

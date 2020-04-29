@@ -15,22 +15,14 @@ import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.repositories.Resource;
-import com.codedevtech.portfolioapp.repositories.interfaces.DataRepositoryService;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
+import com.codedevtech.portfolioapp.repositories.FirebaseFolioFeedRepository;
+import com.codedevtech.portfolioapp.repositories.FirebaseFolioUserRepository;
 import com.codedevtech.portfolioapp.utilities.Utility;
-import com.facebook.share.Share;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
-
-import static com.codedevtech.portfolioapp.utilities.Utility.USER_AUTH_ID;
 
 public class DashboardFragmentViewModel extends BaseViewModel {
 
@@ -82,7 +74,7 @@ public class DashboardFragmentViewModel extends BaseViewModel {
     }
 
     public void setFolioUserLiveData(String userAuthId) {
-        this.folioUserLiveData = Transformations.map(dataRepositoryService.getFolioUserById(userAuthId), new FirestoreFolioUserDeserializer());
+        this.folioUserLiveData =    Transformations.map(dataRepositoryService.getFolioUserById(userAuthId), new FirestoreFolioUserDeserializer());
     }
 
     public void saveUserAuthIdToSharedPrefs(String userAuthId) {

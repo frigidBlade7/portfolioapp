@@ -10,23 +10,17 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.codedevtech.portfolioapp.callbacks.BooleanSuccessCallback;
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
-import com.codedevtech.portfolioapp.fragments.ChatroomFragment;
-import com.codedevtech.portfolioapp.fragments.ChatroomFragmentArgs;
-import com.codedevtech.portfolioapp.fragments.ChatroomFragmentDirections;
 import com.codedevtech.portfolioapp.fragments.DashboardFragmentDirections;
 import com.codedevtech.portfolioapp.interfaces.UserInteractionsService;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.models.FollowingDocument;
 import com.codedevtech.portfolioapp.repositories.Resource;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
+import com.codedevtech.portfolioapp.repositories.FirebaseFolioFeedRepository;
+import com.codedevtech.portfolioapp.repositories.FirebaseFolioUserRepository;
 import com.codedevtech.portfolioapp.service_implementations.FirebaseUserInteractionsServiceImplementation;
-import com.codedevtech.portfolioapp.utilities.Utility;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
@@ -95,12 +89,10 @@ public class ShowProfileFragmentViewModel extends BaseViewModel {
 
     public void isFollowing(String targetUserId){
         userInteractionsService.isFollowing(sharedPreferences.getString(USER_AUTH_ID, ""),
-                targetUserId, new BooleanSuccessCallback() {
-                    @Override
-                    public void booleanValue(Boolean value) {
-                        Log.d(TAG, "booleanValue: "+value);
-                        following.setValue(value);
-                    }
+                targetUserId, (param)->{
+            //lambda functions
+                    Log.d(TAG, "booleanValue: "+param);
+                    following.setValue(param);
                 });
 
     }

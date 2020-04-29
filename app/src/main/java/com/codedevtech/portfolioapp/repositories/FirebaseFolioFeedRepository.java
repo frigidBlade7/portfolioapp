@@ -1,4 +1,4 @@
-package com.codedevtech.portfolioapp.repositories.interfaces;
+package com.codedevtech.portfolioapp.repositories;
 
 import android.util.Log;
 
@@ -11,6 +11,7 @@ import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.repositories.FirestoreDatabaseBoundResourceCollection;
 import com.codedevtech.portfolioapp.repositories.FirestoreDatabaseBoundResourceDocument;
 import com.codedevtech.portfolioapp.repositories.Resource;
+import com.codedevtech.portfolioapp.repositories.interfaces.DataRepositoryService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;

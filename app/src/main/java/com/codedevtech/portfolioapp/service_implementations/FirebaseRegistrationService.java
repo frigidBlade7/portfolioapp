@@ -5,21 +5,18 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.codedevtech.portfolioapp.R;
 import com.codedevtech.portfolioapp.callbacks.SuccessCallback;
 import com.codedevtech.portfolioapp.callbacks.UploadProgressCallback;
 import com.codedevtech.portfolioapp.callbacks.UserExistsCallback;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;
-import com.codedevtech.portfolioapp.repositories.interfaces.DataRepositoryService;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
+import com.codedevtech.portfolioapp.repositories.FirebaseFolioUserRepository;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;

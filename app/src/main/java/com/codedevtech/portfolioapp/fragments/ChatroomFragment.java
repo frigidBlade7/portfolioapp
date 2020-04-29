@@ -1,5 +1,7 @@
 package com.codedevtech.portfolioapp.fragments;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -24,8 +26,17 @@ public class ChatroomFragment extends Fragment implements Injectable {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
+    private String chatroomId;
+
     public ChatroomFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        chatroomId = ChatroomFragmentArgs.fromBundle(getArguments()).getChatroomId();
     }
 
     @Override
@@ -33,8 +44,10 @@ public class ChatroomFragment extends Fragment implements Injectable {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        FragmentChatroomBinding fragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_chatroom, container, false);
-        ChatroomViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatroomViewModel.class);
+        FragmentChatroomBinding fragmentBinding = FragmentChatroomBinding.inflate(inflater, container, false);
+
+        fragmentBinding.messageEditText.setText("lol");
+        ChatroomViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(ChatroomViewModel.class);
 
         fragmentBinding.setLifecycleOwner(this.getViewLifecycleOwner());
         fragmentBinding.setViewmodel(viewModel);

@@ -13,7 +13,7 @@ import com.codedevtech.portfolioapp.commands.NavigationCommand;
 import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.models.FeedPost;
 import com.codedevtech.portfolioapp.models.FolioUser;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioFeedRepository;
+import com.codedevtech.portfolioapp.repositories.FirebaseFolioFeedRepository;
 
 import javax.inject.Inject;
 
@@ -23,6 +23,8 @@ public class NewPostFragmentViewModel extends BaseViewModel {
     private FirebaseFolioFeedRepository dataRepositoryService;
     private MutableLiveData<String> caption = new MutableLiveData<>();
     private MutableLiveData<Bitmap> bitmap = new MutableLiveData<>();
+    private MutableLiveData<FirebaseFolioFeedRepository> dataRepositoryServiceLiveData ;
+
 
 
     @Inject
@@ -47,6 +49,7 @@ public class NewPostFragmentViewModel extends BaseViewModel {
         feedPost.setDisplayName(String.format(getApplication().getString(R.string.full_name),folioUser.getFirstName(), folioUser.getLastName()));
         feedPost.setDisplayPhoto(folioUser.getPhotoUrl());
         feedPost.setUserId(folioUser.getId());
+
 
 
         dataRepositoryService.add(feedPost, new SuccessCallback() {

@@ -8,6 +8,10 @@
             name="viewmodel"
             type="com.codedevtech.portfolioapp.viewmodels.AuthenticationFragmentViewModel" />
 
+        <variable
+            name="nameofUser"
+            type="String"/>
+
     </data>
 
     <ScrollView

@@ -3,11 +3,9 @@ package com.codedevtech.portfolioapp.viewmodels;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.codedevtech.portfolioapp.R;
@@ -18,14 +16,11 @@ import com.codedevtech.portfolioapp.commands.SnackbarCommand;
 import com.codedevtech.portfolioapp.fragments.CompleteProfileFragmentDirections;
 import com.codedevtech.portfolioapp.models.FolioUser;
 import com.codedevtech.portfolioapp.interfaces.RegistrationService;
-import com.codedevtech.portfolioapp.repositories.interfaces.DataRepositoryService;
-import com.codedevtech.portfolioapp.repositories.interfaces.FirebaseFolioUserRepository;
 import com.codedevtech.portfolioapp.utilities.Utility;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

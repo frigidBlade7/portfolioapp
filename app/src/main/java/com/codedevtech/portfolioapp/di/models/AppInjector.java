@@ -93,7 +93,7 @@ public class AppInjector {
                             new FragmentManager.FragmentLifecycleCallbacks() {
                                 @Override
                                 public void onFragmentCreated(@NonNull FragmentManager fm, @NonNull Fragment f, @Nullable Bundle savedInstanceState) {
-                                    //super.onFragmentCreated(fm, f, savedInstanceState);
+                                    super.onFragmentCreated(fm, f, savedInstanceState);
                                     if(f instanceof Injectable)
                                         AndroidSupportInjection.inject(f);
                                 }

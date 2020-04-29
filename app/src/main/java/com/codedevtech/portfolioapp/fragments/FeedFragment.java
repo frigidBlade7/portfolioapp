@@ -116,7 +116,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
-        feedFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory).get(FeedFragmentViewModel.class);
+        feedFragmentViewModel = new ViewModelProvider(this).get(FeedFragmentViewModel.class);
         dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
         newPost = fragmentFeedBinding.newPostFAB;
