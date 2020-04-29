@@ -72,8 +72,8 @@ public class NewPostFragment extends Fragment implements Injectable {
         // Inflate the layout for this fragment
 
         fragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_post, container, false);
-        NewPostFragmentViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(NewPostFragmentViewModel.class);
-        DashboardFragmentViewModel dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
+        NewPostFragmentViewModel viewModel = new ViewModelProvider(this, viewModelFactory).get(NewPostFragmentViewModel.class);
+        DashboardFragmentViewModel dashboardFragmentViewModel = new ViewModelProvider(getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
 
         fragmentBinding.setViewmodel(viewModel);
         fragmentBinding.setDashboardViewModel(dashboardFragmentViewModel);

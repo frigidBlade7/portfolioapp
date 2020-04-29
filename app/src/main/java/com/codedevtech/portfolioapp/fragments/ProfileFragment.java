@@ -69,8 +69,8 @@ public class ProfileFragment extends Fragment implements Injectable {
 
         FragmentProfileBinding fragmentProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
 
-        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
-        profileFragmentViewModel = ViewModelProviders.of(this, viewModelFactory).get(ProfileFragmentViewModel.class);
+        dashboardFragmentViewModel = new ViewModelProvider(getParentFragment().getParentFragment().getParentFragment(), viewModelFactory).get(DashboardFragmentViewModel.class);
+        profileFragmentViewModel = new ViewModelProvider(this, viewModelFactory).get(ProfileFragmentViewModel.class);
 
         fragmentProfileBinding.setViewmodel(profileFragmentViewModel);
         fragmentProfileBinding.setDashboardviewmodel(dashboardFragmentViewModel);

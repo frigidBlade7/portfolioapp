@@ -71,7 +71,7 @@ public class CompleteProfileFragment extends Fragment implements Injectable {
 
         fragmentCompleteProfileBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
-        completeProfileViewModel = ViewModelProviders.of(this, viewModelFactory)
+        completeProfileViewModel = new ViewModelProvider(this, viewModelFactory)
                 .get(CompleteProfileViewModel.class);
 
         fragmentCompleteProfileBinding.setViewmodel(completeProfileViewModel);

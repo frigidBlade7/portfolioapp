@@ -116,8 +116,8 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false);
-        feedFragmentViewModel = new ViewModelProvider(this).get(FeedFragmentViewModel.class);
-        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment().getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
+        feedFragmentViewModel = new ViewModelProvider(this, viewmodelFactory).get(FeedFragmentViewModel.class);
+        dashboardFragmentViewModel = new ViewModelProvider(getParentFragment().getParentFragment().getParentFragment(), viewmodelFactory).get(DashboardFragmentViewModel.class);
 
         newPost = fragmentFeedBinding.newPostFAB;
         //add viewmodel for both dashboard and feed fragments
@@ -240,7 +240,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
             }
         });*/
 
-        fireStoreFeedDocumentPagingAdapter.addLoadStateListener(new PagedList.LoadStateListener() {
+/*        fireStoreFeedDocumentPagingAdapter.(new PagedList.LoadStateListener() {
 
             @Override
             public void onLoadStateChanged(@NonNull PagedList.LoadType type, @NonNull PagedList.LoadState state, @Nullable Throwable error) {
@@ -259,8 +259,8 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                     case LOADING:
                         // The adapter has started to load an additional page
                         // ...
-                        /*fragmentFeedBinding.cardListShim.startShimmer();
-                        fragmentFeedBinding.cardListShim.setVisibility(View.VISIBLE);*/
+                        *//*fragmentFeedBinding.cardListShim.startShimmer();
+                        fragmentFeedBinding.cardListShim.setVisibility(View.VISIBLE);*//*
                         //fragmentFeedBinding.emptyStateLayout.setVisibility(View.GONE);
 
                         Log.d(TAG, "loading: "+ fireStoreFeedDocumentPagingAdapter.getItemCount());
@@ -289,7 +289,7 @@ public class FeedFragment extends Fragment implements Injectable, FeedListener {
                 }
 
             }
-        });
+        });*/
 
 
 /*        //todo find another implementation for this

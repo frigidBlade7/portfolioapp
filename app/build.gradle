@@ -50,8 +50,8 @@ dependencies {
 
 
     //navigation
-    implementation 'androidx.navigation:navigation-fragment:2.3.0-alpha05'
-    implementation 'androidx.navigation:navigation-ui:2.3.0-alpha05'
+    implementation 'androidx.navigation:navigation-fragment:2.3.0-alpha06'
+    implementation 'androidx.navigation:navigation-ui:2.3.0-alpha06'
 
     //constraint
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
@@ -106,7 +106,7 @@ dependencies {
     //implementation 'androidx.preference:preference:1.1.0'
 
     //crypto
-    implementation 'androidx.security:security-crypto:1.0.0-rc01'
+    implementation 'androidx.security:security-crypto:1.0.0-alpha02'
 
 
     // FirebaseUI for Cloud Firestore

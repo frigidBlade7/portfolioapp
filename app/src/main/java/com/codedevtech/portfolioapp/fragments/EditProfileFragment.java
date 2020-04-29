@@ -90,7 +90,7 @@ public class EditProfileFragment extends Fragment implements Injectable {
 
         fragmentEditProfileBinding.setLifecycleOwner(this.getViewLifecycleOwner());
 
-        completeProfileViewModel = ViewModelProviders.of(this, viewModelFactory)
+        completeProfileViewModel = new ViewModelProvider(this, viewModelFactory)
                 .get(CompleteProfileViewModel.class);
 
         fragmentEditProfileBinding.setViewmodel(completeProfileViewModel);

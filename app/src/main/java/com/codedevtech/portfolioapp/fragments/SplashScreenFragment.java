@@ -50,7 +50,7 @@ public class SplashScreenFragment extends Fragment implements Injectable {
                 DataBindingUtil.inflate(inflater, R.layout.fragment_splash_screen, container, false);
 
         final OnboardingFragmentViewModel onboardingFragmentViewModel =
-                ViewModelProviders.of(this, viewModelFactory).get(OnboardingFragmentViewModel.class);
+                new ViewModelProvider(this, viewModelFactory).get(OnboardingFragmentViewModel.class);
 
         onboardingFragmentViewModel.getUserAuthId().observe(this.getViewLifecycleOwner(), new EventObserver<>(new EventListener<String>() {
             @Override

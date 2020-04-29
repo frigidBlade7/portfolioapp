@@ -110,7 +110,7 @@ public class DashboardFragment extends Fragment implements Injectable{
 
 
 
-        dashboardFragmentViewModel = ViewModelProviders.of(getParentFragment(), viewmodelFactory)
+        dashboardFragmentViewModel = new ViewModelProvider(getParentFragment(), viewmodelFactory)
                 .get(DashboardFragmentViewModel.class);
 
         dashboardFragmentViewModel.setQueryLiveData();

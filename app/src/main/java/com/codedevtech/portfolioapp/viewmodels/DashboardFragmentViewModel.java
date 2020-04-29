@@ -74,7 +74,7 @@ public class DashboardFragmentViewModel extends BaseViewModel {
     }
 
     public void setFolioUserLiveData(String userAuthId) {
-        this.folioUserLiveData =    Transformations.map(dataRepositoryService.getFolioUserById(userAuthId), new FirestoreFolioUserDeserializer());
+        this.folioUserLiveData =  Transformations.map(dataRepositoryService.getFolioUserById(userAuthId), new FirestoreFolioUserDeserializer());
     }
 
     public void saveUserAuthIdToSharedPrefs(String userAuthId) {

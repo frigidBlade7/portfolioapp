@@ -59,7 +59,7 @@ public class OnboardingFragment extends Fragment implements Injectable {
 
         fragmentOnboardingBinding.setLifecycleOwner(this);
 
-        final OnboardingFragmentViewModel onboardingFragmentViewModel = ViewModelProviders.of(this, viewmodelFactory)
+        final OnboardingFragmentViewModel onboardingFragmentViewModel = new ViewModelProvider(this, viewmodelFactory)
                 .get(OnboardingFragmentViewModel.class);
 
         fragmentOnboardingBinding.setOnboardingFragmentViewModel(onboardingFragmentViewModel);
